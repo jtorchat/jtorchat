@@ -1,0 +1,239 @@
+JFDML JFormDesigner: "5.1.0.0.23" Java: "1.6.0_26" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.GridBagLayout ) {
+			"$columnSpecs": "0:1.0"
+			"$rowSpecs": "0:1.0, 0"
+			"$alignTop": true
+			"$alignLeft": true
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
+				name: "tabbedPane1"
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq {space :::p, par l {seq l {comp checkBox4:::p:306:p, space ::66:x}, seq l {comp checkBox5:::p:306:p, space ::66:x}, seq l {comp checkBox7:::p:306:p, space ::66:x}, seq l {comp checkBox8:::p:306:p, space ::66:x}, seq l {comp checkBox10:::p:306:p, space ::66:x}, seq l {comp checkBox2:::p:320:p, space ::52:x}, seq t {space :12:12:12, comp label2::::146:x, space :::p, comp textField2:::p:212:p}, seq t {comp label1:::p:158:p, space :::p, comp textField1:::p:212:p}}}}"
+					"$verticalGroup": "par l {seq {space :10:10:10, par b {comp textField1::b:p::p, comp label1::b:p:28:p}, space :5:5:5, par b {comp textField2::b:p::p, comp label2::b:p:28:p}, space :::p, comp checkBox2:::p::p, space :p:4:p, comp checkBox4:::p::p, space :::p, comp checkBox5:::p::p, space :::p, comp checkBox7:::p::p, space :::p, comp checkBox8:::p::p, space :::p, comp checkBox10:::p::p, space :p:20:p}}"
+				} ) {
+					name: "panel1"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label1"
+						"text": "Profile name: "
+						"horizontalAlignment": 4
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField1"
+						"preferredSize": &Dimension0 new java.awt.Dimension( 180, 28 )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label2"
+						"text": "Profile text: "
+						"horizontalAlignment": 4
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField2"
+						"preferredSize": &Dimension1 new java.awt.Dimension( 180, 28 )
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox2"
+						"text": "alert on events"
+						"preferredSize": &Dimension2 new java.awt.Dimension( 60, 18 )
+						"minimumSize": &Dimension3 new java.awt.Dimension( 30, 18 )
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox4"
+						"text": "automatic File Transfer start"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox5"
+						"text": "page function"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox7"
+						"text": "show log on start"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox8"
+						"text": "activate full log (fatal over time)"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox10"
+						"text": "Clickable Links (open with broswer)"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "General"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq l {par t:::p {seq t:::1 {space :::p, comp checkBox3:::::x}, seq :::1 {space :12:12:12, comp textField7:::::x}, comp label8::l:p:378:p, seq l {space :p:130:p, comp button2:::p:100:p}}, space :::p}}"
+					"$verticalGroup": "par l {seq {space :::p, comp label8:::p::p, space u:::p, comp textField7:::p:22:p, space s:::p, comp button2:::p:23:p, space :p:44:p, comp checkBox3:::p::p, space :p:52:p}}"
+				} ) {
+					name: "panel3"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label8"
+						"text": "URL to buddylist"
+						"horizontalAlignment": 4
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField7"
+						"preferredSize": #Dimension0
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button2"
+						"text": "sync"
+						"maximumSize": &Dimension4 new java.awt.Dimension( 100, 23 )
+						"minimumSize": &Dimension5 new java.awt.Dimension( 100, 23 )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sync", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox3"
+						"text": "sync at every start"
+						"preferredSize": #Dimension2
+						"minimumSize": #Dimension3
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Buddy Sync"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq {par l {seq l {space :p:122:p, comp button3:::p:100:p}, seq l {space :::p, par l {comp label9::t::360:x, comp textField8::l::360:x}}, seq l {space :::p, comp checkBox6::::360:x}}, space :::p}}"
+					"$verticalGroup": "par l {seq {space :p:8:p, comp label9:::p:22:p, space :::p, comp textField8:::p:22:p, space s:::p, comp checkBox6:::p::p, space :p:30:p, comp button3:::p:23:p, space ::69:x}}"
+				} ) {
+					name: "panel4"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label9"
+						"text": "URL for check"
+						"horizontalAlignment": 4
+						"alignmentY": 0.0f
+						"horizontalTextPosition": 0
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField8"
+						"preferredSize": #Dimension0
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button3"
+						"text": "check"
+						"maximumSize": #Dimension4
+						"minimumSize": #Dimension5
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "update", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox6"
+						"text": "check for update at every start"
+						"preferredSize": #Dimension2
+						"minimumSize": #Dimension3
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Update Check"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq t {space :p:72:p, comp textField9::::47:x:1, space :p:129:p, comp button4:::p::p:1, space :p:89:p}, seq l {space :::p, comp textField10::::360:x, space :::p}, seq l {space :::p, comp textField13::::360:x, space :::p}, seq l {space :p:60:p, par l {comp textField12::l:p:247:p, comp textField11::l:p:247:p, comp textField3::l:p:247:p}, space ::77:x}}"
+					"$verticalGroup": "par l {seq {par l {seq l {space :::p, comp textField10:::p::p}, seq l {space :p:40:p, comp textField13:::p::p}}, space u:::p, par l {comp button4:::p::p, comp textField9:::p::p}, space u:::p, comp textField3:::p::p, space s:::p, comp textField11:::p::p, space s:::p, comp textField12:::p::p, space :::x}}"
+				} ) {
+					name: "panel5"
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField3"
+						"editable": false
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button4"
+						"text": "Check"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button4ActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField9"
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField10"
+						"text": "Enter your language (example: en) and restart jtorchat"
+						"editable": false
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField11"
+						"editable": false
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField12"
+						"editable": false
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField13"
+						"text": "When the language file not exist, the default language is en"
+						"editable": false
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Language"
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq {par l {seq t {space :::p, comp label4:::p:190:p, space :::p, comp textField4:::p:154:p}, seq t {par t {comp label5::t::206:x, comp label6::t::206:x}, space :::p, par l {comp textField6::t:p:154:p, comp textField5::t:p:154:p}}, seq l {space :p:84:p, comp label7:::p:192:p}, seq t {space :p:13:p, comp label3::::359:x}, comp checkBox11::l::372:x, comp checkBox9::l::372:x, comp checkBox1::l::372:x}, space :::p}}"
+					"$verticalGroup": "par l {seq {space :10:10:10, par b {comp textField4::b:p:22:p, comp label4::b:p:22:p}, space :5:5:5, par b {comp label5::b:p:22:p, comp textField5::b:p:22:p}, space :5:5:5, par b {comp label6::b:p:22:p, comp textField6::b:p:22:p}, space :p:9:p, comp checkBox1:::p::p, space :::p, comp checkBox9:::p::p, space :::p, comp checkBox11:::p::p, space ::14:x, comp label3:::p::p, space :::p, comp label7:::p:25:p}}"
+				} ) {
+					name: "panel2"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label4"
+						"text": "* Tor socks port: "
+						"horizontalAlignment": 4
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField4"
+						"preferredSize": #Dimension0
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label5"
+						"text": "* Local port: "
+						"horizontalAlignment": 4
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField5"
+						"preferredSize": #Dimension1
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label6"
+						"text": "* Our ID: "
+						"horizontalAlignment": 4
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "textField6"
+						"preferredSize": new java.awt.Dimension( 180, 28 )
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox1"
+						"text": "Initial Tor Portable at start"
+						"preferredSize": #Dimension2
+						"minimumSize": #Dimension3
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox9"
+						"text": "obfsproxy (portable only)"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label3"
+						"text": "Note: Our ID is your hostname without .onion"
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "label7"
+						"text": "* Required"
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkBox11"
+						"text": "offlineMod (start jtorchat without any internet connection)"
+					} )
+				}, new FormLayoutConstraints( null ) {
+					"title": "Advanced"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "Ok"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "ok", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 1
+				"insets": new java.awt.Insets( 0, 0, 10, 10 )
+				"hAlign": 4
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 5 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}
