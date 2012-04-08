@@ -1,10 +1,10 @@
 package alpha;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
-
 
 public class TCServ {
 	private static ServerSocket ss;
@@ -21,14 +21,14 @@ public class TCServ {
 						ss = new ServerSocket(Config.LOCAL_PORT);
 					} catch (IOException e) {
 						Logger.log(Logger.FATAL, "TCServ", "Failed to start local server: " + e.getLocalizedMessage());
-//						System.err.println("[" + TCServ.class.getCanonicalName() + "] Failed to start local server: " + e.getLocalizedMessage());
+						// System.err.println("[" + TCServ.class.getCanonicalName() + "] Failed to start local server: " + e.getLocalizedMessage());
 						e.printStackTrace();
 						Logger.log(Logger.FATAL, "TCServ", e.getLocalizedMessage());
 						TCPort.halt(new RuntimeException("Failed to start local server: " + e.getLocalizedMessage()));
-						error="Failed to start local server!";
+						error = "Failed to start local server!";
 						return;
 					}
-					synchronized(o) {
+					synchronized (o) {
 						o.notifyAll();
 					}
 					while (ss.isBound() && !ss.isClosed() && running) {
@@ -42,13 +42,13 @@ public class TCServ {
 							@Override
 							public void run() {
 								try {
-									
-//									if (BuddyList.buds)
-//									BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-//									Scanner sc = new Scanner(s.getInputStream());
+
+									// if (BuddyList.buds)
+									// BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+									// Scanner sc = new Scanner(s.getInputStream());
 									Scanner sc = new Scanner(new InputStreamReader(s.getInputStream(), "UTF8"));
 									sc.useDelimiter("\\n");
-//									String l = s.readLine();
+									// String l = s.readLine();
 									String l = sc.next();
 									if (l == null) {
 										Logger.log(Logger.SEVERE, "TCServ", "wtf");
@@ -63,13 +63,13 @@ public class TCServ {
 									if (BuddyList.buds.containsKey(l.split(" ")[1])) { // TODO add check to see if its different cookie from last time
 										Logger.log(Logger.INFO, "TCServ", "Got ping from " + l.split(" ")[1] + " with cookie " + l.split(" ")[2]);
 										Buddy b = BuddyList.buds.get(l.split(" ")[1]);
-										Logger.log(Logger.INFO, "TCServ", "Match " +  l.split(" ")[1] + " to " + b.getAddress());
+										Logger.log(Logger.INFO, "TCServ", "Match " + l.split(" ")[1] + " to " + b.getAddress());
 										b.setTheirCookie(l.split(" ")[2]);
 										if (b.ourSock == null)
 											b.connect();
 										else if (b.ourSockOut != null)
 											try {
-											b.sendPong(l.split(" ")[2]); // TODO FIXME URGENT check if not connected!
+												b.sendPong(l.split(" ")[2]); // TODO FIXME URGENT check if not connected!
 											} catch (IOException ioe) {
 												ioe.printStackTrace();
 											}
@@ -102,7 +102,7 @@ public class TCServ {
 			}
 		}, "Starting local server on " + Config.LOCAL_PORT + ".", "Server thread");
 		try {
-			synchronized(o) {
+			synchronized (o) {
 				o.wait();
 			}
 		} catch (InterruptedException e) {
