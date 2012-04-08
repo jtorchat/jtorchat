@@ -40,11 +40,7 @@ public class GUISettings extends JFrame {
 		} else {
 			checkBox2.setSelected(false);
 		}
-		if (Config.loadTor == 1) {
-			checkBox1.setSelected(true);
-		} else {
-			checkBox1.setSelected(false);
-		}
+		checkBox1.setSelected(Config.loadTor);
 		if (Config.buddyStart == 1) {
 			checkBox3.setSelected(true);
 		} else {
@@ -186,25 +182,21 @@ public class GUISettings extends JFrame {
 		} else {
 			Config.alert = 0;
 		}
-		;
-		if (loadTor) {
-			Config.loadTor = 1;
-		} else {
-			Config.loadTor = 0;
-		}
-		;
+
+		Config.loadTor = loadTor;
+
 		if (buddyStart) {
 			Config.buddyStart = 1;
 		} else {
 			Config.buddyStart = 0;
 		}
-		;
+
 		if (updateStart) {
 			Config.updateStart = 1;
 		} else {
 			Config.updateStart = 0;
 		}
-		;
+
 		TCPort.profile_name = name;
 		TCPort.profile_text = prof;
 		if (file) {
@@ -212,43 +204,42 @@ public class GUISettings extends JFrame {
 		} else {
 			Config.transferonstart = 0;
 		}
-		;
+
 		if (page) {
 			Config.pageactive = 1;
 		} else {
 			Config.pageactive = 0;
 		}
-		;
+
 		if (showlog) {
 			Config.visiblelog = 1;
 		} else {
 			Config.visiblelog = 0;
 		}
-		;
+
 		if (fulllog) {
 			Config.fulllog = 1;
 		} else {
 			Config.fulllog = 0;
 		}
-		;
+
 		if (obfsproxy) {
 			Config.obfsproxy = 1;
 		} else {
 			Config.obfsproxy = 0;
 		}
-		;
+
 		if (ClickableLinks) {
 			Config.ClickableLinks = 1;
 		} else {
 			Config.ClickableLinks = 0;
 		}
-		;
+
 		if (offlineMod) {
 			Config.offlineMod = 1;
 		} else {
 			Config.offlineMod = 0;
 		}
-		;
 
 		Config.prop.put("profile_name", name);
 		Config.prop.put("profile_text", prof);
@@ -264,67 +255,66 @@ public class GUISettings extends JFrame {
 		} else {
 			Config.prop.put("alert", 0 + "");
 		}
-		;
+
 		if (loadTor) {
 			Config.prop.put("loadPortableTor", 1 + "");
 		} else {
 			Config.prop.put("loadPortableTor", 0 + "");
 		}
-		;
+
 		if (buddyStart) {
 			Config.prop.put("OnStartBuddySync", 1 + "");
 		} else {
 			Config.prop.put("OnStartBuddySync", 0 + "");
 		}
-		;
+
 		if (updateStart) {
 			Config.prop.put("OnStartUpdateCheck", 1 + "");
 		} else {
 			Config.prop.put("OnStartUpdateCheck", 0 + "");
 		}
-		;
+
 		if (file) {
 			Config.prop.put("transferonstart", 1 + "");
 		} else {
 			Config.prop.put("transferonstart", 0 + "");
 		}
-		;
+
 		if (page) {
 			Config.prop.put("pageactive", 1 + "");
 		} else {
 			Config.prop.put("pageactive", 0 + "");
 		}
-		;
+
 		if (showlog) {
 			Config.prop.put("OnStartLoggerDisplay", 1 + "");
 		} else {
 			Config.prop.put("OnStartLoggerDisplay", 0 + "");
 		}
-		;
+
 		if (fulllog) {
 			Config.prop.put("EnableFullLoggerMode", 1 + "");
 		} else {
 			Config.prop.put("EnableFullLoggerMode", 0 + "");
 		}
-		;
+
 		if (obfsproxy) {
 			Config.prop.put("obfsproxy", 1 + "");
 		} else {
 			Config.prop.put("obfsproxy", 0 + "");
 		}
-		;
+
 		if (ClickableLinks) {
 			Config.prop.put("ClickableLinks", 1 + "");
 		} else {
 			Config.prop.put("ClickableLinks", 0 + "");
 		}
-		;
+
 		if (offlineMod) {
 			Config.prop.put("offlineMod", 1 + "");
 		} else {
 			Config.prop.put("offlineMod", 0 + "");
 		}
-		;
 
 		TCPort.sendMyInfo();
 		try {

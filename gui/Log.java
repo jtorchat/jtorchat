@@ -95,7 +95,7 @@ public class Log extends JFrame {
 				try {
 					instance.textPane1.getDocument().remove(0, i + 1);
 				} catch (BadLocationException e) {
-					e.printStackTrace();
+//					e.printStackTrace(); // shouldnt have to worry much about this, if it were to print it would flood the log most likely triggering another trimText() call
 				}
 				trimText();
 			}

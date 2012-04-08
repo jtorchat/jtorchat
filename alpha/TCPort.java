@@ -61,7 +61,14 @@ public class TCPort {
 				}
 			});
 
-			TorLoader.loadTor();
+			String error = TCServ.init(); // oh god why?! was this in TorLoader.loadTor() ??
+			if (error != null) {
+				TCPort.getLogInstance().setVisible(true);
+				return;
+			}
+
+			if (Config.loadTor)
+				TorLoader.loadTor();
 
 			// new Gui().init();
 			runInit("gui.Gui");

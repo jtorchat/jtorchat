@@ -125,9 +125,8 @@ public class Commands {
 				fos.write((help + "\n").getBytes());
 				fos.close();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 		return "0" + "he retrieve a list of extern commands for old versions";
 	}
@@ -146,9 +145,8 @@ public class Commands {
 					fos.write(("/pa " + "this command is deactivate from the user" + "\n").getBytes());
 					fos.close();
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
 			}
 
 			return "2" + "try the page " + s.substring(6) + " but this function is off";
@@ -179,9 +177,8 @@ public class Commands {
 				fos.write(("/page " + s.substring(5) + "\n").getBytes());
 				fos.close();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 
 		return "3" + "try to get " + s.substring(6);
@@ -205,9 +202,8 @@ public class Commands {
 				fos.write(("/me " + "[Delayed] " + s.substring(4) + "\n").getBytes());
 				fos.close();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 
 		return "2" + s.substring(4);
@@ -337,8 +333,8 @@ public class Commands {
 
 		try {
 			BuddyList.buds.get(array[1]).remove();
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 
 		return "0" + "the buddy " + array[1] + " is delete from list!";
@@ -385,9 +381,8 @@ public class Commands {
 							fos.write(("/pa " + "[Delayed] " + "page not found" + "\n").getBytes());
 							fos.close();
 						}
-					} catch (IOException e111) {
-						// TODO Auto-generated catch block
-						e111.printStackTrace();
+					} catch (IOException ioe) {
+						ioe.printStackTrace();
 					}
 
 					return error + "page not found";
@@ -410,9 +405,8 @@ public class Commands {
 					fos.write(("/pa " + "[Delayed] " + "page not found" + "\n").getBytes());
 					fos.close();
 				}
-			} catch (IOException e111) {
-				// TODO Auto-generated catch block
-				e111.printStackTrace();
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
 			}
 
 			return error + "page not found";
@@ -437,9 +431,8 @@ public class Commands {
 				fos.write(("/pa " + "[Delayed] " + msg + "\n").getBytes());
 				fos.close();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 		return result;
 	}

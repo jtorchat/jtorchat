@@ -180,7 +180,7 @@ public class FileReceiver implements IFileTransfer {
 
 	public void sendStopMessage() {
 		try {
-			this.buddy.sendRaw("file_stop_receiving " + this.id);
+			this.buddy.sendRaw("file_stop_sending " + this.id);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			try {
