@@ -10,12 +10,12 @@ import util.Regex;
 import util.Util;
 
 public class Config {
-	public static String VERSIONA = "0";
-	public static String VERSIONB = "7";
-	public static String VERSIONC = "7";
+	public static final String VERSIONA = "0";
+	public static final String VERSIONB = "7";
+	public static final String VERSIONC = "7";
 	public static String comment = "";
-	public static int BUILD = Integer.parseInt(VERSIONA) * 100 + Integer.parseInt(VERSIONB) * 10 + Integer.parseInt(VERSIONC);
-	public static String VERSION = VERSIONA + "." + VERSIONB + "." + VERSIONC + " " + comment;
+	public static final String BUILD = VERSIONA+ "."+ VERSIONB + "." + VERSIONC;
+	public static final String VERSION = BUILD +" "+ comment; 
 	public static String BASE_DIR = "";
 	public static String CONFIG_DIR = "";
 	public static String DOWNLOAD_DIR = "";

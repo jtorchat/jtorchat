@@ -66,7 +66,7 @@ public class FileSender implements Runnable, IFileTransfer {
 			this.fileSize = file.length(); // this.file_handle.tell();
 			this.gui.update(this.fileSize, 0);
 			// filename_utf8 = this.file_name_short.encode("utf-8"); FIXME ?
-			FileTransfer.senders.put(buddy.getAddress() + " " + this.id, this);
+			FileTransfer.getSenders().put(buddy.getAddress() + " " + this.id, this);
 
 			// if not this.buddy.isFullyConnected():
 			if (buddy.isFullyConnected()) {
@@ -317,7 +317,7 @@ public class FileSender implements Runnable, IFileTransfer {
 			}
 		}
 		// remove refference
-		FileTransfer.senders.remove(buddy.getAddress() + " " + this.id);
+		FileTransfer.getSenders().remove(buddy.getAddress() + " " + this.id);
 		// del this.buddy.bl.file_sender[this.buddy.address, this.id]
 	}
 
