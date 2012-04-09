@@ -10,6 +10,7 @@ import alpha.Buddy;
 import alpha.BuddyList;
 import alpha.language;
 
+
 @SuppressWarnings("serial")
 public class GUIContactAdd extends JFrame {
 
@@ -40,7 +41,7 @@ public class GUIContactAdd extends JFrame {
 				} catch (IOException ioe) {
 					System.err.println("Error disconnecting buddy: " + ioe.getLocalizedMessage());
 				}
-			new Buddy(addr, dispName).connect();
+			new Buddy(addr, dispName,true).connect();
 			dispose();
 		} else {
 			if (textField2.getText().length() > 0)
@@ -50,14 +51,18 @@ public class GUIContactAdd extends JFrame {
 		}
 	}
 
-	private void language() {
-
+	private void language()
+	{
+		
 		label1.setText(language.langtext[13]);
 		label2.setText(language.langtext[14]);
 		button1.setText(language.langtext[15]);
 
 	}
-
+	
+	
+	
+	
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY //GEN-BEGIN:initComponents
 		label1 = new JLabel();

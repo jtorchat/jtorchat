@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+
 public class TCPort {
 	public static String base_pwd = "";
 	public static String profile_name; // = "JTCDev-Tsu";
@@ -20,19 +21,25 @@ public class TCPort {
 	@SuppressWarnings("unused")
 	private static boolean halted;
 
+
+
 	public static void main(String[] args) {
+
 
 		try {
 
 			// Set Base-Path by Problem
-			if (args.length > 0) {
+			if (args.length > 0)
+			{
 				base_pwd = args[0];
 			}
 			base_pwd = new File(base_pwd).getCanonicalPath() + "/";
 
+
 			final JFrame logInstance = getLogInstance();
-			if (logInstance != null) {
-				if (Config.visiblelog == 1) {
+			if (logInstance != null)
+			{
+				if(Config.visiblelog == 1) {
 					logInstance.setVisible(true);
 				}
 			}
@@ -61,14 +68,11 @@ public class TCPort {
 				}
 			});
 
-			String error = TCServ.init(); // oh god why?! was this in TorLoader.loadTor() ??
-			if (error != null) {
-				TCPort.getLogInstance().setVisible(true);
-				return;
-			}
 
-			if (Config.loadTor)
-				TorLoader.loadTor();
+
+			TorLoader.loadTor();
+
+
 
 			// new Gui().init();
 			runInit("gui.Gui");
@@ -85,7 +89,7 @@ public class TCPort {
 				JTextField jtf = new JTextField();
 				jtf.setEditable(false);
 				jtf.setText("Config.us: " + Config.us + " is invalid.");
-				JOptionPane.showMessageDialog(null, jtf, "Fatal Error", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, jtf, "Fatal Error", JOptionPane.PLAIN_MESSAGE);	
 				// System.exit(-1);
 			}
 
@@ -94,9 +98,13 @@ public class TCPort {
 			runStaticInit("fileTransfer.FileTransfer");
 			// FileTransfer.init(); // doesnt work atm
 
+		if (Config.firststart == 1) // We can delete it when we want
+		{
 			if (!BuddyList.buds.containsKey(Config.us)) {
-				new Buddy(Config.us, null).connect();
+				new Buddy(Config.us, null, true).connect();
 			}
+		}
+			
 
 			ThreadManager.registerWork(ThreadManager.DAEMON, new Runnable() {
 
@@ -118,8 +126,7 @@ public class TCPort {
 								} else if (l.startsWith("raw ")) { // send raw messaage to a buddy
 									BuddyList.buds.get(l.split(" ")[1]).sendRaw(l.split(" ", 3)[2]);
 
-								}
-							}
+								}}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -127,6 +134,7 @@ public class TCPort {
 						e.printStackTrace();
 					}
 				}
+
 
 			}, "Starting console.", "Console thread");
 			ThreadManager.registerWork(ThreadManager.DAEMON, new Runnable() {
@@ -136,22 +144,28 @@ public class TCPort {
 					while (true) {
 						try {
 
-							if (Config.nowstart != "") {
+							if (Config.nowstart != "")
+							{
 								BuddyList.loadBuddiesRemote(Config.nowstart);
 								Config.nowstart = "";
 							}
-							if (Config.nowstartupdate != "") {
+							if (Config.nowstartupdate != "")
+							{
 								Config.LastCheck = Update.loadUpdate(Config.nowstartupdate);
 
-								if (Config.LastCheck != "close") {
+
+								if (Config.LastCheck != "close")
+								{
 									JTextField jtf = new JTextField();
 									jtf.setEditable(false);
 									jtf.setText(Config.LastCheck);
 									JOptionPane.showMessageDialog(null, jtf, "Update Check", JOptionPane.PLAIN_MESSAGE);
 								}
 
+
 								Config.nowstartupdate = "";
 							}
+
 
 							for (Buddy b : BuddyList.buds.values()) {
 								if (b.getConnectTime() != -1 && System.currentTimeMillis() - b.getConnectTime() > Config.CONNECT_TIMEOUT * 1000) {
@@ -208,6 +222,7 @@ public class TCPort {
 					}
 				}
 			}, "Starting status thread.", "Status thread");
+
 
 			Logger.log(Logger.INFO, "Init", "Done.");
 			Logger.setOverride(false);
@@ -268,6 +283,7 @@ public class TCPort {
 		return null;
 	}
 
+
 	private static void runStaticInit(String string) {
 		try {
 			Class<?> c = Class.forName(string);
@@ -289,6 +305,7 @@ public class TCPort {
 			// ignored
 		}
 	}
+
 
 	public static void sendMyInfo() {
 		for (Buddy b : BuddyList.buds.values()) {

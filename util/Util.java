@@ -8,10 +8,10 @@ import java.util.Arrays;
 
 public class Util {
 
-	public static int myRandom(int low, int high) {
-		return (int) (Math.random() * (high - low) + low);
-	}
-
+    public static int myRandom(int low, int high) {  
+        return (int) (Math.random() * (high - low) + low);  
+    }  
+	
 	public static byte[] escape(byte[] b1) {
 		for (int i = 0; i < b1.length; i++) {
 			if (b1[i] == '\\') {

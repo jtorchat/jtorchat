@@ -11,28 +11,26 @@ public class TorLoading extends JFrame {
 	public JProgressBar getProgressBar1() {
 		return progressBar1;
 	}
-
 	public JTextArea gettextArea1() {
 		return textArea1;
 	}
-
 	public TorLoading() {
 		initComponents();
 		language();
 		addWindowListener(new WindowAdapter() {
-			@Override
+            @Override
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
-			}
-		});
+        		System.exit(0);
+            }
+        });
 	}
-
+	
 	private void language() {
-		textArea1.setText(language.langtext[51]);
+				textArea1.setText(language.langtext[51]);
 	}
 
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY //GEN-BEGIN:initComponents
+		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
 		// Generated using JFormDesigner Evaluation license - jhgfdf jhgfc
 		vSpacer3 = new JPanel(null);
 		hSpacer1 = new JPanel(null);
@@ -44,24 +42,34 @@ public class TorLoading extends JFrame {
 		hSpacer4 = new JPanel(null);
 		vSpacer2 = new JPanel(null);
 
-		// ======== this ========
+		//======== this ========
 		setResizable(false);
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new GridBagLayout());
-		((GridBagLayout) contentPane.getLayout()).columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		((GridBagLayout) contentPane.getLayout()).rowHeights = new int[] { 0, 0, 75, 21, 0, 0 };
-		((GridBagLayout) contentPane.getLayout()).columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4 };
-		((GridBagLayout) contentPane.getLayout()).rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4 };
-		contentPane.add(vSpacer3, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 9), 0, 0));
-		contentPane.add(hSpacer1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 9), 0, 0));
-		contentPane.add(progressBar1, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 9), 0, 0));
-		contentPane.add(hSpacer2, new GridBagConstraints(5, 1, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
-		contentPane.add(hSpacer3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 9), 0, 0));
+		((GridBagLayout)contentPane.getLayout()).columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0};
+		((GridBagLayout)contentPane.getLayout()).rowHeights = new int[] {0, 0, 75, 21, 0, 0};
+		((GridBagLayout)contentPane.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
+		((GridBagLayout)contentPane.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
+		contentPane.add(vSpacer3, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
+			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+			new Insets(0, 0, 5, 9), 0, 0));
+		contentPane.add(hSpacer1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+			new Insets(0, 0, 5, 9), 0, 0));
+		contentPane.add(progressBar1, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
+			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+			new Insets(0, 0, 5, 9), 0, 0));
+		contentPane.add(hSpacer2, new GridBagConstraints(5, 1, 1, 1, 0.0, 0.0,
+			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+			new Insets(0, 0, 5, 0), 0, 0));
+		contentPane.add(hSpacer3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+			new Insets(0, 0, 5, 9), 0, 0));
 
-		// ======== scrollPane1 ========
+		//======== scrollPane1 ========
 		{
 
-			// ---- textArea1 ----
+			//---- textArea1 ----
 			textArea1.setText("Everything works until now.");
 			textArea1.setWrapStyleWord(true);
 			textArea1.setRows(2);
@@ -69,15 +77,21 @@ public class TorLoading extends JFrame {
 			textArea1.setEditable(false);
 			scrollPane1.setViewportView(textArea1);
 		}
-		contentPane.add(scrollPane1, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 9), 0, 0));
-		contentPane.add(hSpacer4, new GridBagConstraints(5, 2, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 0), 0, 0));
-		contentPane.add(vSpacer2, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 5, 9), 0, 0));
+		contentPane.add(scrollPane1, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
+			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+			new Insets(0, 0, 5, 9), 0, 0));
+		contentPane.add(hSpacer4, new GridBagConstraints(5, 2, 1, 1, 0.0, 0.0,
+			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+			new Insets(0, 0, 5, 0), 0, 0));
+		contentPane.add(vSpacer2, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
+			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+			new Insets(0, 0, 5, 9), 0, 0));
 		pack();
 		setLocationRelativeTo(getOwner());
-		// JFormDesigner - End of component initialization //GEN-END:initComponents
+		// JFormDesigner - End of component initialization  //GEN-END:initComponents
 	}
 
-	// JFormDesigner - Variables declaration - DO NOT MODIFY //GEN-BEGIN:variables
+	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
 	// Generated using JFormDesigner Evaluation license - jhgfdf jhgfc
 	private JPanel vSpacer3;
 	private JPanel hSpacer1;
@@ -88,5 +102,5 @@ public class TorLoading extends JFrame {
 	private JTextArea textArea1;
 	private JPanel hSpacer4;
 	private JPanel vSpacer2;
-	// JFormDesigner - End of variables declaration //GEN-END:variables
+	// JFormDesigner - End of variables declaration  //GEN-END:variables
 }
