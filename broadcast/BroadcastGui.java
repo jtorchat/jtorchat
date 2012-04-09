@@ -13,9 +13,9 @@ import alpha.Buddy;
 import alpha.Config;
 import alpha.language;
 
-
 public class BroadcastGui {
 	static Listener lis;
+
 	static void init() { // Check for Gui class should've already been done
 		if (lis != null) {
 			// wth
@@ -26,7 +26,7 @@ public class BroadcastGui {
 		Gui.getInstance().cmdListeners.put("bcast", lis);
 
 		JMenuItem jmiBuddyReq = new JMenuItem(language.langtext[6]);
-		
+
 		jmiBuddyReq.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -36,9 +36,8 @@ public class BroadcastGui {
 		Gui.getInstance().getFileMenu().add(new JSeparator());
 		Gui.getInstance().getFileMenu().add(jmiBuddyReq);
 
-	
 	}
-	
+
 	private static class Listener implements GuiListener {
 
 		@Override
@@ -49,7 +48,7 @@ public class BroadcastGui {
 			}
 			return "";
 		}
-		
+
 	}
 
 }

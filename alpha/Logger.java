@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-
 public class Logger {
 	public static final PrintStream oldOut;
 	public static final int FATAL = 0;
@@ -20,35 +19,35 @@ public class Logger {
 	private static int logLevel = DEBUG;
 	private static boolean usingLog;
 	private static Object LOCK = new Object();
-	private static boolean override = true; 
-	
+	private static boolean override = true;
+
 	static {
 		oldOut = System.out;
 		boolean hasGUI = hasGUI();
 		if (hasGUI) {
 			System.setOut(new PrintStream(new OutputStream() {
-	
+
 				@Override
 				public void write(int b) throws IOException {
 					Log.updateOut(String.valueOf((char) b));
 				}
-				
+
 			}));
 			System.setErr(new PrintStream(new OutputStream() {
-	
+
 				@Override
 				public void write(int b) throws IOException {
 					Log.updateErr(String.valueOf((char) b));
-//					oldOut.print(String.valueOf((char) b));
+					// oldOut.print(String.valueOf((char) b));
 				}
-				
+
 			}));
 			usingLog = true; // reffering to Log class
 		}
 	}
 
 	public static void log(int i, String s, String string) {
-		synchronized(LOCK) {
+		synchronized (LOCK) {
 			if (i == FATAL) {
 				System.setErr(oldOut);
 				System.setOut(oldOut);
@@ -65,7 +64,7 @@ public class Logger {
 						System.setOut(oldOut);
 						usingLog = false;
 					}
-				} 
+				}
 				if (!usingLog || override) {
 					if (logLevel <= WARNING)
 						oldOut.println("Log: !{" + s + "}! " + string);
@@ -77,7 +76,7 @@ public class Logger {
 			}
 		}
 	}
-	
+
 	private static boolean hasGUI() {
 		try {
 			Class.forName("gui.Gui");
@@ -87,9 +86,9 @@ public class Logger {
 		}
 		return false;
 	}
-	
+
 	public static void log(int i, Object o, String string) {
-		synchronized(LOCK) {
+		synchronized (LOCK) {
 			if (logLevel >= i) {
 				if (i == FATAL) {
 					System.setErr(oldOut);
@@ -106,7 +105,7 @@ public class Logger {
 						System.setOut(oldOut);
 						usingLog = false;
 					}
-				} 
+				}
 				if (!usingLog || override) {
 					if (logLevel <= WARNING)
 						oldOut.println("Log: ![" + o.getClass().getCanonicalName() + "]! " + string);

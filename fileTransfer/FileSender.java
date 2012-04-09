@@ -17,14 +17,13 @@ import alpha.language;
 
 import util.Util;
 
-
 public class FileSender implements Runnable, IFileTransfer {
 
 	private Buddy buddy;
 	private String fileName;
 	private long fileSize = 0;
 	private int blockSize = 8192;
-	private int blocksWait = 16*2;
+	private int blocksWait = 16 * 2;
 	private long startOk = -1;
 	private long positionOk = -1;
 	private long restartAt = 0;
@@ -72,7 +71,7 @@ public class FileSender implements Runnable, IFileTransfer {
 			// if not this.buddy.isFullyConnected():
 			if (buddy.isFullyConnected()) {
 
-				//Logger.oldOut.println("(2) file transfer waiting for connection");
+				// Logger.oldOut.println("(2) file transfer waiting for connection");
 				this.gui.update(this.fileSize, 0, language.langtext[70]);
 			}
 
@@ -83,8 +82,8 @@ public class FileSender implements Runnable, IFileTransfer {
 
 			// user could have aborted while waiting in the loop above
 			if (running) {
-				//Logger.oldOut.println("(2) sending 'filename' message");
-				 this.gui.update(this.fileSize, 0, language.langtext[71]);
+				// Logger.oldOut.println("(2) sending 'filename' message");
+				this.gui.update(this.fileSize, 0, language.langtext[71]);
 				synchronized (buddy.TSO_LOCK) {
 					OutputStream os = buddy.theirSock.getOutputStream();
 					String msg = "filename " + id + " " + fileSize + " " + blockSize + " " + fileName;
@@ -99,7 +98,7 @@ public class FileSender implements Runnable, IFileTransfer {
 			// the outer loop (of the two sender loops)
 			// runs forever until completed ore canceled
 			while (running && !completed) {
-				//Logger.oldOut.println("(2) FileSender now at start of retry loop");
+				// Logger.oldOut.println("(2) FileSender now at start of retry loop");
 				this.restartFlag = false;
 
 				// (re)start the inner loop
@@ -112,10 +111,10 @@ public class FileSender implements Runnable, IFileTransfer {
 				}
 			}
 
-			//if (running)
-				//Logger.oldOut.println("(2) FileSender, retry loop ended because of success");
-			//else
-				//Logger.oldOut.println("(2) FileSender, retry loop ended because of cancel");
+			// if (running)
+			// Logger.oldOut.println("(2) FileSender, retry loop ended because of success");
+			// else
+			// Logger.oldOut.println("(2) FileSender, retry loop ended because of cancel");
 
 			this.running = false;
 			this.fileHandle.close();
@@ -154,7 +153,7 @@ public class FileSender implements Runnable, IFileTransfer {
 	public void sendBlocks(long first) {
 		int blocks = (int) (this.fileSize / this.blockSize) + 1;
 
-		//Logger.oldOut.println("(2) FileSender now entering inner loop, starting at block //" + first + ", last block in file //" + (blocks - 1));
+		// Logger.oldOut.println("(2) FileSender now entering inner loop, starting at block //" + first + ", last block in file //" + (blocks - 1));
 		// the inner loop (of the two loops
 		long start;
 		long remaining;
@@ -172,7 +171,7 @@ public class FileSender implements Runnable, IFileTransfer {
 						size = this.blockSize;
 					else
 						size = (int) remaining;
-					//Logger.oldOut.println("Block size: " + size);
+					// Logger.oldOut.println("Block size: " + size);
 					ByteBuffer data = ByteBuffer.allocate(size);
 					this.fileHandle.position(start);
 					data.limit(size); // not sure if nessesary
@@ -205,7 +204,7 @@ public class FileSender implements Runnable, IFileTransfer {
 
 					// wait for confirmations more than blocks_wait behind
 					while (!canGoOn(start)) {
-						//Logger.oldOut.println("bw");
+						// Logger.oldOut.println("bw");
 						try {
 							Thread.sleep(100);
 						} catch (InterruptedException e) {
@@ -216,18 +215,18 @@ public class FileSender implements Runnable, IFileTransfer {
 
 					if (restartFlag) {
 						// the outer loop in run() will start us again
-						//Logger.oldOut.println("(2) FileSender restart_flag, breaking innner loop");
+						// Logger.oldOut.println("(2) FileSender restart_flag, breaking innner loop");
 						break;
 					}
 
 					if (!running) {
 						// the outer loop in run() will also end
-						//Logger.oldOut.println("(2) FileSender not running, breaking innner loop");
+						// Logger.oldOut.println("(2) FileSender not running, breaking innner loop");
 						break;
 					}
 				}
 			}
-			//Logger.oldOut.println("(2) FileSender inner loop ended, last sent block: //" + i + ", last block in file //" + (blocks - 1));
+			// Logger.oldOut.println("(2) FileSender inner loop ended, last sent block: //" + i + ", last block in file //" + (blocks - 1));
 		} catch (IOException ioe) {
 			Logger.log(Logger.WARNING, this.getClass(), ioe.getLocalizedMessage());
 		}
@@ -265,7 +264,7 @@ public class FileSender implements Runnable, IFileTransfer {
 			} catch (Exception e) {
 				// ignored
 			}
-			//Logger.oldOut.println("(2) timeout file sender restart at " + new_start);
+			// Logger.oldOut.println("(2) timeout file sender restart at " + new_start);
 		}
 	}
 
@@ -289,12 +288,10 @@ public class FileSender implements Runnable, IFileTransfer {
 			// the outer sender loop can now stop waiting for timeout
 			this.gui.update(this.fileSize, end, language.langtext[72]);
 			this.completed = true;
-			
+
 		}
 	}
 
-	
-	
 	public void sendStopMessage() {
 		try {
 			buddy.sendRaw("file_stop_receiving " + this.id);
@@ -323,17 +320,24 @@ public class FileSender implements Runnable, IFileTransfer {
 		FileTransfer.senders.remove(buddy.getAddress() + " " + this.id);
 		// del this.buddy.bl.file_sender[this.buddy.address, this.id]
 	}
-	
-// Functions must not needed here but must set.
+
+	// Functions must not needed here but must set.
 	@Override
-	public void startstop() {}
+	public void startstop() {
+	}
+
 	@Override
-	public void delete(){}
+	public void delete() {
+	}
+
 	@Override
-	public void open(){}
+	public void open() {
+	}
+
 	@Override
-	public void opendir(){}
-	
+	public void opendir() {
+	}
+
 	public void restart(long start) {
 		// trigger the reatart flag
 		this.timeoutCount = 0;
