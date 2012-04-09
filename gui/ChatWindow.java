@@ -37,6 +37,12 @@ import alpha.Config;
 import fileTransfer.FileDrop;
 import fileTransfer.FileSender;
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 /**
  * @author Tsu
  */
@@ -47,6 +53,7 @@ public class ChatWindow extends JFrame {
 	private Style timestampStyle;
 	private Style myNameStyle;
 	private Style theirNameStyle;
+<<<<<<< HEAD
 	private String command;
 	private Boolean shiftpress;
 
@@ -87,6 +94,56 @@ public class ChatWindow extends JFrame {
 			}
 		}
 	}
+=======
+    private String command;
+    private Boolean shiftpress;
+	// private Style normalStyle;
+    
+// Clickable links start
+
+public void addUrlText(String text) {
+		
+		
+if (Config.ClickableLinks == 0)
+{
+append("Plain", text);
+}
+else
+{
+
+
+
+String[] splittall = text.split(" ");
+	
+int x=0;
+while (x < splittall.length) { 
+	
+if(splittall[x].startsWith("http://"))
+{
+try {
+	addHyperlink(new URL(splittall[x]), splittall[x].substring(7), Color.blue);
+} catch (MalformedURLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+} // if the original doesnt have a protocol specified, insert http:// at the beggining
+}
+else if (splittall[x].startsWith("https://"))
+{
+try {
+	addHyperlink(new URL(splittall[x]), splittall[x].substring(8), Color.blue);
+} catch (MalformedURLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+} // if the original doesnt have a protocol specified, insert http:// at the beggining
+}
+else
+{
+append("Plain", splittall[x]);
+}
+append("Plain", " ");
+x++;                          
+}}}
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 	public void addHyperlink(URL url, String text, Color color) {
 		try {
@@ -100,8 +157,13 @@ public class ChatWindow extends JFrame {
 			e.printStackTrace(System.err);
 		}
 	}
+<<<<<<< HEAD
 
 	// Clickable Links End
+=======
+	
+// Clickable Links End
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 	public ChatWindow(Buddy b) {
 		this.b = b;
@@ -110,6 +172,7 @@ public class ChatWindow extends JFrame {
 		LinkController lc = new LinkController();
 		textPane1.addMouseListener(lc);
 		textPane1.addMouseMotionListener(lc);
+<<<<<<< HEAD
 
 		new FileDrop(textPane1, new FileDrop.Listener() {
 
@@ -122,6 +185,22 @@ public class ChatWindow extends JFrame {
 			}
 
 		});
+=======
+		
+	    new  FileDrop(textPane1, new FileDrop.Listener()
+	    {   
+
+			public void  filesDropped( java.io.File[] files)
+	        {   
+				Buddy b = ((ChatWindow)(textPane1).getRootPane().getParent()).getBuddy();
+				for(int i=0;i<files.length;i++) {
+					new FileSender(b, files[i].getAbsolutePath());
+				}
+	           
+	        }
+
+	    }); 
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 		System.out.println(textPane1.getDocument().getClass().getCanonicalName());
 		textPane1.setEditable(false);
@@ -148,7 +227,13 @@ public class ChatWindow extends JFrame {
 			public void keyTyped(KeyEvent e) {
 				textArea4.dispatchEvent(e);
 				textArea4.requestFocusInWindow();
+<<<<<<< HEAD
 
+=======
+				
+				
+				
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			}
 
 			@Override
@@ -163,6 +248,7 @@ public class ChatWindow extends JFrame {
 	}
 
 	private void textArea4KeyReleased(KeyEvent e) {
+<<<<<<< HEAD
 		if (e.getKeyCode() == 16) {
 			shiftpress = false;
 		}
@@ -171,12 +257,25 @@ public class ChatWindow extends JFrame {
 			textArea4.setText(textArea4.getText() + "\n");
 		}
 
+=======
+		if (e.getKeyCode() == 16)
+		{
+			shiftpress=false;	
+		}
+
+	
+		if (e.getKeyCode() == 10 & shiftpress) {
+			textArea4.setText(textArea4.getText()+"\n");
+		}
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		if (e.getKeyCode() == 10 & !shiftpress) { // enter
 			if (!textArea4.getText().trim().equals("")) {
 				boolean flag = b.isFullyConnected();
 				try {
 					String msg = textArea4.getText().trim().replaceAll("\n", "\\\\n").replaceAll("\n", "\\\\n").replaceAll("\r", "");
 					if (msg.startsWith("/")) {
+<<<<<<< HEAD
 						command = Commands.run(b, msg, textPane1.getText());
 						if (command.startsWith("0")) {
 							append("Me", "Private: ");
@@ -191,6 +290,27 @@ public class ChatWindow extends JFrame {
 							append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
 							append("Me", "* " + BuddyList.buds.get(Config.us).toStringforme() + " " + (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
 
+=======
+                        command = Commands.run(b, msg, textPane1.getText());
+						if(command.startsWith("0"))
+						{
+						append("Me", "Private: ");
+						append("Them",  (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
+						textPane1.setCaretPosition(textPane1.getDocument().getLength());
+						textArea4.requestFocusInWindow();
+	
+						textArea4.setText("");
+						}
+						else if (command.startsWith("1"))
+						{
+						textArea4.setText(command.substring(1));
+						}
+						else if (command.startsWith("2"))
+						{
+							append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
+							append("Me", "* " + BuddyList.buds.get(Config.us).toStringforme()+ " " + (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
+				
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 							textPane1.setCaretPosition(textPane1.getDocument().getLength());
 							textArea4.requestFocusInWindow();
 							if (command.trim().endsWith("\\\\n")) {
@@ -198,10 +318,19 @@ public class ChatWindow extends JFrame {
 							}
 
 							textArea4.setText("");
+<<<<<<< HEAD
 						} else if (command.startsWith("3")) {
 							append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
 							append("Me", " --> " + (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
 
+=======
+						}
+						else if (command.startsWith("3"))
+						{
+							append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
+							append("Me", " --> " + (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
+				
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 							textPane1.setCaretPosition(textPane1.getDocument().getLength());
 							textArea4.requestFocusInWindow();
 							if (command.trim().endsWith("\\\\n")) {
@@ -210,9 +339,15 @@ public class ChatWindow extends JFrame {
 
 							textArea4.setText("");
 						}
+<<<<<<< HEAD
 
 					} else {
 
+=======
+						
+					} else {
+					
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 						// textPane1
 						append("Time Stamp", "(" + getTime() + ") ");
 						append("Me", "Me: ");
@@ -223,7 +358,12 @@ public class ChatWindow extends JFrame {
 						if (msg.trim().endsWith("\\\\n")) {
 							msg.substring(0, msg.length() - 6);
 						}
+<<<<<<< HEAD
 
+=======
+						
+						
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 						if (flag)
 							b.sendMessage(msg);
 						else {
@@ -234,7 +374,11 @@ public class ChatWindow extends JFrame {
 						}
 						textArea4.setText("");
 					}
+<<<<<<< HEAD
 
+=======
+					
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -247,11 +391,21 @@ public class ChatWindow extends JFrame {
 
 	private void textArea4KeyPressed(KeyEvent e) {
 
+<<<<<<< HEAD
 		if (e.getKeyCode() == 16) {
 			shiftpress = true;
 		}
 		if (e.getKeyCode() == 10) {
 			e.consume();
+=======
+		if(e.getKeyCode() == 16)
+		{
+		shiftpress=true;	
+		}
+		if (e.getKeyCode() == 10)
+		{
+		e.consume();
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		}
 	}
 
@@ -263,24 +417,41 @@ public class ChatWindow extends JFrame {
 		scrollPane4 = new JScrollPane();
 		textArea4 = new JTextArea();
 
+<<<<<<< HEAD
 		// ======== this ========
 		Container contentPane = getContentPane();
 
 		// ======== scrollPane3 ========
+=======
+		//======== this ========
+		Container contentPane = getContentPane();
+
+		//======== scrollPane3 ========
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		{
 			scrollPane3.setViewportView(textPane1);
 		}
 
+<<<<<<< HEAD
 		// ======== scrollPane4 ========
 		{
 
 			// ---- textArea4 ----
+=======
+		//======== scrollPane4 ========
+		{
+
+			//---- textArea4 ----
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			textArea4.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyPressed(KeyEvent e) {
 					textArea4KeyPressed(e);
 				}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				@Override
 				public void keyReleased(KeyEvent e) {
 					textArea4KeyReleased(e);
@@ -291,9 +462,24 @@ public class ChatWindow extends JFrame {
 
 		GroupLayout contentPaneLayout = new GroupLayout(contentPane);
 		contentPane.setLayout(contentPaneLayout);
+<<<<<<< HEAD
 		contentPaneLayout.setHorizontalGroup(contentPaneLayout.createParallelGroup().addComponent(scrollPane4, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE).addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE));
 		contentPaneLayout.setVerticalGroup(contentPaneLayout.createParallelGroup().addGroup(GroupLayout.Alignment.TRAILING,
 				contentPaneLayout.createSequentialGroup().addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(scrollPane4, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)));
+=======
+		contentPaneLayout.setHorizontalGroup(
+			contentPaneLayout.createParallelGroup()
+				.addComponent(scrollPane4, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+				.addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+		);
+		contentPaneLayout.setVerticalGroup(
+			contentPaneLayout.createParallelGroup()
+				.addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup()
+					.addComponent(scrollPane3, GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
+					.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+					.addComponent(scrollPane4, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
+		);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		pack();
 		setLocationRelativeTo(getOwner());
 		// JFormDesigner - End of component initialization //GEN-END:initComponents
@@ -314,7 +500,10 @@ public class ChatWindow extends JFrame {
 	private JTextPane textPane1;
 	private JScrollPane scrollPane4;
 	private JTextArea textArea4;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	// JFormDesigner - End of variables declaration //GEN-END:variables
 
 	public JEditorPane getTextPane1() {
@@ -329,7 +518,11 @@ public class ChatWindow extends JFrame {
 		return new SimpleDateFormat("h:mm:ss").format(new Date());
 		// return Calendar.getInstance().get(Calendar.HOUR) + ":" + Calendar.getInstance().get(Calendar.MINUTE) + ":" + Calendar.getInstance().get(Calendar.SECOND);
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public Buddy getBuddy() {
 		return b;
 	}

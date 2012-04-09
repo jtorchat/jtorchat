@@ -4,6 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
+<<<<<<< HEAD
+import java.util.HashMap;
+import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+=======
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -11,11 +19,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
+
 public class TCPort {
 	public static String base_pwd = "";
 	public static String profile_name; // = "JTCDev-Tsu";
 	public static String profile_text; // = "JTCDev-Text";
 	public static String status = "available"; // available away xa
+<<<<<<< HEAD
 	private static boolean launched;
 	@SuppressWarnings("unused")
 	private static boolean halted;
@@ -26,13 +37,37 @@ public class TCPort {
 
 			// Set Base-Path by Problem
 			if (args.length > 0) {
+=======
+	private static boolean launched;
+	@SuppressWarnings("unused")
+	private static boolean halted;
+
+
+
+	public static void main(String[] args) {
+
+
+		try {
+
+			// Set Base-Path by Problem
+			if (args.length > 0)
+			{
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				base_pwd = args[0];
 			}
 			base_pwd = new File(base_pwd).getCanonicalPath() + "/";
 
+<<<<<<< HEAD
 			final JFrame logInstance = getLogInstance();
 			if (logInstance != null) {
 				if (Config.visiblelog == 1) {
+=======
+
+			final JFrame logInstance = getLogInstance();
+			if (logInstance != null)
+			{
+				if(Config.visiblelog == 1) {
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 					logInstance.setVisible(true);
 				}
 			}
@@ -40,6 +75,7 @@ public class TCPort {
 			Runtime.getRuntime().addShutdownHook(new Thread() {
 
 				@Override
+<<<<<<< HEAD
 				public void run() {
 					Logger.setOverride(true);
 					Logger.stopGLog();
@@ -57,10 +93,30 @@ public class TCPort {
 							BuddyList.saveBuddies();
 					} catch (IOException e) {
 						e.printStackTrace();
+=======
+				public void run() {
+					Logger.setOverride(true);
+					Logger.stopGLog();
+					Logger.log(Logger.INFO, "Shutdown", "Starting...");
+					// for (Buddy b : BuddyList.buds.values()) {
+					// try {
+					// b.disconnect();
+					// } catch (IOException e) {
+					// System.err.println("Error disconnecting " + b.getAddress() + ": " + e.getLocalizedMessage());
+					// }
+					// }
+					TorLoader.cleanUp();
+					try {
+						if (launched)
+							BuddyList.saveBuddies();
+					} catch (IOException e) {
+						e.printStackTrace();
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 					}
 				}
 			});
 
+<<<<<<< HEAD
 			String error = TCServ.init(); // oh god why?! was this in TorLoader.loadTor() ??
 			if (error != null) {
 				TCPort.getLogInstance().setVisible(true);
@@ -69,11 +125,19 @@ public class TCPort {
 
 			if (Config.loadTor)
 				TorLoader.loadTor();
+=======
+
+
+			TorLoader.loadTor();
+
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 			// new Gui().init();
 			runInit("gui.Gui");
 			launched = true;
 			try {
+<<<<<<< HEAD
 				BuddyList.loadBuddies();
 			} catch (FileNotFoundException fnfe) {
 				fnfe.printStackTrace();
@@ -90,10 +154,29 @@ public class TCPort {
 			}
 
 			// Broadcast.init();
+=======
+				BuddyList.loadBuddies();
+			} catch (FileNotFoundException fnfe) {
+				fnfe.printStackTrace();
+				// no buddylist file
+			}
+
+			if (Config.us == null || Config.us.length() != 16) {
+				Logger.log(Logger.FATAL, "TCPort", "Config.us: " + Config.us + " is invalid.");
+				JTextField jtf = new JTextField();
+				jtf.setEditable(false);
+				jtf.setText("Config.us: " + Config.us + " is invalid.");
+				JOptionPane.showMessageDialog(null, jtf, "Fatal Error", JOptionPane.PLAIN_MESSAGE);	
+				// System.exit(-1);
+			}
+
+			// Broadcast.init();
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			runStaticInit("broadcast.Broadcast");
 			runStaticInit("fileTransfer.FileTransfer");
 			// FileTransfer.init(); // doesnt work atm
 
+<<<<<<< HEAD
 			if (!BuddyList.buds.containsKey(Config.us)) {
 				new Buddy(Config.us, null).connect();
 			}
@@ -124,18 +207,60 @@ public class TCPort {
 							e.printStackTrace();
 						}
 					} catch (Exception e) {
+=======
+
+
+			if (!BuddyList.buds.containsKey(Config.us)) {
+				new Buddy(Config.us, null).connect();
+			}
+
+			ThreadManager.registerWork(ThreadManager.DAEMON, new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						Scanner s = new Scanner(System.in);
+						try {
+							while (s.hasNextLine()) {
+								String l = s.nextLine();
+								if (l.startsWith("tskill ")) { // kills theirsock of the buddy following tskill
+									BuddyList.buds.get(l.split(" ")[1]).theirSock.close();
+									BuddyList.buds.get(l.split(" ")[1]).theirSock = null;
+								} else if (l.startsWith("oskill ")) { // kills oursock of the buddy following oskill
+									BuddyList.buds.get(l.split(" ")[1]).ourSock.close();
+									BuddyList.buds.get(l.split(" ")[1]).ourSock = null;
+								} else if (l.startsWith("msg ")) { // send messaage to a buddy
+									BuddyList.buds.get(l.split(" ")[1]).sendMessage(l.split(" ", 3)[2]);
+								} else if (l.startsWith("raw ")) { // send raw messaage to a buddy
+									BuddyList.buds.get(l.split(" ")[1]).sendRaw(l.split(" ", 3)[2]);
+
+								}}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					} catch (Exception e) {
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 						e.printStackTrace();
 					}
 				}
+
+<<<<<<< HEAD
+			}, "Starting console.", "Console thread");
+			ThreadManager.registerWork(ThreadManager.DAEMON, new Runnable() {
+
+				@Override
+=======
 
 			}, "Starting console.", "Console thread");
 			ThreadManager.registerWork(ThreadManager.DAEMON, new Runnable() {
 
 				@Override
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				public void run() {
 					while (true) {
 						try {
 
+<<<<<<< HEAD
 							if (Config.nowstart != "") {
 								BuddyList.loadBuddiesRemote(Config.nowstart);
 								Config.nowstart = "";
@@ -144,12 +269,27 @@ public class TCPort {
 								Config.LastCheck = Update.loadUpdate(Config.nowstartupdate);
 
 								if (Config.LastCheck != "close") {
+=======
+							if (Config.nowstart != "")
+							{
+								BuddyList.loadBuddiesRemote(Config.nowstart);
+								Config.nowstart = "";
+							}
+							if (Config.nowstartupdate != "")
+							{
+								Config.LastCheck = Update.loadUpdate(Config.nowstartupdate);
+
+
+								if (Config.LastCheck != "close")
+								{
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 									JTextField jtf = new JTextField();
 									jtf.setEditable(false);
 									jtf.setText(Config.LastCheck);
 									JOptionPane.showMessageDialog(null, jtf, "Update Check", JOptionPane.PLAIN_MESSAGE);
 								}
 
+<<<<<<< HEAD
 								Config.nowstartupdate = "";
 							}
 
@@ -164,6 +304,24 @@ public class TCPort {
 									b.ourSock = null;
 									b.theirSock = null;
 									b.setStatus(Buddy.OFFLINE);
+=======
+
+								Config.nowstartupdate = "";
+							}
+
+
+							for (Buddy b : BuddyList.buds.values()) {
+								if (b.getConnectTime() != -1 && System.currentTimeMillis() - b.getConnectTime() > Config.CONNECT_TIMEOUT * 1000) {
+									// checks if buddy hasnt finished connecting within CONNECT_TIMEOUT seconds
+									// if it hasnt then reset
+									if (b.ourSock != null)
+										b.ourSock.close();
+									if (b.theirSock != null)
+										b.theirSock.close();
+									b.ourSock = null;
+									b.theirSock = null;
+									b.setStatus(Buddy.OFFLINE);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 									b.connect();
 									Logger.log(Logger.INFO, "Status Thread", "Connection reset for " + b.getAddress());
 								}
@@ -171,6 +329,7 @@ public class TCPort {
 								if (b.getStatus() >= Buddy.ONLINE && (b.ourSock == null || b.theirSock == null || b.ourSock.isClosed() || b.theirSock.isClosed())) {
 									if (b.ourSock != null)
 										b.ourSock.close();
+<<<<<<< HEAD
 									b.ourSock = null;
 									if (b.theirSock != null)
 										b.theirSock.close();
@@ -188,6 +347,25 @@ public class TCPort {
 								if (b.ourSock != null && b.ourSockOut != null && b.theirSock != null && b.getStatus() >= Buddy.ONLINE && System.currentTimeMillis() - b.lastStatusRecieved > Config.DEAD_CONNECTION_TIMEOUT * 1000) {
 									Logger.log(Logger.INFO, "Status Thread", "");
 									b.disconnect();
+=======
+									b.ourSock = null;
+									if (b.theirSock != null)
+										b.theirSock.close();
+									b.theirSock = null;
+									b.setStatus(Buddy.OFFLINE);
+								} else if (b.getStatus() == Buddy.HANDSHAKE && (b.ourSock == null || b.ourSock.isClosed())) {
+									if (b.ourSock != null)
+										b.ourSock.close();
+									b.ourSock = null;
+									b.setStatus(Buddy.OFFLINE);
+								}
+								// TODO check unsanswered pings
+								if (b.unansweredPings > 5)
+									b.disconnect();
+								if (b.ourSock != null && b.ourSockOut != null && b.theirSock != null && b.getStatus() >= Buddy.ONLINE && System.currentTimeMillis() - b.lastStatusRecieved > Config.DEAD_CONNECTION_TIMEOUT * 1000) {
+									Logger.log(Logger.INFO, "Status Thread", "");
+									b.disconnect();
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 								}
 								if (b.ourSock != null && b.theirSock != null && b.recievedPong && b.getTimeSinceLastStatus() > (Config.KEEPALIVE_INTERVAL - 20) * 1000)
 									b.sendStatus(); // Sends status every 100 seconds supposed to be every
@@ -195,6 +373,7 @@ public class TCPort {
 								if (b.ourSock != null && b.ourSockOut != null && !b.recievedPong && (System.currentTimeMillis() - b.lastPing) > (Config.KEEPALIVE_INTERVAL / 4) * 1000)
 									b.sendPing(); //
 								if (b.reconnectAt != -1 && System.currentTimeMillis() - b.reconnectAt > 0) {
+<<<<<<< HEAD
 									// Retries connection after having waited it out
 									Logger.log(Logger.INFO, "Status Thread", "Retrying connection to " + b.getAddress() + " as it is past " + b.reconnectAt);
 									b.connect();
@@ -312,3 +491,125 @@ public class TCPort {
 	}
 
 }
+=======
+									// Retries connection after having waited it out
+									Logger.log(Logger.INFO, "Status Thread", "Retrying connection to " + b.getAddress() + " as it is past " + b.reconnectAt);
+									b.connect();
+								}
+							}
+							Thread.sleep(5000);
+							// System.out.println("Status Ping");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}, "Starting status thread.", "Status thread");
+
+
+			Logger.log(Logger.INFO, "Init", "Done.");
+			Logger.setOverride(false);
+			try {
+				Thread.sleep(2500);
+			} catch (InterruptedException e) {
+				// ignored
+			}
+
+		} catch (Exception e) {
+			halt(e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public static void halt(Exception e) {
+		halted = true;
+		System.err.println("*** Error during startup, Halting! ***");
+		e.printStackTrace();
+		TCServ.halt();
+		if (getLogInstance() != null) {
+			getLogInstance().setVisible(true);
+			getLogInstance().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			if (launched) {
+				try {
+					BuddyList.saveBuddies();
+				} catch (IOException e1) {
+					Logger.log(Logger.WARNING, "The End", "Error saving buddies: " + e1.getLocalizedMessage());
+				}
+				for (Buddy b : ((HashMap<String, Buddy>) BuddyList.buds.clone()).values())
+					try {
+						b.remove();
+					} catch (IOException e1) {
+						Logger.log(Logger.WARNING, "The End", "Error removing buddy " + (b == null ? "null" : b.toString(true)) + ": " + e1.getLocalizedMessage());
+					}
+				launched = false;
+			}
+			try {
+				Class<?> c = Class.forName("gui.Gui");
+				Object i = c.getDeclaredField("instance").get(null);
+				Field f = c.getDeclaredField("f");
+				f.setAccessible(true);
+				((JFrame) f.get(i)).dispose();
+			} catch (Exception ee) {
+				ee.printStackTrace(); // should be ignored
+			}
+		}
+		System.err.println("*** Error during startup, Halted! ***");
+	}
+
+	static JFrame getLogInstance() {
+		try {
+			Class<?> c = Class.forName("gui.Log");
+			return (JFrame) c.getDeclaredField("instance").get(null);
+		} catch (Exception e) {
+			// ignored
+		}
+		return null;
+	}
+
+
+	private static void runStaticInit(String string) {
+		try {
+			Class<?> c = Class.forName(string);
+			c.getDeclaredMethod("init").invoke(null);
+			Logger.log(Logger.INFO, "Init", "Loaded " + string);
+		} catch (Exception e) {
+			// ignored
+		}
+	}
+
+	private static void runInit(String string) {
+		try {
+			Class<?> c = Class.forName(string);
+			Object inst = c.getConstructor().newInstance();
+			c.getMethod("init").invoke(inst);
+			Logger.log(Logger.INFO, "Init", "Loaded " + string);
+		} catch (Exception e) {
+			Logger.log(Logger.INFO, "Init", "Failed to load " + string + " | " + e.getLocalizedMessage());
+			// ignored
+		}
+	}
+
+
+	public static void sendMyInfo() {
+		for (Buddy b : BuddyList.buds.values()) {
+			if (b.getStatus() >= Buddy.ONLINE) {
+				try {
+					b.sendClient();
+					b.sendVersion();
+					b.sendProfileName();
+					b.sendProfileText();
+					b.sendStatus();
+				} catch (IOException ioe) {
+					try {
+						ioe.printStackTrace();
+						b.disconnect(); // something is iffy if we error out
+					} catch (IOException e) {
+						// ignored
+					}
+				}
+			}
+		}
+	}
+
+}
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95

@@ -15,6 +15,10 @@ import alpha.Config;
 import alpha.Logger;
 import alpha.language;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 // Pretty much direct translation from the python torchat source. 
 // Original comments mainly preserved with occasional original 
 // code commented next to the translated code
@@ -50,17 +54,29 @@ public class FileReceiver implements IFileTransfer {
 		this.starter = 0;
 		this.createfile = false;
 		this.fileNameSave = "";
+<<<<<<< HEAD
 		this.fileNameTmp = Config.DOWNLOAD_DIR + this.fileName;
 
+=======
+		this.fileNameTmp = Config.DOWNLOAD_DIR +  this.fileName;
+
+		
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		this.fileSize = fileSize;
 		this.nextStart = 0;
 		this.wrongBlockNumberCount = 0;
 		FileTransfer.receivers.put(buddy.getAddress() + " " + this.id, this);
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		this.gui = new GUITransfer(this, buddy, fileName, false);
 		gui.setVisible(true);
 		this.gui.update(this.fileSize, 0);
 
+<<<<<<< HEAD
 		if (Config.transferonstart == 1) {
 			this.gui.startfirst();
 		}
@@ -68,6 +84,18 @@ public class FileReceiver implements IFileTransfer {
 		Logger.log(Logger.WARNING, this.getClass(), "answer with error until you press start");
 
 	}
+=======
+		if(Config.transferonstart == 1)
+		{
+			this.gui.startfirst();	
+		}
+		
+Logger.log(Logger.WARNING, this.getClass(), "answer with error until you press start");
+
+	}
+	
+	
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 	private static String getDigestFor(byte[] bs) {
 		try {
@@ -97,6 +125,7 @@ public class FileReceiver implements IFileTransfer {
 			Logger.log(Logger.WARNING, this.getClass(), "ignoring incoming file data block for canceled receiver");
 			return;
 		}
+<<<<<<< HEAD
 
 		if (this.starter == 0) {
 
@@ -110,6 +139,23 @@ public class FileReceiver implements IFileTransfer {
 			return;
 		}
 
+=======
+		
+		if (this.starter == 0) {
+
+//			this.buddy.sendRaw("filedata_error " + this.id + " " + this.nextStart);
+//			Logger.log(Logger.WARNING, this.getClass(), "answer with error until you press start");
+			
+			if (!createfile)
+			{
+			this.gui.update(this.fileSize, 0);
+			}
+			
+			return;
+		}
+		
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		try {
 			if (start > this.nextStart) {
 				if (this.wrongBlockNumberCount == 0) {
@@ -124,12 +170,17 @@ public class FileReceiver implements IFileTransfer {
 				}
 				return;
 			}
+<<<<<<< HEAD
 			// Logger.oldOut.println(data);
+=======
+			//Logger.oldOut.println(data);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			this.wrongBlockNumberCount = 0;
 			String hash2 = getDigestFor(data);
 			if (hash.equals(hash2)) {
 				this.fileHandleTmp.position(start);
 				this.fileHandleTmp.write(ByteBuffer.wrap(data));
+<<<<<<< HEAD
 				// Logger.oldOut.println("written: " + written);
 				this.nextStart = start + data.length;
 				// Logger.oldOut.println("Got data " + data);
@@ -137,13 +188,26 @@ public class FileReceiver implements IFileTransfer {
 				// Logger.oldOut.println("sending filedata_ok " + this.id + " " + start);
 				this.gui.update(this.fileSize, start + data.length);
 				// Logger.oldOut.println("sending filedata_ok " + this.fileSize + " " + (start + data.length));
+=======
+				//Logger.oldOut.println("written: " + written);
+				this.nextStart = start + data.length;
+				//Logger.oldOut.println("Got data " + data);
+				this.buddy.sendRaw("filedata_ok " + this.id + " " + start);
+				//Logger.oldOut.println("sending filedata_ok " + this.id + " " + start);
+				this.gui.update(this.fileSize, start + data.length);
+				//Logger.oldOut.println("sending filedata_ok " + this.fileSize + " " + (start + data.length));
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				// TODO GUI - with == if (this.fileSize == (start + data.length())) {
 				// Logger.oldOut.println("close");
 				// close(); // completed;
 				// }
 			} else {
 				Logger.log(Logger.WARNING, this.getClass(), "(3) receiver wrong hash " + start + " len: " + data.length);
+<<<<<<< HEAD
 				// Logger.oldOut.println("(3) receiver wrong hash " + start + " len: " + data.length + " | " + hash + ", " + hash2);
+=======
+				//Logger.oldOut.println("(3) receiver wrong hash " + start + " len: " + data.length + " | " + hash + ", " + hash2);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				this.buddy.sendRaw("filedata_error " + this.id + " " + start);
 				// we try to avoid unnecessary wrong-block-number errors
 				// the next block sure will be out of order, but we have sent
@@ -160,6 +224,11 @@ public class FileReceiver implements IFileTransfer {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	
+	
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public void setFileNameSave(String fileNameSave) {
 		this.fileNameSave = fileNameSave;
 		try {
@@ -180,7 +249,11 @@ public class FileReceiver implements IFileTransfer {
 
 	public void sendStopMessage() {
 		try {
+<<<<<<< HEAD
 			this.buddy.sendRaw("file_stop_sending " + this.id);
+=======
+			this.buddy.sendRaw("file_stop_receiving " + this.id);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			try {
@@ -191,6 +264,7 @@ public class FileReceiver implements IFileTransfer {
 		}
 	}
 
+<<<<<<< HEAD
 	@Override
 	public void delete() {
 		Logger.log(Logger.INFO, this.getClass(), "deleting file " + this.fileNameTmp);
@@ -301,6 +375,145 @@ public class FileReceiver implements IFileTransfer {
 		}
 
 	}
+=======
+
+@Override
+public void delete()
+{
+Logger.log(Logger.INFO, this.getClass(), "deleting file " + this.fileNameTmp);
+this.closethis();
+this.fileTmp.delete();
+this.closeSave();
+
+}
+
+@Override
+public void open()
+{
+			this.fileopen = new File(this.fileNameTmp);
+			try {
+				Desktop.getDesktop().open(this.fileopen);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+}
+
+@Override
+public void opendir()
+{
+			this.fileopen = new File(Config.DOWNLOAD_DIR);
+			try {
+				Desktop.getDesktop().open(this.fileopen);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+}
+
+
+@Override
+public void startstop() { 
+if (this.starter == 0)
+{
+if (!createfile)
+{
+	this.fileTmp = new File(fileNameTmp);
+	this.fileTmp.getParentFile().mkdirs();
+	try {
+		this.fileHandleTmp = new FileOutputStream(fileTmp).getChannel();
+	} catch (FileNotFoundException e) {
+		e.printStackTrace();
+	}
+	System.out.println("(2) FileReceiver: created file: " + this.fileNameTmp);
+	System.out.println("(2) FileReceiver: init done for file " + fileName);	
+	try {
+		this.buddy.sendRaw("filedata_error " + this.id + " " + 0);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	createfile = true;
+}
+	
+	
+	
+this.starter = 1;
+
+
+
+}
+else
+{
+this.starter = 0;
+}
+	
+	}
+	
+
+@Override
+public void close()
+{
+closethis();
+closeSave();
+}
+
+
+public void closethis() { // in pytorchat the equivelant is closeForced
+	
+	if (!createfile)
+	{
+		this.fileName = "thisisaworkaroundforabadbug";
+		this.fileNameTmp = Config.DOWNLOAD_DIR + this.fileName;
+		this.fileTmp = new File(fileNameTmp);
+		this.fileTmp.getParentFile().mkdirs();
+		try {
+			this.fileHandleTmp = new FileOutputStream(this.fileTmp).getChannel();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	this.gui.update(this.fileSize, -1, language.langtext[69]);
+	this.sendStopMessage();
+	if (this.fileNameSave != null && this.fileNameSave.length() != 0) {
+		try {
+			this.fileHandleSave.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Logger.log(Logger.INFO, this.getClass(), "deleting empty placeholder file " + this.fileNameSave);
+		new File(fileNameSave).delete();
+		this.fileNameSave = "";
+	}
+	try {
+		this.fileHandleTmp.close();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	
+	if (!createfile)
+	{
+	Logger.log(Logger.INFO, this.getClass(), "deleting bugfix file " + this.fileNameTmp);
+	this.fileTmp.delete();
+	}
+	else
+	{
+	if (this.nextStart < this.fileSize)
+	{
+	this.fileTmp.delete();	
+	Logger.log(Logger.INFO, this.getClass(), "deleting file " + this.fileNameTmp);
+	}
+	}
+	
+}
+
+
+
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 	public void closeSave() { // in pytorchat the equivelant is close
 		// this is called from the GUI (or its replacement)
@@ -315,14 +528,29 @@ public class FileReceiver implements IFileTransfer {
 		try {
 			this.closed = true;
 			this.fileHandleTmp.close();
+<<<<<<< HEAD
 			// if (this.fileNameSave != null && this.fileNameSave.length() != 0) {
 			// new File(this.fileNameTmp).renameTo(new File(this.fileNameSave));
 			// Logger.oldOut.println("Renamed " + this.fileNameTmp + " to " + this.fileNameSave);
 			// }
+=======
+		//	if (this.fileNameSave != null && this.fileNameSave.length() != 0) {
+		//		new File(this.fileNameTmp).renameTo(new File(this.fileNameSave));
+		//		Logger.oldOut.println("Renamed " + this.fileNameTmp + " to " + this.fileNameSave);
+		//	}
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			FileTransfer.receivers.remove(buddy.getAddress() + " " + this.id);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
 
+<<<<<<< HEAD
+=======
+
+
+
+	
+	
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 }

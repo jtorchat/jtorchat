@@ -1,11 +1,18 @@
 package alpha;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 public class TCServ {
 	private static ServerSocket ss;
 	private static String error = null;
@@ -21,6 +28,7 @@ public class TCServ {
 						ss = new ServerSocket(Config.LOCAL_PORT);
 					} catch (IOException e) {
 						Logger.log(Logger.FATAL, "TCServ", "Failed to start local server: " + e.getLocalizedMessage());
+<<<<<<< HEAD
 						// System.err.println("[" + TCServ.class.getCanonicalName() + "] Failed to start local server: " + e.getLocalizedMessage());
 						e.printStackTrace();
 						Logger.log(Logger.FATAL, "TCServ", e.getLocalizedMessage());
@@ -29,6 +37,16 @@ public class TCServ {
 						return;
 					}
 					synchronized (o) {
+=======
+//						System.err.println("[" + TCServ.class.getCanonicalName() + "] Failed to start local server: " + e.getLocalizedMessage());
+						e.printStackTrace();
+						Logger.log(Logger.FATAL, "TCServ", e.getLocalizedMessage());
+						TCPort.halt(new RuntimeException("Failed to start local server: " + e.getLocalizedMessage()));
+						error="Failed to start local server!";
+						return;
+					}
+					synchronized(o) {
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 						o.notifyAll();
 					}
 					while (ss.isBound() && !ss.isClosed() && running) {
@@ -42,6 +60,7 @@ public class TCServ {
 							@Override
 							public void run() {
 								try {
+<<<<<<< HEAD
 
 									// if (BuddyList.buds)
 									// BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -49,6 +68,15 @@ public class TCServ {
 									Scanner sc = new Scanner(new InputStreamReader(s.getInputStream(), "UTF8"));
 									sc.useDelimiter("\\n");
 									// String l = s.readLine();
+=======
+									
+//									if (BuddyList.buds)
+//									BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+//									Scanner sc = new Scanner(s.getInputStream());
+									Scanner sc = new Scanner(new InputStreamReader(s.getInputStream(), "UTF8"));
+									sc.useDelimiter("\\n");
+//									String l = s.readLine();
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 									String l = sc.next();
 									if (l == null) {
 										Logger.log(Logger.SEVERE, "TCServ", "wtf");
@@ -63,13 +91,21 @@ public class TCServ {
 									if (BuddyList.buds.containsKey(l.split(" ")[1])) { // TODO add check to see if its different cookie from last time
 										Logger.log(Logger.INFO, "TCServ", "Got ping from " + l.split(" ")[1] + " with cookie " + l.split(" ")[2]);
 										Buddy b = BuddyList.buds.get(l.split(" ")[1]);
+<<<<<<< HEAD
 										Logger.log(Logger.INFO, "TCServ", "Match " + l.split(" ")[1] + " to " + b.getAddress());
+=======
+										Logger.log(Logger.INFO, "TCServ", "Match " +  l.split(" ")[1] + " to " + b.getAddress());
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 										b.setTheirCookie(l.split(" ")[2]);
 										if (b.ourSock == null)
 											b.connect();
 										else if (b.ourSockOut != null)
 											try {
+<<<<<<< HEAD
 												b.sendPong(l.split(" ")[2]); // TODO FIXME URGENT check if not connected!
+=======
+											b.sendPong(l.split(" ")[2]); // TODO FIXME URGENT check if not connected!
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 											} catch (IOException ioe) {
 												ioe.printStackTrace();
 											}
@@ -102,7 +138,11 @@ public class TCServ {
 			}
 		}, "Starting local server on " + Config.LOCAL_PORT + ".", "Server thread");
 		try {
+<<<<<<< HEAD
 			synchronized (o) {
+=======
+			synchronized(o) {
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				o.wait();
 			}
 		} catch (InterruptedException e) {

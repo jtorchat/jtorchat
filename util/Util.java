@@ -8,10 +8,17 @@ import java.util.Arrays;
 
 public class Util {
 
+<<<<<<< HEAD
 	public static int myRandom(int low, int high) {
 		return (int) (Math.random() * (high - low) + low);
 	}
 
+=======
+    public static int myRandom(int low, int high) {  
+        return (int) (Math.random() * (high - low) + low);  
+    }  
+	
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static byte[] escape(byte[] b1) {
 		for (int i = 0; i < b1.length; i++) {
 			if (b1[i] == '\\') {

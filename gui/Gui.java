@@ -1,5 +1,10 @@
 package gui;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 import java.awt.BorderLayout;
 import java.awt.SystemTray;
 import java.awt.event.ActionEvent;
@@ -70,11 +75,19 @@ public class Gui {
 		setLAF("Nimbus");
 
 		if ((TCPort.profile_name == null && TCPort.profile_text == null) || Config.firststart == 1) {
+<<<<<<< HEAD
 			Logger.log(Logger.WARNING, this.getClass(), "Start setting window");
 			Config.prop.put("firststart", "0");
 
 			GUISettings guis = new GUISettings();
 			guis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+=======
+			Logger.log(Logger.WARNING, this.getClass(), "Start setting window");		
+			Config.prop.put("firststart", "0");
+			
+			GUISettings guis = new GUISettings();
+	    	guis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			guis.setVisible(true);
 			try {
 				synchronized (guis) {
@@ -84,9 +97,15 @@ public class Gui {
 				// ignored
 			}
 		} else if (Config.SOCKS_PORT < 1 || Config.LOCAL_PORT < 1 || Config.us == null) {
+<<<<<<< HEAD
 			Logger.log(Logger.WARNING, this.getClass(), "Start setting window on advanced");
 			GUISettings guis = new GUISettings();
 			guis.getTabbedPane1().setSelectedIndex(1);
+=======
+			Logger.log(Logger.WARNING, this.getClass(), "Start setting window on advanced");	
+   	GUISettings guis = new GUISettings();
+		 guis.getTabbedPane1().setSelectedIndex(1);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			guis.setVisible(true);
 			try {
 				synchronized (guis) {
@@ -97,6 +116,10 @@ public class Gui {
 			}
 		}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		/**
 		 * extraSpace notes. 0 - should be fine for metal LAF 4 - should be fine for Nimbus
 		 * 
@@ -117,7 +140,11 @@ public class Gui {
 		JMenuBar jmb = new JMenuBar();
 		JMenu jmStatus = new JMenu(language.langtext[1]);
 		JMenu jmBroad = new JMenu("Broadcast");
+<<<<<<< HEAD
 		JMenu jmHelp = new JMenu(language.langtext[2]);
+=======
+		JMenu jmHelp= new JMenu(language.langtext[2]);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		final JMenuItem jmiHelpLink = new JMenuItem(language.langtext[11]);
 		jmiHelpLink.addActionListener(new ActionListener() { // note - the link is copiable so as to not open the link in the users normal browser automatically which could tip off anyone sniffing the network that they are using jtorcat
 
@@ -126,12 +153,21 @@ public class Gui {
 						JTextField jtf = new JTextField();
 						jtf.setEditable(false);
 						jtf.setText("http://code.google.com/p/jtorchat/w/list");
+<<<<<<< HEAD
 						JOptionPane.showMessageDialog(null, jtf, "Wiki link", JOptionPane.PLAIN_MESSAGE);
 
 					}
 				});
 		jmHelp.add(jmiHelpLink);
 
+=======
+						JOptionPane.showMessageDialog(null, jtf, "Wiki link", JOptionPane.PLAIN_MESSAGE);	
+					
+					}
+				});
+		jmHelp.add(jmiHelpLink);
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		JMenuItem jmiLog = new JMenuItem(language.langtext[12]);
 		jmiLog.addActionListener(new ActionListener() {
 
@@ -141,7 +177,11 @@ public class Gui {
 			}
 		});
 		jmHelp.add(jmiLog);
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		JMenuItem jmibroad = new JMenuItem("Chat");
 		jmibroad.addActionListener(new ActionListener() {
 
@@ -152,17 +192,31 @@ public class Gui {
 			}
 		});
 		jmBroad.add(jmibroad);
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		final JMenuItem jmion = new JMenuItem(language.langtext[7]);
 		jmion.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 				Config.updateStatus = 1;
 			}
 		});
 		jmStatus.add(jmion);
 
+=======
+				Config.updateStatus = 1;	
+			}
+		});
+		jmStatus.add(jmion);
+		
+	
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		final JMenuItem jmiaway = new JMenuItem(language.langtext[9]);
 		jmiaway.addActionListener(new ActionListener() {
 
@@ -172,7 +226,11 @@ public class Gui {
 			}
 		});
 		jmStatus.add(jmiaway);
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		final JMenuItem jmixa = new JMenuItem(language.langtext[10]);
 		jmixa.addActionListener(new ActionListener() {
 
@@ -183,6 +241,12 @@ public class Gui {
 		});
 		jmStatus.add(jmixa);
 
+<<<<<<< HEAD
+=======
+		
+
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		JMenu jmFile = new JMenu(language.langtext[0]);
 
 		JMenuItem jmiAddContact = new JMenuItem(language.langtext[3]);
@@ -241,7 +305,11 @@ public class Gui {
 		jsp.setHorizontalScrollBar(null); // no horizontal scrollbar
 		jt = new JTree();
 		jsp.getViewport().add(jt);
+<<<<<<< HEAD
 		f.getContentPane().add(jsp, BorderLayout.CENTER);
+=======
+		f.getContentPane().add(jsp, BorderLayout.CENTER);	
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 		root = new DefaultMutableTreeNode("[root]");
 		buddyNodeholy = new DefaultMutableTreeNode("Holy");
@@ -257,7 +325,11 @@ public class Gui {
 		jt.setRootVisible(false);
 		jt.setCellRenderer(new TCIconRenderer(jt));
 
+<<<<<<< HEAD
 		jt.setRowHeight(Config.icon_size + Config.icon_space);
+=======
+		jt.setRowHeight(Config.icon_size+Config.icon_space);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		ToolTipManager.sharedInstance().registerComponent(jt);
 
 		jt.addMouseListener(new MouseListener() {
@@ -276,19 +348,34 @@ public class Gui {
 						// myDoubleClick(selRow, selPath);
 					}
 				}
+<<<<<<< HEAD
 				if (e.isPopupTrigger()) // works only here on Linux
 				{
 					doPopup(e);
 				}
+=======
+				 if (e.isPopupTrigger())  // works only here on Linux
+				 { 
+				 doPopup(e);
+				 }
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
+<<<<<<< HEAD
 				if (e.isPopupTrigger()) // works only here on Windows
 				{
 					doPopup(e);
 				}
 
+=======
+				if (e.isPopupTrigger()) // works only here on Windows 
+				{	
+					doPopup(e);
+				}  
+				    
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			}
 
 			@Override
@@ -308,6 +395,10 @@ public class Gui {
 		f.setVisible(true);
 	}
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public void setVisible(boolean b) {
 		f.setVisible(b);
 	}
@@ -369,7 +460,15 @@ public class Gui {
 		DefaultMutableTreeNode d = (DefaultMutableTreeNode) path.getLastPathComponent();
 		final Object o = d.getUserObject();
 		if (o instanceof Buddy) {
+<<<<<<< HEAD
 
+=======
+			
+			
+			
+			
+	
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			popup.add(getMenuItem(language.langtext[73], new ActionListener() {
 
 				@Override
@@ -379,6 +478,11 @@ public class Gui {
 					openChatWindow((Buddy) o);
 				}
 			}));
+<<<<<<< HEAD
+=======
+			
+			
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 			popup.add(new JPopupMenu.Separator());
 			popup.add(getMenuItem(language.langtext[74], new ActionListener() {
@@ -390,6 +494,7 @@ public class Gui {
 					guica.setVisible(true);
 				}
 			}));
+<<<<<<< HEAD
 
 			if (((Buddy) o).getBlack()) {
 				popup.add(getMenuItem(language.langtext[75], new ActionListener() {
@@ -412,14 +517,49 @@ public class Gui {
 						}
 					}));
 				} else {
+=======
+	
+			if (((Buddy) o).getBlack())
+			{	
+			popup.add(getMenuItem(language.langtext[75], new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					BuddyList.black.remove(((Buddy) o).getAddress());
+					pardon(((Buddy) o));
+				}
+			}));
+			}
+			else
+			{
+				if (((Buddy) o).getHoly())
+				{	
+				
+				popup.add(getMenuItem("Not Holy contact", new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						BuddyList.holy.remove(((Buddy) o).getAddress());
+						pardon(((Buddy) o));
+					}
+				}));	
+				}else
+				{
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 					popup.add(getMenuItem("Holy contact.", new ActionListener() {
 
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							BuddyList.addHoly(((Buddy) o));
 						}
+<<<<<<< HEAD
 					}));
 
+=======
+					}));				
+					
+					
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 					popup.add(getMenuItem(language.langtext[76], new ActionListener() {
 
 						@Override
@@ -429,10 +569,17 @@ public class Gui {
 								windowMap.remove(((Buddy) o).getAddress()).dispose();
 							}
 						}
+<<<<<<< HEAD
 					}));
 				}
 			}
 
+=======
+					}));		
+				}		
+			}
+			
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			popup.add(getMenuItem(language.langtext[77], new ActionListener() {
 
 				@Override
@@ -448,6 +595,10 @@ public class Gui {
 			popup.add(new JPopupMenu.Separator());
 		}
 
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		popup.show(tree, x, y);
 	}
 
@@ -464,10 +615,18 @@ public class Gui {
 	}
 
 	private void openChatWindow(Buddy b) {
+<<<<<<< HEAD
 
 		if (!b.getBlack()) {
 			getChatWindow(b, true, true).toFront();
 		}
+=======
+		
+	if (!b.getBlack())	
+	{
+		getChatWindow(b, true, true).toFront();
+	}
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	}
 
 	public static ChatWindow getChatWindow(Buddy b, boolean createIfNotExist, boolean setVis) {
@@ -478,13 +637,19 @@ public class Gui {
 			w = new ChatWindow(b);
 			windowMap.put(b.getAddress(), w);
 		}
+<<<<<<< HEAD
 		w.setIconImage(b.getStatus() == Buddy.OFFLINE ? TCIconRenderer.offlineImagebase : b.getStatus() == Buddy.HANDSHAKE ? TCIconRenderer.handshakeImagebase : b.getStatus() == Buddy.ONLINE ? TCIconRenderer.onlineImagebase : b.getStatus() == Buddy.AWAY ? TCIconRenderer.awayImagebase : b
 				.getStatus() == Buddy.XA ? TCIconRenderer.xaImagebase : null);
+=======
+		w.setIconImage(b.getStatus() == Buddy.OFFLINE ? TCIconRenderer.offlineImagebase : b.getStatus() == Buddy.HANDSHAKE ? TCIconRenderer.handshakeImagebase : b.getStatus() == Buddy.ONLINE ? TCIconRenderer.onlineImagebase : b.getStatus() == Buddy.AWAY ? TCIconRenderer.awayImagebase
+				: b.getStatus() == Buddy.XA ? TCIconRenderer.xaImagebase : null);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		w.setTitle(b.toString(true));
 
 		w.setFocusableWindowState(false);
 		if (setVis)
 			w.setVisible(true);
+<<<<<<< HEAD
 
 		w.setFocusableWindowState(true);
 		return w;
@@ -540,6 +705,72 @@ public class Gui {
 	public static void pardon(Buddy buddy) {
 
 		if (buddy.getStatus() >= Buddy.ONLINE) {
+=======
+		
+		w.setFocusableWindowState(true);
+		return w;
+	}
+public static void blacklist(Buddy buddy) {
+	
+	MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+	if (node != null) // remove entry in the gui
+		((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
+
+	node = nodeMap.get(buddy.getAddress());
+	if (node != null)
+		node.removeFromParent();
+	nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+	
+	if(buddy.getAddress().equals(Config.us))
+	{
+	((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeblack, 0);
+	}
+	else
+	{
+	((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeblack, buddyNodeblack.getChildCount());				
+	}
+	
+	if (buddyNodeblack.getChildCount() == 1) {
+		jt.expandRow(0);
+	}
+	
+	
+}
+
+public static void holylist(Buddy buddy) {
+	if(buddy.isFullyConnected())
+	{
+	MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+	if (node != null) // remove entry in the gui
+		((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
+
+	node = nodeMap.get(buddy.getAddress());
+	if (node != null)
+		node.removeFromParent();
+	nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+	
+	if(buddy.getAddress().equals(Config.us))
+	{
+	((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
+	}
+	else
+	{
+	((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, buddyNodeholy.getChildCount());				
+	}
+	
+	if (buddyNodeholy.getChildCount() == 1) {
+		jt.expandRow(0);
+	}
+	}
+	
+}
+
+public static void pardon(Buddy buddy) {
+	
+	if (buddy.getStatus() >= Buddy.ONLINE) {
+		
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 			MutableTreeNode node = nodeMap.remove(buddy.getAddress());
 			if (node != null) // remove entry in the gui
@@ -549,6 +780,7 @@ public class Gui {
 			if (node != null)
 				node.removeFromParent();
 			nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+<<<<<<< HEAD
 
 			if (buddy.getHoly()) {
 				if (buddy.getAddress().equals(Config.us)) {
@@ -594,6 +826,70 @@ public class Gui {
 		}
 
 	}
+=======
+			
+			if (buddy.getHoly())
+			{
+				if(buddy.getAddress().equals(Config.us))
+				{
+				((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
+				}
+				else
+				{
+				((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, buddyNodeholy.getChildCount());				
+				}	
+				if (buddyNodeholy.getChildCount() == 1) {
+					jt.expandRow(0);
+				}
+			}
+			else
+			{
+			if(buddy.getAddress().equals(Config.us))
+			{
+			((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, 0);
+			}
+			else
+			{
+			((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, buddyNodeon.getChildCount());				
+			}
+			if (buddyNodeon.getChildCount() == 1) {
+				jt.expandRow(0);
+			}
+			}
+
+			
+		}		
+	else
+	{
+
+		MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+		if (node != null) // remove entry in the gui
+			((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
+
+		node = nodeMap.get(buddy.getAddress());
+		if (node != null)
+			node.removeFromParent();
+		nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+		
+		if(buddy.getAddress().equals(Config.us))
+		{
+		((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
+		}
+		else
+		{
+		((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());				
+		}
+		
+		if (buddyNode.getChildCount() == 1) {
+			jt.expandRow(0);
+		}	
+		
+	}
+	
+}
+
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 	private class Listener implements APIListener {
 
@@ -603,20 +899,38 @@ public class Gui {
 				// repaint 3 times since sometimes it fails? FIXME
 				jt.repaint();
 			try {
+<<<<<<< HEAD
 				// if (getChatWindow(buddy, false, false) != null)
 				// getChatWindow(buddy, false, false).setIconImage(
 				// newStatus == Buddy.OFFLINE ? TCIconRenderer.offlineImage : newStatus == Buddy.HANDSHAKE ? TCIconRenderer.handshakeImage : newStatus == Buddy.ONLINE ? TCIconRenderer.onlineImage : newStatus == Buddy.AWAY ? TCIconRenderer.awayImage
 				// : newStatus == Buddy.XA ? TCIconRenderer.xaImage : null);
+=======
+				//if (getChatWindow(buddy, false, false) != null)
+					//getChatWindow(buddy, false, false).setIconImage(
+					//		newStatus == Buddy.OFFLINE ? TCIconRenderer.offlineImage : newStatus == Buddy.HANDSHAKE ? TCIconRenderer.handshakeImage : newStatus == Buddy.ONLINE ? TCIconRenderer.onlineImage : newStatus == Buddy.AWAY ? TCIconRenderer.awayImage
+						//			: newStatus == Buddy.XA ? TCIconRenderer.xaImage : null);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			if (newStatus >= Buddy.ONLINE && oldStatus <= Buddy.HANDSHAKE) {
+<<<<<<< HEAD
 
 				if (!BuddyList.black.containsKey(buddy.getAddress())) {
 					MutableTreeNode node = nodeMap.remove(buddy.getAddress());
 					if (node != null) // remove entry in the gui
 						((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
 
+=======
+				
+
+				if (!BuddyList.black.containsKey(buddy.getAddress()))
+				{
+					MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+					if (node != null) // remove entry in the gui
+						((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 					node = nodeMap.get(buddy.getAddress());
 					if (node != null)
 						node.removeFromParent();
@@ -625,6 +939,7 @@ public class Gui {
 					Alert alert;
 					alert = new Alert(buddy.toString() + " is online");
 					alert.start();
+<<<<<<< HEAD
 
 					if (buddy.getHoly()) {
 						if (buddy.getAddress().equals(Config.us)) {
@@ -648,6 +963,41 @@ public class Gui {
 						}
 					}
 
+=======
+                    
+                    if (buddy.getHoly())
+                    {
+					if(buddy.getAddress().equals(Config.us))
+					{
+					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
+					}
+					else
+					{
+					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, buddyNodeholy.getChildCount());				
+					}
+					
+					if (buddyNodeholy.getChildCount() == 1) {
+						jt.expandRow(0);
+					}
+                    }
+                    else
+                    {
+    					if(buddy.getAddress().equals(Config.us))
+    					{
+    					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, 0);
+    					}
+    					else
+    					{
+    					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, buddyNodeon.getChildCount());				
+    					}
+    					
+    					if (buddyNodeon.getChildCount() == 1) {
+    						jt.expandRow(0);
+    					}		
+                    }
+					
+					
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 					if (new File(Config.MESSAGE_DIR + buddy.getAddress() + ".txt").exists()) {
 						try {
 							Scanner sc = new Scanner(new FileInputStream(Config.MESSAGE_DIR + buddy.getAddress() + ".txt"));
@@ -666,6 +1016,7 @@ public class Gui {
 							ioe.printStackTrace();
 						}
 					}
+<<<<<<< HEAD
 
 				}
 
@@ -693,6 +1044,39 @@ public class Gui {
 				}
 			}
 
+=======
+					
+				}				
+				
+				
+			}else if (oldStatus >= Buddy.ONLINE && newStatus <= Buddy.HANDSHAKE) {
+				
+				if (!BuddyList.black.containsKey(buddy.getAddress()))
+				{	
+				MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+				if (node != null) // remove entry in the gui
+					((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
+	
+				node = nodeMap.get(buddy.getAddress());
+				if (node != null)
+					node.removeFromParent();
+				nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+				
+				if(buddy.getAddress().equals(Config.us))
+				{
+				((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
+				}
+				else
+				{
+				((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());				
+				}
+				
+				if (buddyNode.getChildCount() == 1) {
+					jt.expandRow(0);
+				}
+			}}
+			
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		}
 
 		@Override
@@ -716,13 +1100,20 @@ public class Gui {
 		public void onMessage(Buddy buddy, String s) {
 
 			ChatWindow w = getChatWindow(buddy, true, true);
+<<<<<<< HEAD
 
 			String msg = s.trim().replaceAll("\n", "\\\\n").replaceAll("\n", "\\\\n").replaceAll("\r", "");
 
+=======
+			
+			String msg = s.trim().replaceAll("\n", "\\\\n").replaceAll("\n", "\\\\n").replaceAll("\r", "");
+			
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			if (msg.startsWith("/")) {
 				if (msg.trim().endsWith("\\\\n")) {
 					msg.substring(0, msg.length() - 6);
 				}
+<<<<<<< HEAD
 				String command = Commands.runin(buddy, msg);
 				if (command.startsWith("0")) {
 					w.append("Me", "Private: ");
@@ -750,11 +1141,49 @@ public class Gui {
 						alert.start();
 					}
 				} else if (command.startsWith("2")) {
+=======
+                String command = Commands.runin(buddy, msg);
+				if(command.startsWith("0"))
+				{
+				w.append("Me", "Private: ");
+				w.append("Them",  command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
+				w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
+				w.getTextArea4().requestFocusInWindow();
+				
+				if (!w.isFocused()) {
+					if (alert != null && !alert.isFinished())
+						alert.kill();
+					alert = new Alert("* " + buddy.toStringforme()+ " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
+					alert.start();
+				}
+
+				}
+				else if(command.startsWith("1"))
+				{
+					w.append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
+					w.append("Them", "* " + buddy.toStringforme()+ " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
+					w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
+					w.getTextArea4().requestFocusInWindow();
+					
+					if (!w.isFocused()) {
+						if (alert != null && !alert.isFinished())
+							alert.kill();
+						alert = new Alert("* " + buddy.toStringforme()+ " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
+						alert.start();
+					}
+				}
+				else if(command.startsWith("2"))
+				{
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 					w.append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
 					w.append("Them", " --> " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
 					w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
 					w.getTextArea4().requestFocusInWindow();
+<<<<<<< HEAD
 
+=======
+					
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 					if (!w.isFocused()) {
 						if (alert != null && !alert.isFinished())
 							alert.kill();
@@ -763,13 +1192,22 @@ public class Gui {
 					}
 				}
 
+<<<<<<< HEAD
 			} else {
 
+=======
+			
+			}
+			else
+			{
+				
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				if (!w.isFocused() && !buddy.getBlack()) {
 					if (alert != null && !alert.isFinished())
 						alert.kill();
 					alert = new Alert(buddy.toString() + ": " + s);
 					alert.start();
+<<<<<<< HEAD
 				}
 
 				w.append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
@@ -778,6 +1216,16 @@ public class Gui {
 				// w.getTextArea3().insert("(" + ChatWindow.getTime() + ") " + buddy.toString() + ": " + s + "\n", w.getTextArea3().getText().length());
 				w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
 				w.getTextArea4().requestFocusInWindow();
+=======
+				}	
+				
+			w.append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
+			w.append("Them", buddy.toString() + ": ");
+			w.addUrlText(s.replaceAll("\\\\n", "\n").trim() + "\n");
+			// w.getTextArea3().insert("(" + ChatWindow.getTime() + ") " + buddy.toString() + ": " + s + "\n", w.getTextArea3().getText().length());
+			w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
+			w.getTextArea4().requestFocusInWindow();
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			}
 		}
 
@@ -797,6 +1245,7 @@ public class Gui {
 			if (node != null)
 				node.removeFromParent();
 			nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+<<<<<<< HEAD
 
 			if (buddy.getAddress().equals(Config.us)) {
 				((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
@@ -804,6 +1253,18 @@ public class Gui {
 				((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());
 			}
 
+=======
+			
+			if(buddy.getAddress().equals(Config.us))
+			{
+			((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
+			}
+			else
+			{
+			((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());				
+			}
+			
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			if (buddyNode.getChildCount() == 1) {
 				jt.expandRow(0);
 			}

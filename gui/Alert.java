@@ -14,6 +14,10 @@ import javax.swing.JPanel;
 
 import alpha.Config;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 public class Alert extends Thread {
 
 	private JFrame f;
@@ -25,12 +29,24 @@ public class Alert extends Thread {
 	private static int dispWidth = 144 + 48, dispHeight = 115 / 2; // w = 250
 	private static AtomicInteger numAlerts = new AtomicInteger();
 
+<<<<<<< HEAD
 	@SuppressWarnings("serial")
 	public Alert(final String s) {
 		if (Config.alert == 0) { // returns immediately if alerts is disabled
 			return;
 		}
 
+=======
+
+	@SuppressWarnings("serial")
+	public Alert(final String s) {
+		if (Config.alert == 0){ // returns immediately if alerts is disabled
+			return;
+		}
+		
+		
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		f = new JFrame();
 		f.setUndecorated(true);
 		f.setAlwaysOnTop(true);
@@ -68,6 +84,7 @@ public class Alert extends Thread {
 	}
 
 	private void doAWTUtilities() {
+<<<<<<< HEAD
 		// try {
 		// Class.forName("com.sun.awt.AWTUtilities");
 		// if ((AWTUtilities.isTranslucencySupported(AWTUtilities.Translucency.PERPIXEL_TRANSLUCENT)) && (AWTUtilities.isTranslucencyCapable(f.getGraphicsConfiguration())))
@@ -79,6 +96,20 @@ public class Alert extends Thread {
 			Class<?> awtuc = Class.forName("com.sun.awt.AWTUtilities");
 			Class<?> awtutc = Class.forName("com.sun.awt.AWTUtilities$Translucency");
 			if ((Boolean) awtuc.getMethod("isTranslucencySupported", awtutc).invoke(null, awtutc.getDeclaredField("PERPIXEL_TRANSLUCENT").get(null)) && (Boolean) awtuc.getMethod("isTranslucencyCapable", GraphicsConfiguration.class).invoke(null, f.getGraphicsConfiguration())) {
+=======
+//		try {
+//			Class.forName("com.sun.awt.AWTUtilities");
+//			if ((AWTUtilities.isTranslucencySupported(AWTUtilities.Translucency.PERPIXEL_TRANSLUCENT)) && (AWTUtilities.isTranslucencyCapable(f.getGraphicsConfiguration())))
+//				AWTUtilities.setWindowOpaque(f, false);
+//		} catch (Exception e) {
+//			// ignore
+//		}
+		try {
+			Class<?> awtuc = Class.forName("com.sun.awt.AWTUtilities");
+			Class<?> awtutc = Class.forName("com.sun.awt.AWTUtilities$Translucency");
+			if ((Boolean) awtuc.getMethod("isTranslucencySupported", awtutc).invoke(null, awtutc.getDeclaredField("PERPIXEL_TRANSLUCENT").get(null))
+					&& (Boolean) awtuc.getMethod("isTranslucencyCapable", GraphicsConfiguration.class).invoke(null, f.getGraphicsConfiguration())) {
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				awtuc.getMethod("setWindowOpaque", Window.class, boolean.class).invoke(null, f, false);
 			}
 		} catch (Exception e) {
@@ -103,7 +134,11 @@ public class Alert extends Thread {
 			}
 		pr = 0;
 		p.repaint();
+<<<<<<< HEAD
 		for (c = 1; c <= 25; c++)
+=======
+		for (c = 1 ; c <= 25 ; c++)
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			try {
 				p.repaint();
 				Thread.sleep(625);

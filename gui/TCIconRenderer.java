@@ -1,5 +1,8 @@
 package gui;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
@@ -16,6 +19,10 @@ import alpha.Buddy;
 import alpha.Config;
 import alpha.Logger;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 @SuppressWarnings("serial")
 public class TCIconRenderer extends DefaultTreeCellRenderer {
 	public static Image newimg;
@@ -37,6 +44,7 @@ public class TCIconRenderer extends DefaultTreeCellRenderer {
 	public static Image xaImagebase;
 	@SuppressWarnings("unused")
 	private JTree t;
+<<<<<<< HEAD
 
 	static {
 		Logger.log(Logger.INFO, "Gui", "Loading status icons.");
@@ -85,17 +93,77 @@ public class TCIconRenderer extends DefaultTreeCellRenderer {
 		try {
 			Image x = ImageIO.read(u);
 			// System.out.println("Loaded: " + x);
+=======
+	
+	static {
+		Logger.log(Logger.INFO, "Gui", "Loading status icons.");
+
+		awayIcon = new ImageIcon(Config.ICON_DIR+"/aw.png");
+		handshakeIcon = new ImageIcon(Config.ICON_DIR+"/co.png");
+		offlineIcon = new ImageIcon(Config.ICON_DIR+"/of.png");
+		onlineIcon = new ImageIcon(Config.ICON_DIR+"/on.png");
+		xaIcon = new ImageIcon(Config.ICON_DIR+"/xa.png");
+		
+		
+		awayImagebase = getImg(Config.ICON_DIR+"/aw.png");
+		handshakeImagebase = getImg(Config.ICON_DIR+"/co.png");
+		offlineImagebase = getImg(Config.ICON_DIR+"/of.png");
+		onlineImagebase = getImg(Config.ICON_DIR+"/on.png");
+		xaImagebase = getImg(Config.ICON_DIR+"/xa.png");
+
+		
+	awayImage = awayImagebase.getScaledInstance(Config.image_size, Config.image_size,  java.awt.Image.SCALE_SMOOTH); 
+	handshakeImage = handshakeImagebase.getScaledInstance(Config.image_size, Config.image_size,  java.awt.Image.SCALE_SMOOTH);
+	offlineImage = offlineImagebase.getScaledInstance(Config.image_size, Config.image_size,  java.awt.Image.SCALE_SMOOTH);
+	onlineImage = onlineImagebase.getScaledInstance(Config.image_size, Config.image_size,  java.awt.Image.SCALE_SMOOTH);
+	xaImage = xaImagebase.getScaledInstance(Config.image_size, Config.image_size,  java.awt.Image.SCALE_SMOOTH);
+		
+	    img = awayIcon.getImage();  
+	    newimg = img.getScaledInstance(Config.icon_size, Config.icon_size,  java.awt.Image.SCALE_SMOOTH);  
+	    awayIcon = new ImageIcon(newimg);  
+	    
+	    img = handshakeIcon.getImage();  
+	    newimg = img.getScaledInstance(Config.icon_size, Config.icon_size,  java.awt.Image.SCALE_SMOOTH);  
+	    handshakeIcon = new ImageIcon(newimg);  
+	    
+	    img = offlineIcon.getImage();  
+	    newimg = img.getScaledInstance(Config.icon_size, Config.icon_size,  java.awt.Image.SCALE_SMOOTH);  
+	    offlineIcon = new ImageIcon(newimg);  
+	
+	    img = onlineIcon.getImage();  
+	    newimg = img.getScaledInstance(Config.icon_size, Config.icon_size,  java.awt.Image.SCALE_SMOOTH);  
+	    onlineIcon = new ImageIcon(newimg);  
+	    
+	    img = xaIcon.getImage();  
+	    newimg = img.getScaledInstance(Config.icon_size, Config.icon_size,  java.awt.Image.SCALE_SMOOTH);  
+	    xaIcon = new ImageIcon(newimg);  
+		
+	}
+	
+	public static Image getImg(URL u) {
+		try {
+			Image x = ImageIO.read(u);
+//			System.out.println("Loaded: " + x);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			return x;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+<<<<<<< HEAD
 
 	public static Image getImg(String s) {
 		try {
 			Image x = ImageIO.read(new File(s));
 			// System.out.println("Loaded: " + x);
+=======
+	
+	public static Image getImg(String s) {
+		try {
+			Image x = ImageIO.read(new File(s));
+//			System.out.println("Loaded: " + x);
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			return x;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -108,10 +176,20 @@ public class TCIconRenderer extends DefaultTreeCellRenderer {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 
 		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 
+=======
+	public Component getTreeCellRendererComponent(JTree tree, Object value,
+			boolean sel, boolean expanded, boolean leaf, int row,
+			boolean hasFocus) {
+
+		super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf,
+				row, hasFocus);
+		
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		Object nodeObj = ((DefaultMutableTreeNode) value).getUserObject();
 		if (nodeObj instanceof Buddy) {
 			Buddy b = ((Buddy) nodeObj);
@@ -122,8 +200,13 @@ public class TCIconRenderer extends DefaultTreeCellRenderer {
 			if (b.getProfile_text() != null && !b.getProfile_text().equals(""))
 				s += "<BR>" + b.getProfile_text();
 			if (b.getClient() != null && !b.getClient().equals(""))
+<<<<<<< HEAD
 				s += "<BR>" + b.getClient() + " " + b.getVersion();
 
+=======
+				s += "<BR>" + b.getClient() + " " + b.getVersion(); 
+					
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			s += "</html>";
 			this.setToolTipText(s);
 			setIcon(getStatusIcon(status));
@@ -131,6 +214,11 @@ public class TCIconRenderer extends DefaultTreeCellRenderer {
 		return this;
 	}
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static ImageIcon getStatusIcon(int status) {
 		// TODO Auto-generated method stub
 		if (status == Buddy.AWAY) {
