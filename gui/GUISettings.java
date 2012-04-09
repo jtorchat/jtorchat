@@ -12,7 +12,6 @@ import alpha.Config;
 import alpha.TCPort;
 import alpha.language;
 
-<<<<<<< HEAD
 @SuppressWarnings("serial")
 public class GUISettings extends JFrame {
 	// private boolean hasBroadcast = false;
@@ -24,21 +23,6 @@ public class GUISettings extends JFrame {
 		// } catch (ClassNotFoundException e) {
 		// // ignored
 		// }
-=======
-
-
-@SuppressWarnings("serial")
-public class GUISettings extends JFrame {
-//	private boolean hasBroadcast = false;
-	
-	public GUISettings() {
-//		try {
-//			Class.forName("broadcast.Broadcast");
-//			hasBroadcast = true;
-//		} catch (ClassNotFoundException e) {
-//			// ignored
-//		}
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		initComponents();
@@ -51,7 +35,6 @@ public class GUISettings extends JFrame {
 		textField7.setText(Config.sync);
 		textField8.setText(Config.update);
 		textField9.setText(Config.lang);
-<<<<<<< HEAD
 		if (Config.alert == 1) {
 			checkBox2.setSelected(true);
 		} else {
@@ -137,41 +120,6 @@ public class GUISettings extends JFrame {
 			public void windowOpened(WindowEvent e) {
 			}
 		});
-=======
-		if (Config.alert == 1) { checkBox2.setSelected(true); } else { checkBox2.setSelected(false); }
-		if (Config.loadTor == 1) { checkBox1.setSelected(true); } else { checkBox1.setSelected(false); }
-		if (Config.buddyStart == 1) { checkBox3.setSelected(true); } else { checkBox3.setSelected(false); }
-		if (Config.transferonstart == 1) { checkBox4.setSelected(true); } else { checkBox4.setSelected(false); }
-		if (Config.pageactive == 1) { checkBox5.setSelected(true); } else { checkBox5.setSelected(false); }
-		if (Config.updateStart == 1) { checkBox6.setSelected(true); } else { checkBox6.setSelected(false); }
-		if (Config.visiblelog == 1) { checkBox7.setSelected(true); } else { checkBox7.setSelected(false); }
-		if (Config.fulllog == 1) { checkBox8.setSelected(true); } else { checkBox8.setSelected(false); }
-		if (Config.obfsproxy == 1) { checkBox9.setSelected(true); } else { checkBox9.setSelected(false); }
-		if (Config.ClickableLinks == 1) { checkBox10.setSelected(true); } else { checkBox10.setSelected(false); }		
-		if (Config.offlineMod == 1) { checkBox11.setSelected(true); } else { checkBox11.setSelected(false); }	
-		
-		this.addWindowListener(new WindowListener() {
-            @Override
-			public void windowClosed(WindowEvent e) {}
-            @Override
-			public void windowActivated(WindowEvent e) {}
-            @Override
-			public void windowClosing(WindowEvent e) {
-        		dispose();
-        		synchronized(this) {
-        			this.notifyAll(); // tell anyone waiting on us that we're done
-        		}
-            }
-            @Override
-			public void windowDeactivated(WindowEvent e) {}
-            @Override
-			public void windowDeiconified(WindowEvent e) {}
-            @Override
-			public void windowIconified(WindowEvent e) {}
-            @Override
-			public void windowOpened(WindowEvent e) {}
-        });
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	}
 
 	private void ok(ActionEvent e) {
@@ -191,15 +139,9 @@ public class GUISettings extends JFrame {
 		boolean obfsproxy = checkBox9.isSelected();
 		boolean ClickableLinks = checkBox10.isSelected();
 		boolean offlineMod = checkBox11.isSelected();
-<<<<<<< HEAD
 
 		int sp = -1, lp = -1;
 
-=======
-		
-		int sp = -1, lp = -1;
-		
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		if (textField4.getText().length() != 0) {
 			try {
 				sp = Integer.parseInt(textField4.getText());
@@ -235,7 +177,6 @@ public class GUISettings extends JFrame {
 		Config.lang = lang;
 		Config.sync = sync;
 		Config.update = update;
-<<<<<<< HEAD
 		if (alert) {
 			Config.alert = 1;
 		} else {
@@ -300,22 +241,6 @@ public class GUISettings extends JFrame {
 			Config.offlineMod = 0;
 		}
 
-=======
-		if (alert) { Config.alert = 1; } else {Config.alert = 0; } ;
-		if (loadTor) { Config.loadTor = 1; } else {Config.loadTor = 0; } ;
-		if (buddyStart) { Config.buddyStart = 1; } else {Config.buddyStart = 0; } ;
-		if (updateStart) { Config.updateStart = 1; } else {Config.updateStart = 0; } ;
-		TCPort.profile_name = name;
-		TCPort.profile_text = prof;
-		if (file) { Config.transferonstart = 1; } else {Config.transferonstart = 0; } ;
-		if (page) { Config.pageactive = 1; } else {Config.pageactive = 0; } ;
-		if (showlog) { Config.visiblelog = 1; } else {Config.visiblelog = 0; } ;
-		if (fulllog) { Config.fulllog = 1; } else {Config.fulllog = 0; } ;
-		if (obfsproxy) { Config.obfsproxy = 1; } else {Config.obfsproxy = 0; } ;		
-		if (ClickableLinks) { Config.ClickableLinks = 1; } else {Config.ClickableLinks = 0; } ;
-		if (offlineMod) { Config.offlineMod = 1; } else {Config.offlineMod = 0; } ;
-		
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		Config.prop.put("profile_name", name);
 		Config.prop.put("profile_text", prof);
 		Config.prop.put("SOCKS_PORT", Config.SOCKS_PORT + "");
@@ -324,7 +249,6 @@ public class GUISettings extends JFrame {
 		Config.prop.put("sync", sync);
 		Config.prop.put("update", update);
 		Config.prop.put("lang", lang);
-<<<<<<< HEAD
 
 		if (alert) {
 			Config.prop.put("alert", 1 + "");
@@ -393,24 +317,6 @@ public class GUISettings extends JFrame {
 		}
 
 		TCPort.sendMyInfo();
-=======
-		
-		
-	    if (alert) { Config.prop.put("alert", 1 + ""); } else {Config.prop.put("alert", 0 + ""); } ;
-	    if (loadTor) { Config.prop.put("loadPortableTor", 1 + ""); } else {Config.prop.put("loadPortableTor", 0 + ""); } ;
-	    if (buddyStart) { Config.prop.put("OnStartBuddySync", 1 + ""); } else {Config.prop.put("OnStartBuddySync", 0 + ""); } ;
-	    if (updateStart) { Config.prop.put("OnStartUpdateCheck", 1 + ""); } else {Config.prop.put("OnStartUpdateCheck", 0 + ""); } ;
-	    if (file) { Config.prop.put("transferonstart", 1 + ""); } else {Config.prop.put("transferonstart", 0 + ""); } ;
-	    if (page) { Config.prop.put("pageactive", 1 + ""); } else {Config.prop.put("pageactive", 0 + ""); } ;
-	    if (showlog) { Config.prop.put("OnStartLoggerDisplay", 1 + ""); } else {Config.prop.put("OnStartLoggerDisplay", 0 + ""); } ;
-	    if (fulllog) { Config.prop.put("EnableFullLoggerMode", 1 + ""); } else {Config.prop.put("EnableFullLoggerMode", 0 + ""); } ;
-	    if (obfsproxy) { Config.prop.put("obfsproxy", 1 + ""); } else {Config.prop.put("obfsproxy", 0 + ""); } ;
-	    if (ClickableLinks) { Config.prop.put("ClickableLinks", 1 + ""); } else {Config.prop.put("ClickableLinks", 0 + ""); } ;
-	    if (offlineMod) { Config.prop.put("offlineMod", 1 + ""); } else {Config.prop.put("offlineMod", 0 + ""); } ;
-
-	    
-	    TCPort.sendMyInfo();
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		try {
 			Config.prop.store(new FileOutputStream(Config.CONFIG_DIR + "settings.ini"), null);
 		} catch (FileNotFoundException fnfe) {
@@ -418,15 +324,9 @@ public class GUISettings extends JFrame {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-<<<<<<< HEAD
 
 		dispose();
 		synchronized (this) {
-=======
-		
-		dispose();
-		synchronized(this) {
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			this.notifyAll(); // tell anyone waiting on us that we're done
 		}
 	}
@@ -444,13 +344,7 @@ public class GUISettings extends JFrame {
 		Config.nowstart = textField7.getText();
 	}
 
-<<<<<<< HEAD
 	private void language() {
-=======
-
-	private void language()
-	{
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 		label1.setText("Profile name: ");
 		label2.setText("Profile text: ");
@@ -478,23 +372,12 @@ public class GUISettings extends JFrame {
 		textField10.setText(language.langtext[43]);
 		textField13.setText(language.langtext[44]);
 
-<<<<<<< HEAD
 		tabbedPane1.removeAll();
 		tabbedPane1.addTab(language.langtext[16], panel1);
 		tabbedPane1.addTab(language.langtext[17], panel2);
 		tabbedPane1.addTab(language.langtext[18], panel3);
 		tabbedPane1.addTab(language.langtext[19], panel4);
 		tabbedPane1.addTab(language.langtext[45], panel5);
-=======
-	
-	tabbedPane1.removeAll();
-	tabbedPane1.addTab(language.langtext[16], panel1);
-	tabbedPane1.addTab(language.langtext[17], panel2);
-	tabbedPane1.addTab(language.langtext[18], panel3);
-	tabbedPane1.addTab(language.langtext[19], panel4);
-	tabbedPane1.addTab(language.langtext[45], panel5);
-
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 
 	}
 
@@ -504,16 +387,9 @@ public class GUISettings extends JFrame {
 		textField11.setText(info[1]);
 		textField12.setText(info[2]);
 	}
-<<<<<<< HEAD
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY //GEN-BEGIN:initComponents
-=======
-	
-	
-	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		// Generated using JFormDesigner Evaluation license - jhgfdf jhgfc
 		tabbedPane1 = new JTabbedPane();
 		panel1 = new JPanel();
@@ -559,7 +435,6 @@ public class GUISettings extends JFrame {
 		checkBox11 = new JCheckBox();
 		button1 = new JButton();
 
-<<<<<<< HEAD
 		// ======== this ========
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new GridBagLayout());
@@ -589,43 +464,10 @@ public class GUISettings extends JFrame {
 				textField2.setPreferredSize(new Dimension(180, 28));
 
 				// ---- checkBox2 ----
-=======
-		//======== this ========
-		Container contentPane = getContentPane();
-		contentPane.setLayout(new GridBagLayout());
-		((GridBagLayout)contentPane.getLayout()).columnWidths = new int[] {0, 0};
-		((GridBagLayout)contentPane.getLayout()).rowHeights = new int[] {0, 0, 0};
-		((GridBagLayout)contentPane.getLayout()).columnWeights = new double[] {1.0, 1.0E-4};
-		((GridBagLayout)contentPane.getLayout()).rowWeights = new double[] {1.0, 0.0, 1.0E-4};
-
-		//======== tabbedPane1 ========
-		{
-
-			//======== panel1 ========
-			{
-
-
-				//---- label1 ----
-				label1.setText("Profile name: ");
-				label1.setHorizontalAlignment(SwingConstants.RIGHT);
-
-				//---- textField1 ----
-				textField1.setPreferredSize(new Dimension(180, 28));
-
-				//---- label2 ----
-				label2.setText("Profile text: ");
-				label2.setHorizontalAlignment(SwingConstants.RIGHT);
-
-				//---- textField2 ----
-				textField2.setPreferredSize(new Dimension(180, 28));
-
-				//---- checkBox2 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				checkBox2.setText("alert on events");
 				checkBox2.setPreferredSize(new Dimension(60, 18));
 				checkBox2.setMinimumSize(new Dimension(30, 18));
 
-<<<<<<< HEAD
 				// ---- checkBox4 ----
 				checkBox4.setText("automatic File Transfer start");
 
@@ -639,26 +481,10 @@ public class GUISettings extends JFrame {
 				checkBox8.setText("activate full log (fatal over time)");
 
 				// ---- checkBox10 ----
-=======
-				//---- checkBox4 ----
-				checkBox4.setText("automatic File Transfer start");
-
-				//---- checkBox5 ----
-				checkBox5.setText("page function");
-
-				//---- checkBox7 ----
-				checkBox7.setText("show log on start");
-
-				//---- checkBox8 ----
-				checkBox8.setText("activate full log (fatal over time)");
-
-				//---- checkBox10 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				checkBox10.setText("Clickable Links (open with broswer)");
 
 				GroupLayout panel1Layout = new GroupLayout(panel1);
 				panel1.setLayout(panel1Layout);
-<<<<<<< HEAD
 				panel1Layout.setHorizontalGroup(panel1Layout.createParallelGroup().addGroup(
 						panel1Layout
 								.createSequentialGroup()
@@ -702,81 +528,6 @@ public class GUISettings extends JFrame {
 				textField7.setPreferredSize(new Dimension(180, 28));
 
 				// ---- button2 ----
-=======
-				panel1Layout.setHorizontalGroup(
-					panel1Layout.createParallelGroup()
-						.addGroup(panel1Layout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(panel1Layout.createParallelGroup()
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox4, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox5, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox7, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox8, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox10, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox2, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(52, Short.MAX_VALUE))
-								.addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-									.addGap(12, 12, 12)
-									.addComponent(label2, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-									.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-									.addComponent(textField2, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
-								.addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-									.addComponent(label1, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-									.addComponent(textField1, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))))
-				);
-				panel1Layout.setVerticalGroup(
-					panel1Layout.createParallelGroup()
-						.addGroup(panel1Layout.createSequentialGroup()
-							.addGap(10, 10, 10)
-							.addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label1, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
-							.addGap(5, 5, 5)
-							.addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(checkBox2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(4, 4, 4)
-							.addComponent(checkBox4)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(checkBox5)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(checkBox7)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(checkBox8)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(checkBox10)
-							.addGap(20, 20, 20))
-				);
-			}
-			tabbedPane1.addTab("General", panel1);
-
-
-			//======== panel3 ========
-			{
-
-				//---- label8 ----
-				label8.setText("URL to buddylist");
-				label8.setHorizontalAlignment(SwingConstants.RIGHT);
-
-				//---- textField7 ----
-				textField7.setPreferredSize(new Dimension(180, 28));
-
-				//---- button2 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				button2.setText("sync");
 				button2.setMaximumSize(new Dimension(100, 23));
 				button2.setMinimumSize(new Dimension(100, 23));
@@ -787,18 +538,13 @@ public class GUISettings extends JFrame {
 					}
 				});
 
-<<<<<<< HEAD
 				// ---- checkBox3 ----
-=======
-				//---- checkBox3 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				checkBox3.setText("sync at every start");
 				checkBox3.setPreferredSize(new Dimension(60, 18));
 				checkBox3.setMinimumSize(new Dimension(30, 18));
 
 				GroupLayout panel3Layout = new GroupLayout(panel3);
 				panel3.setLayout(panel3Layout);
-<<<<<<< HEAD
 				panel3Layout.setHorizontalGroup(panel3Layout.createParallelGroup().addGroup(
 						panel3Layout
 								.createSequentialGroup()
@@ -817,61 +563,15 @@ public class GUISettings extends JFrame {
 			{
 
 				// ---- label9 ----
-=======
-				panel3Layout.setHorizontalGroup(
-					panel3Layout.createParallelGroup()
-						.addGroup(panel3Layout.createSequentialGroup()
-							.addGroup(panel3Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-								.addGroup(panel3Layout.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(checkBox3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addGroup(panel3Layout.createSequentialGroup()
-									.addGap(12, 12, 12)
-									.addComponent(textField7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(label8, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 378, GroupLayout.PREFERRED_SIZE)
-								.addGroup(GroupLayout.Alignment.LEADING, panel3Layout.createSequentialGroup()
-									.addGap(130, 130, 130)
-									.addComponent(button2, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
-							.addContainerGap())
-				);
-				panel3Layout.setVerticalGroup(
-					panel3Layout.createParallelGroup()
-						.addGroup(panel3Layout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(label8)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-							.addComponent(textField7, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-							.addGap(18, 18, 18)
-							.addComponent(button2, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addGap(44, 44, 44)
-							.addComponent(checkBox3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(52, 52, 52))
-				);
-			}
-			tabbedPane1.addTab("Buddy Sync", panel3);
-
-
-			//======== panel4 ========
-			{
-
-				//---- label9 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				label9.setText("URL for check");
 				label9.setHorizontalAlignment(SwingConstants.RIGHT);
 				label9.setAlignmentY(0.0F);
 				label9.setHorizontalTextPosition(SwingConstants.CENTER);
 
-<<<<<<< HEAD
 				// ---- textField8 ----
 				textField8.setPreferredSize(new Dimension(180, 28));
 
 				// ---- button3 ----
-=======
-				//---- textField8 ----
-				textField8.setPreferredSize(new Dimension(180, 28));
-
-				//---- button3 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				button3.setText("check");
 				button3.setMaximumSize(new Dimension(100, 23));
 				button3.setMinimumSize(new Dimension(100, 23));
@@ -882,18 +582,13 @@ public class GUISettings extends JFrame {
 					}
 				});
 
-<<<<<<< HEAD
 				// ---- checkBox6 ----
-=======
-				//---- checkBox6 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				checkBox6.setText("check for update at every start");
 				checkBox6.setPreferredSize(new Dimension(60, 18));
 				checkBox6.setMinimumSize(new Dimension(30, 18));
 
 				GroupLayout panel4Layout = new GroupLayout(panel4);
 				panel4.setLayout(panel4Layout);
-<<<<<<< HEAD
 				panel4Layout.setHorizontalGroup(panel4Layout.createParallelGroup().addGroup(
 						panel4Layout
 								.createSequentialGroup()
@@ -918,49 +613,6 @@ public class GUISettings extends JFrame {
 				textField3.setEditable(false);
 
 				// ---- button4 ----
-=======
-				panel4Layout.setHorizontalGroup(
-					panel4Layout.createParallelGroup()
-						.addGroup(panel4Layout.createSequentialGroup()
-							.addGroup(panel4Layout.createParallelGroup()
-								.addGroup(panel4Layout.createSequentialGroup()
-									.addGap(122, 122, 122)
-									.addComponent(button3, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-								.addGroup(panel4Layout.createSequentialGroup()
-									.addContainerGap()
-									.addGroup(panel4Layout.createParallelGroup()
-										.addComponent(label9, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-										.addComponent(textField8, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)))
-								.addGroup(panel4Layout.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(checkBox6, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)))
-							.addContainerGap())
-				);
-				panel4Layout.setVerticalGroup(
-					panel4Layout.createParallelGroup()
-						.addGroup(panel4Layout.createSequentialGroup()
-							.addGap(8, 8, 8)
-							.addComponent(label9, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(textField8, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-							.addGap(18, 18, 18)
-							.addComponent(checkBox6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(30, 30, 30)
-							.addComponent(button3, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(69, Short.MAX_VALUE))
-				);
-			}
-			tabbedPane1.addTab("Update Check", panel4);
-
-
-			//======== panel5 ========
-			{
-
-				//---- textField3 ----
-				textField3.setEditable(false);
-
-				//---- button4 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				button4.setText("Check");
 				button4.addActionListener(new ActionListener() {
 					@Override
@@ -969,7 +621,6 @@ public class GUISettings extends JFrame {
 					}
 				});
 
-<<<<<<< HEAD
 				// ---- textField10 ----
 				textField10.setText("Enter your language (example: en) and restart jtorchat");
 				textField10.setEditable(false);
@@ -981,25 +632,11 @@ public class GUISettings extends JFrame {
 				textField12.setEditable(false);
 
 				// ---- textField13 ----
-=======
-				//---- textField10 ----
-				textField10.setText("Enter your language (example: en) and restart jtorchat");
-				textField10.setEditable(false);
-
-				//---- textField11 ----
-				textField11.setEditable(false);
-
-				//---- textField12 ----
-				textField12.setEditable(false);
-
-				//---- textField13 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				textField13.setText("When the language file not exist, the default language is en");
 				textField13.setEditable(false);
 
 				GroupLayout panel5Layout = new GroupLayout(panel5);
 				panel5.setLayout(panel5Layout);
-<<<<<<< HEAD
 				panel5Layout.setHorizontalGroup(panel5Layout
 						.createParallelGroup()
 						.addGroup(GroupLayout.Alignment.TRAILING, panel5Layout.createSequentialGroup().addGap(72, 72, 72).addComponent(textField9, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE).addGap(129, 129, 129).addComponent(button4).addGap(89, 89, 89))
@@ -1049,88 +686,10 @@ public class GUISettings extends JFrame {
 				textField6.setPreferredSize(new Dimension(180, 28));
 
 				// ---- checkBox1 ----
-=======
-				panel5Layout.setHorizontalGroup(
-					panel5Layout.createParallelGroup()
-						.addGroup(GroupLayout.Alignment.TRAILING, panel5Layout.createSequentialGroup()
-							.addGap(72, 72, 72)
-							.addComponent(textField9, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-							.addGap(129, 129, 129)
-							.addComponent(button4)
-							.addGap(89, 89, 89))
-						.addGroup(panel5Layout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(textField10, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(panel5Layout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(textField13, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(panel5Layout.createSequentialGroup()
-							.addGap(60, 60, 60)
-							.addGroup(panel5Layout.createParallelGroup()
-								.addComponent(textField12, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField11, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField3, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(77, Short.MAX_VALUE))
-				);
-				panel5Layout.setVerticalGroup(
-					panel5Layout.createParallelGroup()
-						.addGroup(panel5Layout.createSequentialGroup()
-							.addGroup(panel5Layout.createParallelGroup()
-								.addGroup(panel5Layout.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(textField10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(panel5Layout.createSequentialGroup()
-									.addGap(40, 40, 40)
-									.addComponent(textField13, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-							.addGroup(panel5Layout.createParallelGroup()
-								.addComponent(button4)
-								.addComponent(textField9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-							.addComponent(textField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(18, 18, 18)
-							.addComponent(textField11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(18, 18, 18)
-							.addComponent(textField12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				);
-			}
-			tabbedPane1.addTab("Language", panel5);
-
-
-			//======== panel2 ========
-			{
-
-				//---- label4 ----
-				label4.setText("* Tor socks port: ");
-				label4.setHorizontalAlignment(SwingConstants.RIGHT);
-
-				//---- textField4 ----
-				textField4.setPreferredSize(new Dimension(180, 28));
-
-				//---- label5 ----
-				label5.setText("* Local port: ");
-				label5.setHorizontalAlignment(SwingConstants.RIGHT);
-
-				//---- textField5 ----
-				textField5.setPreferredSize(new Dimension(180, 28));
-
-				//---- label6 ----
-				label6.setText("* Our ID: ");
-				label6.setHorizontalAlignment(SwingConstants.RIGHT);
-
-				//---- textField6 ----
-				textField6.setPreferredSize(new Dimension(180, 28));
-
-				//---- checkBox1 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				checkBox1.setText("Initial Tor Portable at start");
 				checkBox1.setPreferredSize(new Dimension(60, 18));
 				checkBox1.setMinimumSize(new Dimension(30, 18));
 
-<<<<<<< HEAD
 				// ---- checkBox9 ----
 				checkBox9.setText("obfsproxy (portable only)");
 
@@ -1141,23 +700,10 @@ public class GUISettings extends JFrame {
 				label7.setText("* Required");
 
 				// ---- checkBox11 ----
-=======
-				//---- checkBox9 ----
-				checkBox9.setText("obfsproxy (portable only)");
-
-				//---- label3 ----
-				label3.setText("Note: Our ID is your hostname without .onion");
-
-				//---- label7 ----
-				label7.setText("* Required");
-
-				//---- checkBox11 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				checkBox11.setText("offlineMod (start jtorchat without any internet connection)");
 
 				GroupLayout panel2Layout = new GroupLayout(panel2);
 				panel2.setLayout(panel2Layout);
-<<<<<<< HEAD
 				panel2Layout.setHorizontalGroup(panel2Layout.createParallelGroup().addGroup(
 						panel2Layout
 								.createSequentialGroup()
@@ -1187,77 +733,13 @@ public class GUISettings extends JFrame {
 								.addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(label6, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE).addComponent(textField6, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)).addGap(9, 9, 9)
 								.addComponent(checkBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(checkBox9).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(checkBox11)
 								.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE).addComponent(label3).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(label7, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)));
-=======
-				panel2Layout.setHorizontalGroup(
-					panel2Layout.createParallelGroup()
-						.addGroup(panel2Layout.createSequentialGroup()
-							.addGroup(panel2Layout.createParallelGroup()
-								.addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(label4, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-									.addComponent(textField4, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE))
-								.addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-									.addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-										.addComponent(label5, GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-										.addComponent(label6, GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
-									.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-									.addGroup(panel2Layout.createParallelGroup()
-										.addComponent(textField6, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
-										.addComponent(textField5, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(panel2Layout.createSequentialGroup()
-									.addGap(84, 84, 84)
-									.addComponent(label7, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE))
-								.addGroup(GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
-									.addGap(13, 13, 13)
-									.addComponent(label3, GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
-								.addComponent(checkBox11, GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
-								.addComponent(checkBox9, GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
-								.addComponent(checkBox1, GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE))
-							.addContainerGap())
-				);
-				panel2Layout.setVerticalGroup(
-					panel2Layout.createParallelGroup()
-						.addGroup(panel2Layout.createSequentialGroup()
-							.addGap(10, 10, 10)
-							.addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(textField4, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label4, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-							.addGap(5, 5, 5)
-							.addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(label5, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField5, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-							.addGap(5, 5, 5)
-							.addGroup(panel2Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(label6, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField6, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-							.addGap(9, 9, 9)
-							.addComponent(checkBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(checkBox9)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(checkBox11)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-							.addComponent(label3)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(label7, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-				);
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			}
 			tabbedPane1.addTab("Advanced", panel2);
 
 		}
-<<<<<<< HEAD
 		contentPane.add(tabbedPane1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 
 		// ---- button1 ----
-=======
-		contentPane.add(tabbedPane1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-			GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-			new Insets(0, 0, 0, 0), 0, 0));
-
-		//---- button1 ----
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		button1.setText("Ok");
 		button1.addActionListener(new ActionListener() {
 			@Override
@@ -1265,7 +747,6 @@ public class GUISettings extends JFrame {
 				ok(e);
 			}
 		});
-<<<<<<< HEAD
 		contentPane.add(button1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.VERTICAL, new Insets(0, 0, 10, 10), 0, 0));
 		pack();
 		setLocationRelativeTo(getOwner());
@@ -1273,17 +754,6 @@ public class GUISettings extends JFrame {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY //GEN-BEGIN:variables
-=======
-		contentPane.add(button1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
-			GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
-			new Insets(0, 0, 10, 10), 0, 0));
-		pack();
-		setLocationRelativeTo(getOwner());
-		// JFormDesigner - End of component initialization  //GEN-END:initComponents
-	}
-
-	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	// Generated using JFormDesigner Evaluation license - jhgfdf jhgfc
 	private JTabbedPane tabbedPane1;
 	private JPanel panel1;
@@ -1328,9 +798,5 @@ public class GUISettings extends JFrame {
 	private JLabel label7;
 	private JCheckBox checkBox11;
 	private JButton button1;
-<<<<<<< HEAD
 	// JFormDesigner - End of variables declaration //GEN-END:variables
-=======
-	// JFormDesigner - End of variables declaration  //GEN-END:variables
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 }

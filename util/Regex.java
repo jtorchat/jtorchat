@@ -7,7 +7,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-<<<<<<< HEAD
 public class Regex {
 
 	private Regex() {
@@ -16,16 +15,6 @@ public class Regex {
 	public static String getReg(String o, String regex, int i) {
 		Matcher m = Pattern.compile(regex).matcher(o);
 		return m.find() ? m.groupCount() > i - 1 ? m.group(i) : null : null;
-=======
-
-public class Regex {
-	
-	private Regex() {} // No instances
-
-	public static String getReg(String o, String regex, int i) {
-		Matcher m = Pattern.compile(regex).matcher(o);
-		return m.find() ? m.groupCount() > i-1 ? m.group(i) : null : null;
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	}
 
 	public static String[][] getRegAllArray(String o, String regex) {
@@ -35,13 +24,8 @@ public class Regex {
 			String[] tmp = new String[m.groupCount() + 1];
 			tmpret.add(tmp);
 			tmp[0] = m.group();
-<<<<<<< HEAD
 			for (int i = 0; i < m.groupCount(); i++)
 				tmp[i + 1] = m.group(i + 1);
-=======
-			for (int i = 0 ; i < m.groupCount() ; i++)
-				tmp[i+1] = m.group(i+1);
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			m.reset((o = o.replace(m.group(), "")));
 		}
 		String[][] ret = tmpret.toArray(new String[0][0]);
@@ -53,13 +37,8 @@ public class Regex {
 		if (m.find()) {
 			String[] tmp = new String[m.groupCount() + 1];
 			tmp[0] = m.group();
-<<<<<<< HEAD
 			for (int i = 0; i < m.groupCount(); i++)
 				tmp[i + 1] = m.group(i + 1);
-=======
-			for (int i = 0 ; i < m.groupCount() ; i++)
-				tmp[i+1] = m.group(i+1);
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			return tmp;
 		}
 		return null;
@@ -69,11 +48,7 @@ public class Regex {
 		Matcher m = Pattern.compile(regex).matcher(o);
 		return m.find() ? m.groupCount() > 0 ? m.group(1) : null : null;
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static String getRegAll(String o, String regex, String seperator) {
 		Matcher m = Pattern.compile(regex).matcher(o);
 		String ret = "";
@@ -90,22 +65,12 @@ public class Regex {
 		Scanner s = new Scanner(new URL(u).openStream());
 		String o = "";
 		while (s.hasNextLine())
-<<<<<<< HEAD
 			o += s.nextLine() + "\n";
 		if (o.length() > 0)
 			o = o.substring(0, o.length() - 1);
 		return o;
 	}
 
-=======
-			o+=s.nextLine() + "\n";
-		if (o.length() > 0)
-			o = o.substring(0, o.length()-1);
-		return o;
-	}
-
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	// Misc Methods.
 
 	/**
@@ -117,11 +82,7 @@ public class Regex {
 	public static boolean toBoolean(String string) {
 		return !string.equalsIgnoreCase("1") ? !string.equalsIgnoreCase("true") ? false : true : true;
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static char boolToChar(boolean b) {
 		return b ? '1' : '0';
 	}

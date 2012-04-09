@@ -1,8 +1,5 @@
 package broadcast;
-<<<<<<< HEAD
 
-=======
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,21 +39,13 @@ public class Broadcast {
 	private static String myTags = null;
 	private static boolean addBuddyViaReq;
 	private static final Random rnd = new Random();
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	private static final String TAG = "(#.*?)[ =\t*?]([0-1])([0-1])([0-1])";
 	private static final String ABVR = "addBudsViaReq[ =](1|0|true|false)";
 	// NOTE minilog does nothing if Gui disabled
 	public static final HashMap<String, boolean[]> tagMap = new HashMap<String, boolean[]>();
 	public static boolean forwardAll = true;
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static HashMap<String, DefaultStyledDocument> minilog = hasGUI() ? new HashMap<String, DefaultStyledDocument>() : null;
 
 	public static void init() {
@@ -70,43 +59,26 @@ public class Broadcast {
 			fnfe.printStackTrace();
 		}
 		Logger.log(Logger.NOTICE, "Broadcast", "Loaded: " + tagMap.keySet());
-<<<<<<< HEAD
 		// myTags = Config.assign("tags", "", prop);
 
-=======
-//		myTags = Config.assign("tags", "", prop);
-		
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		try {
 			bcastLogOut = new FileOutputStream("bcastLog.txt", true);
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
 		}
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		try {
 			Class.forName("gui.Gui"); // Throws ClassNotFoundException if no Gui class
 			BroadcastGui.init();
 		} catch (Exception e) {
 			// ignored
 		}
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		APIManager.addEventListener(lis = new Listener());
 		APIManager.cmdListeners.put("broadcast", lis);
 		APIManager.cmdListeners.put("mytags", lis);
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static void loadSettings() throws FileNotFoundException {
 		Scanner s = new Scanner(new FileInputStream(Config.CONFIG_DIR + "broadcast.ini"));
 		tagMap.clear();
@@ -119,11 +91,7 @@ public class Broadcast {
 			if ((data = Regex.getRegArray(l, TAG)) != null) {
 				boolean[] res = new boolean[] { Regex.toBoolean(data[2]), Regex.toBoolean(data[3]), Regex.toBoolean(data[4]) };
 				tagMap.put(data[1].trim(), res);
-<<<<<<< HEAD
 				// System.out.println(data[1] + " " + res[0] + " " + res[1] + " " + res[2]);
-=======
-//				System.out.println(data[1] + " " + res[0] + " " + res[1] + " " + res[2]);
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			} else if ((x = Regex.getReg(l, ABVR)) != null) {
 				System.out.println(l);
 				if (x.equalsIgnoreCase("1") || x.equalsIgnoreCase("true"))
@@ -138,11 +106,7 @@ public class Broadcast {
 		if (myTags.length() > 0)
 			myTags.substring(0, myTags.length() - 1);
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static void saveSettings() throws IOException {
 		ConfigWriter c = new ConfigWriter(new FileOutputStream(Config.CONFIG_DIR + "broadcast.ini"));
 		c.write("// This file is machine generated, any comments/unknown settings will be removed");
@@ -151,11 +115,7 @@ public class Broadcast {
 			c.write(e.getKey() + " " + e.getValue()[0] + e.getValue()[1] + e.getValue()[2]);
 		c.close();
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static boolean hasGUI() {
 		try {
 			Class.forName("gui.Gui");
@@ -165,11 +125,7 @@ public class Broadcast {
 		}
 		return false;
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static void broadcast(String tag, String sender, String msg, boolean ignoreTheirTags, boolean dontAdd) {
 		int sent = 0;
 		int r = rnd.nextInt();
@@ -209,22 +165,14 @@ public class Broadcast {
 	}
 
 	private static class Listener implements APIListener, CommandListener {
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		@Override
 		public void onCommand(Buddy b, String s) {
 			if (s.startsWith("broadcast ")) {
 				String tag = s.split(" ")[1];
 				String sender = s.split(" ")[2];
 				String rand = s.split(" ")[3];
-<<<<<<< HEAD
 				// broadcast #tag sender msg
-=======
-	//			 broadcast #tag sender msg
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				if (tag.startsWith("#")) {
 					String msg = s.split(" ", 5)[4];
 					String hash = getDigestFor(tag + "|" + sender + "|" + rand + "|" + msg);
@@ -234,11 +182,7 @@ public class Broadcast {
 								Class<?> c = Class.forName("gui.Alert");
 								Object o = c.getConstructor(String.class).newInstance(tag + ": " + msg);
 								c.getMethod("start").invoke(o);
-<<<<<<< HEAD
 								// new Alert(tag + ": " + msg).start();
-=======
-//								new Alert(tag + ": " + msg).start();
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
@@ -250,11 +194,7 @@ public class Broadcast {
 						}
 						if (tagMap.containsKey(tag) && tagMap.get(tag)[2]) { // mainlog
 							try {
-<<<<<<< HEAD
 								bcastLogOut.write((b.getAddress() + (char) 01 + tag + (char) 01 + sender + (char) 01 + msg + "\n").getBytes());
-=======
-								bcastLogOut.write((b.getAddress() + (char)01 + tag + (char)01 + sender + (char)01 + msg + "\n").getBytes());
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 								bcastLogOut.flush();
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -264,18 +204,10 @@ public class Broadcast {
 					Logger.log(Logger.INFO, this, "Broadcast relayed via " + b.getAddress() + " | " + tag + " by " + sender + " with text " + msg + " | " + (myTags.contains(tag) ? "Want" : "Don't want") + " | " + hash + " | Old hash? " + recievedHashes.contains(hash));
 					if (!recievedHashes.contains(hash)) {
 						recievedHashes.add(hash);
-<<<<<<< HEAD
 						// forward to others
 						if (!b.getAddress().equals(Config.us))
 							for (Buddy bud : BuddyList.buds.values())
 								if (bud.getStatus() >= Buddy.ONLINE && (forwardAll || budTags.containsKey(bud.getAddress()) && (budTags.get(bud.getAddress()).contains(tag)))) {
-=======
-		//				 forward to others
-						if (!b.getAddress().equals(Config.us))
-							for (Buddy bud : BuddyList.buds.values())
-								if (bud.getStatus() >= Buddy.ONLINE && (forwardAll || budTags.containsKey(bud.getAddress())
-										&& (budTags.get(bud.getAddress()).contains(tag)))) {
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 									try {
 										if (!bud.getAddress().equals(Config.us) && !bud.getAddress().equals(b.getAddress()))
 											bud.sendRaw("broadcast " + tag + " " + sender + " " + rand + " " + msg);
@@ -289,45 +221,28 @@ public class Broadcast {
 									}
 								}
 					}
-<<<<<<< HEAD
 				} /* /tag.startsWith("#")/ */else if (tag.startsWith("$")) {
 					String hash = getDigestFor(tag + "|" + sender + "|" + rand + "|" + null);
 					if (tag.equals("$buddyRequest") && !recievedHashes.contains(hash)) {
 						recievedHashes.add(hash);
 						Logger.log(Logger.NOTICE, this.getClass(), "Recived request from " + sender + " through " + b.getAddress());
-=======
-				} /* /tag.startsWith("#")/ */ else if (tag.startsWith("$")) {
-					String hash = getDigestFor(tag + "|" + sender + "|" + rand + "|" + null);
-					if (tag.equals("$buddyRequest") && !recievedHashes.contains(hash)) {
-						recievedHashes.add(hash);
-						Logger.log(Logger.NOTICE, this.getClass(), "Recived request from " + sender + " through " +  b.getAddress());
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 						if (sender.equals(Config.us))
 							return; // ignore it
 						System.out.println(addBuddyViaReq + " | " + BuddyList.buds.containsKey(sender));
 						if (addBuddyViaReq && !BuddyList.buds.containsKey(sender)) {
 							Buddy bu = null;
 							try {
-<<<<<<< HEAD
 								Logger.log(Logger.NOTICE, this.getClass(), "Recived request from " + sender + " through " + b.getAddress() + " adding them.");
-=======
-								Logger.log(Logger.NOTICE, this.getClass(), "Recived request from " + sender + " through " +  b.getAddress() + " adding them.");
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 								bu = new Buddy(sender, null);
 								bu.connect();
 							} catch (Exception e) {
 								try {
 									if (bu != null)
-<<<<<<< HEAD
 										bu.disconnect();
-=======
-										bu.disconnect(); 
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 									// if anything at all goes wrong, kill the buddy
 									// this really shouldnt ever happen, at all, whatsoever
 								} catch (IOException e1) {
 									// ignored
-<<<<<<< HEAD
 								}
 							}
 						}
@@ -335,16 +250,6 @@ public class Broadcast {
 							if (bud.getStatus() >= Buddy.ONLINE && !bud.getAddress().equals(Config.us) && !bud.getAddress().equals(sender) && !bud.getAddress().equals(b.getAddress())) {
 								try {
 									// broadcast("$buddyRequest", sender, null, true, false);
-=======
-								} 
-							}
-						}
-						for (Buddy bud : BuddyList.buds.values()) {
-							if (bud.getStatus() >= Buddy.ONLINE && !bud.getAddress().equals(Config.us)
-									&& !bud.getAddress().equals(sender) && !bud.getAddress().equals(b.getAddress())) {
-								try {
-	//								broadcast("$buddyRequest", sender, null, true, false);
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 									bud.sendRaw("broadcast $buddyRequest " + sender + " " + null);// possibly include the name
 								} catch (IOException e) {
 									Logger.log(Logger.WARNING, "Broadcast", "Error relaying buddy request to " + bud.getAddress() + " | " + e.getLocalizedMessage());
@@ -358,23 +263,14 @@ public class Broadcast {
 						}
 					}
 				}
-<<<<<<< HEAD
 
 				// BuddyList.buds.get("jutujsy2ufg33ckl").sendRaw("message 'tag' [hopsleft] 'crc' 'sender' 'content'");
-=======
-				
-	//					BuddyList.buds.get("jutujsy2ufg33ckl").sendRaw("message 'tag' [hopsleft] 'crc' 'sender' 'content'");
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			} else if (s.startsWith("mytags ")) {
 				Logger.log(Logger.INFO, this, "Got " + b.getAddress() + "'s tags " + s.split(" ", 2)[1]);
 				budTags.put(b.getAddress(), s.split(" ", 2)[1]);
 			}
 		}
-<<<<<<< HEAD
 
-=======
-		
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		@Override
 		public void onStatusChange(Buddy buddy, byte newStatus, byte oldStatus) {
 			if (myTags == null)
@@ -387,7 +283,6 @@ public class Broadcast {
 				}
 			}
 		}
-<<<<<<< HEAD
 
 		@Override
 		public void onProfileNameChange(Buddy buddy, String newName, String oldName) {
@@ -412,32 +307,13 @@ public class Broadcast {
 		@Override
 		public void onBuddyRemoved(Buddy buddy) {
 		}
-=======
-	
-		@Override
-		public void onProfileNameChange(Buddy buddy, String newName, String oldName) {}
-		@Override
-		public void onProfileTextChange(Buddy buddy, String newText, String oldText) {}
-		@Override
-		public void onAddMe(Buddy buddy) {}
-		@Override
-		public void onMessage(Buddy buddy, String s) {}
-		@Override
-		public void onNewBuddy(Buddy buddy) {}
-		@Override
-		public void onBuddyRemoved(Buddy buddy) {}
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	}
 
 	public static void sendMyTags() {
 		for (Buddy b : BuddyList.buds.values()) {
 			if (b.getStatus() >= Buddy.ONLINE) {
 				try {
-<<<<<<< HEAD
 					b.sendRaw("mytags " + myTags.replace("\n", "")); // also clean input
-=======
-					b.sendRaw("mytags " + myTags .replace("\n", "")); // also clean input
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				} catch (IOException ioe) {
 					try {
 						ioe.printStackTrace();
@@ -456,19 +332,11 @@ public class Broadcast {
 			d = new DefaultStyledDocument();
 			minilog.put(tag, d);
 			Style timestampStyle = d.addStyle("Time Stamp", null);
-<<<<<<< HEAD
 			StyleConstants.setForeground(timestampStyle, Color.gray.darker());
 			// Style myNameStyle = d.addStyle("Sender", null);
 			// StyleConstants.setForeground(myNameStyle, Color.blue.darker());
 			Style theirNameStyle = d.addStyle("Tag", null);
 			StyleConstants.setForeground(theirNameStyle, Color.red.darker());
-=======
-		    StyleConstants.setForeground(timestampStyle, Color.gray.darker());
-//		    Style myNameStyle = d.addStyle("Sender", null);
-//		    StyleConstants.setForeground(myNameStyle, Color.blue.darker());
-		    Style theirNameStyle = d.addStyle("Tag", null);
-		    StyleConstants.setForeground(theirNameStyle, Color.red.darker());
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		}
 		try {
 			try {
@@ -478,11 +346,7 @@ public class Broadcast {
 			}
 			if (dispTag != null)
 				d.insertString(d.getLength(), "[" + dispTag + "] ", d.getStyle("Tag"));
-<<<<<<< HEAD
 			// d.insertString(d.getLength(), sender + ": ", d.getStyle("Sender"));
-=======
-//			d.insertString(d.getLength(), sender + ": ", d.getStyle("Sender"));
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			d.insertString(d.getLength(), msg + "\n", d.getStyle("Plain"));
 			BGui.instance.getTextPane2().setCaretPosition(BGui.instance.getTextPane2().getDocument().getLength());
 		} catch (BadLocationException ble) {
@@ -490,10 +354,6 @@ public class Broadcast {
 		}
 	}
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	public static Listener getLis() {
 		return lis;
 	}

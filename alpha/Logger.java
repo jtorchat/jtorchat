@@ -7,10 +7,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 public class Logger {
 	public static final PrintStream oldOut;
 	public static final int FATAL = 0;
@@ -23,28 +19,18 @@ public class Logger {
 	private static int logLevel = DEBUG;
 	private static boolean usingLog;
 	private static Object LOCK = new Object();
-<<<<<<< HEAD
 	private static boolean override = true;
 
-=======
-	private static boolean override = true; 
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	static {
 		oldOut = System.out;
 		boolean hasGUI = hasGUI();
 		if (hasGUI) {
 			System.setOut(new PrintStream(new OutputStream() {
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				@Override
 				public void write(int b) throws IOException {
 					Log.updateOut(String.valueOf((char) b));
 				}
-<<<<<<< HEAD
 
 			}));
 			System.setErr(new PrintStream(new OutputStream() {
@@ -55,29 +41,13 @@ public class Logger {
 					// oldOut.print(String.valueOf((char) b));
 				}
 
-=======
-				
-			}));
-			System.setErr(new PrintStream(new OutputStream() {
-	
-				@Override
-				public void write(int b) throws IOException {
-					Log.updateErr(String.valueOf((char) b));
-//					oldOut.print(String.valueOf((char) b));
-				}
-				
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			}));
 			usingLog = true; // reffering to Log class
 		}
 	}
 
 	public static void log(int i, String s, String string) {
-<<<<<<< HEAD
 		synchronized (LOCK) {
-=======
-		synchronized(LOCK) {
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			if (i == FATAL) {
 				System.setErr(oldOut);
 				System.setOut(oldOut);
@@ -94,11 +64,7 @@ public class Logger {
 						System.setOut(oldOut);
 						usingLog = false;
 					}
-<<<<<<< HEAD
 				}
-=======
-				} 
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				if (!usingLog || override) {
 					if (logLevel <= WARNING)
 						oldOut.println("Log: !{" + s + "}! " + string);
@@ -110,11 +76,7 @@ public class Logger {
 			}
 		}
 	}
-<<<<<<< HEAD
 
-=======
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	private static boolean hasGUI() {
 		try {
 			Class.forName("gui.Gui");
@@ -124,15 +86,9 @@ public class Logger {
 		}
 		return false;
 	}
-<<<<<<< HEAD
 
 	public static void log(int i, Object o, String string) {
 		synchronized (LOCK) {
-=======
-	
-	public static void log(int i, Object o, String string) {
-		synchronized(LOCK) {
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 			if (logLevel >= i) {
 				if (i == FATAL) {
 					System.setErr(oldOut);
@@ -149,11 +105,7 @@ public class Logger {
 						System.setOut(oldOut);
 						usingLog = false;
 					}
-<<<<<<< HEAD
 				}
-=======
-				} 
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 				if (!usingLog || override) {
 					if (logLevel <= WARNING)
 						oldOut.println("Log: ![" + o.getClass().getCanonicalName() + "]! " + string);

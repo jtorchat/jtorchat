@@ -10,10 +10,6 @@ import alpha.Buddy;
 import alpha.BuddyList;
 import alpha.language;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 @SuppressWarnings("serial")
 public class GUIContactAdd extends JFrame {
 
@@ -54,27 +50,14 @@ public class GUIContactAdd extends JFrame {
 		}
 	}
 
-<<<<<<< HEAD
 	private void language() {
 
-=======
-	private void language()
-	{
-		
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 		label1.setText(language.langtext[13]);
 		label2.setText(language.langtext[14]);
 		button1.setText(language.langtext[15]);
 
 	}
-<<<<<<< HEAD
 
-=======
-	
-	
-	
-	
->>>>>>> 375e43e7e30d42801ac6c8a22f823368e5cb2d95
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY //GEN-BEGIN:initComponents
 		label1 = new JLabel();
