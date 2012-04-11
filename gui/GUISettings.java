@@ -38,7 +38,7 @@ public class GUISettings extends JFrame {
 		textField8.setText(Config.update);
 		textField9.setText(Config.lang);
 		if (Config.alert == 1) { checkBox2.setSelected(true); } else { checkBox2.setSelected(false); }
-		if (Config.loadTor == 1) { checkBox1.setSelected(true); } else { checkBox1.setSelected(false); }
+		if (Config.loadTor) { checkBox1.setSelected(true); } else { checkBox1.setSelected(false); }
 		if (Config.buddyStart == 1) { checkBox3.setSelected(true); } else { checkBox3.setSelected(false); }
 		if (Config.transferonstart == 1) { checkBox4.setSelected(true); } else { checkBox4.setSelected(false); }
 		if (Config.pageactive == 1) { checkBox5.setSelected(true); } else { checkBox5.setSelected(false); }
@@ -128,7 +128,7 @@ public class GUISettings extends JFrame {
 		Config.sync = sync;
 		Config.update = update;
 		if (alert) { Config.alert = 1; } else {Config.alert = 0; } ;
-		if (loadTor) { Config.loadTor = 1; } else {Config.loadTor = 0; } ;
+		Config.loadTor = loadTor;
 		if (buddyStart) { Config.buddyStart = 1; } else {Config.buddyStart = 0; } ;
 		if (updateStart) { Config.updateStart = 1; } else {Config.updateStart = 0; } ;
 		TCPort.profile_name = name;

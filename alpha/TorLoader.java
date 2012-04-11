@@ -32,7 +32,7 @@ public class TorLoader {
 					tl.gettextArea1().setText("Wrong base dir, the controlfile is not find!");
 				} else {
 
-					if (Config.answer!=null) // if a language file found
+					if (Config.answer!=null) // if a language file NOT found
 					{
 						Logger.log(Logger.FATAL, CLASS_NAME, Config.answer);
 						TCPort.getLogInstance().setVisible(true);
@@ -44,7 +44,7 @@ public class TorLoader {
 
 						if (Config.offlineMod == 0)
 						{
-							if (Config.loadTor == 1) // only load portable tor if not testing
+							if (Config.loadTor) // only load portable tor if not testing
 							{
 								ProcessBuilder pb=null;
 								pb = instantiateProcessBuilder();
@@ -171,7 +171,7 @@ public class TorLoader {
 
 		}, "Starting Tor.", "Tor Monitor Thread");
 
-		if (Config.offlineMod == 0 & Config.loadTor == 1)
+		if (Config.offlineMod == 0 & Config.loadTor)
 		{
 			try {
 				synchronized(loadLock) {
@@ -179,18 +179,6 @@ public class TorLoader {
 				}
 			} catch (InterruptedException e) {
 			}
-		}
-		String error = TCServ.init();
-		if (error != null)
-		{
-			TCPort.getLogInstance().setVisible(true);
-			tl.getProgressBar1().setValue(0);
-			tl.getProgressBar1().setIndeterminate(false);
-			tl.gettextArea1().setText(error);
-		}
-		else
-		{
-			tl.dispose();
 		}
 	}
 
