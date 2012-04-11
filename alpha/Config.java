@@ -34,7 +34,7 @@ public class Config {
 	public static int SOCKS_PORT; 
 	public static int LOCAL_PORT; 
 	public static int alert; 
-	public static int loadTor;
+	public static boolean loadTor;
 	public static int visiblelog;
 	public static int fulllog;
 	public static int buddyStart;
@@ -163,7 +163,7 @@ public class Config {
 		Config.sync = assign("sync", null, prop);
 		Config.update = assign("update", null, prop);
 		Config.alert = assignInt("alert", 1, prop);
-		Config.loadTor = assignInt("loadPortableTor", 1, prop);
+		Config.loadTor = assignInt("loadPortableTor", 1, prop) == 1 ? true : false;
 		Config.buddyStart = assignInt("OnStartBuddySync", 0, prop);
 		Config.updateStart = assignInt("OnStartUpdateCheck", 0, prop);
 		Config.firststart = assignInt("firststart", 0, prop);
@@ -247,7 +247,7 @@ public class Config {
 		Config.sync = assign("sync", null, prop);
 		Config.update = assign("update", null, prop);
 		Config.alert = assignInt("alert", 1, prop);
-		Config.loadTor = assignInt("loadPortableTor", 1, prop);
+		Config.loadTor = assignInt("loadPortableTor", 1, prop) == 1 ? true : false;
 		Config.buddyStart = assignInt("OnStartBuddySync", 0, prop);
 		Config.updateStart = assignInt("OnStartUpdateCheck", 0, prop);
 		Config.firststart = assignInt("firststart", 0, prop);
