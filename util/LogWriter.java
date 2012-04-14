@@ -28,7 +28,7 @@ public class LogWriter {
 	    //   writer.write(System.getProperty("line.separator"));
 	       writer.flush();
 	       writer.close();
-		Logger.log(Logger.INFO, "Log", "Log is write in " + filename);
+		Logger.log(Logger.INFO, "Log", "Log saved to " + filename);
 
 	    } catch (IOException e) {
 	      e.printStackTrace();

@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -128,14 +129,9 @@ public class Buddy {
 				}
 
 				synchronized (connectLock) {
-					connectLock.notifyAll(); // incase something messed up we
-												// clear it out of the way so it
-												// should work next time
+					connectLock.notifyAll(); // incase something messed up we clear it out of the way so it should work next time
 				}
 				if (ourSockOut != null) {
-					
-
-					
 					try {
 						InputStream is = ourSock.getInputStream();
 						byte b;
@@ -470,6 +466,10 @@ if (!getBlack())
 					Logger.log(Logger.NOTICE, this, "Recieved " + l.trim() + " from " + address);
 				} else if (APIManager.cmdListeners.containsKey(l.split(" ")[0])) {
 					APIManager.cmdListeners.get(l.split(" ")[0]).onCommand(this, l);
+				} else if (l.startsWith("profile_avatar")) { // will match both profile_avatar_alpha and profile_avatar
+					// intentionally placed after the cmdListeners so as to not cause an issue if someone adds a cmdListener for it
+					
+					// do nothing, only purpose of this is to not flood the log with avatar data
 				}
 
 				else {
@@ -477,6 +477,9 @@ if (!getBlack())
 					sendRaw("not_implemented ");
 				}
 			}}
+		} catch (SocketException se) {
+			Logger.log(Logger.DEBUG, this, "[" + address + "] attatch() " + se.getLocalizedMessage() + " | " + se.getStackTrace()[0]);
+			// SocketExceptions are quite common and generally nothing to worry about
 		} catch (IOException e) {
 			Logger.log(Logger.WARNING, this, "[" + address + "] theirSock = null; ourSock = null; " + e.getLocalizedMessage() + " | " + e.getStackTrace()[0]);
 			disconnect();

@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Scanner;
 
 
@@ -69,7 +70,9 @@ public class TCServ {
 											b.connect();
 										else if (b.ourSockOut != null)
 											try {
-											b.sendPong(l.split(" ")[2]); // TODO FIXME URGENT check if not connected!
+												b.sendPong(l.split(" ")[2]); // TODO FIXME URGENT check if not connected!
+											} catch (SocketException se) {
+												// ignored
 											} catch (IOException ioe) {
 												ioe.printStackTrace();
 											}
@@ -90,6 +93,13 @@ public class TCServ {
 										
 										
 										return;
+									}
+								} catch (SocketException se) {
+									// ignored
+									try {
+										s.close();
+									} catch (IOException e1) {
+										e1.printStackTrace();
 									}
 								} catch (Exception e) {
 									e.printStackTrace();
