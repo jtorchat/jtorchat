@@ -1,2 +1,79 @@
-These is the testing source for Developers.
-All changes for the last come in this code.
+LOOKING FOR DOWNLOADS? GO TO https://github.com/jtorchat/jtorchat/downloads
+
+---------
+
+Here is the actually working source from jtorchat.
+When you will help us please create forks and send us new code.
+
+This project needs developers who are willing to improve and strengthen jtorchat and ensure that it always have the latest tor binary. Get in touch with us and we'll get you started. 
+
+
++++ jTorchat V0.7.8 at Apr 2012 - file transfer fix, better language gui, more fixes
+
++++ jTorchat V0.7.7 at Apr 2012 - better blacklist and whitelist
+
++++ jTorchat V0.7.6 at Mar 2012 - fixes
+
++++ jTorchat V0.7.5 at Mar 2012 - read the readme from the file
+
++++ jTorchat V0.7.4 at Feb 2012 - many fixes
+
++++ jTorchat V0.7.3 at Feb 2012 - File-Transfer linux bug fix
+
++++ jTorchat V0.7.2 at Feb 2012 - windows & linux with obfsproxy, portable linux support, update check
+
++++ jTorchat V0.7.1 at Feb 2012 - SHIFT-ENTER and a help command for old versions (Note: Accidentally compiled only for java7, will fix in next release. Just upgrade your java)
+
++++ jTorchat V0.7.0b at Feb 2012 - only jtorchat.exe wrapper added, for the convenience of window users. (and to ensure they use the latest jre)
+
++++ jTorchat V0.7.0 at Feb 2012 - support for page, and irc-like commands like "/help", and buddysync
+
++++ jTorchat V0.6.2 at Feb 2012 - tentative support for linux (file ver was incorrectly set V6.2)
+
++++ jTorchat V0.6.1 at Jan 2012 - Bugfixes, added ability to set a nick for someone
+
++++ jTorchat V0.6 at Jan 2012 - Implemented file transfer
+
++++ jTorchat V0.5.3 at Jan 2012 - Fixed DNS loopkups being made on buddy addresses!
+
++++ jTorchat V0.5.2 at Jan 2012 - Prettying up, bugfixes
+
++++ jTorchat V0.5 at Jan 2012 - Broadcast implemented 
+
+--------------
+
+jTorchat stands for Java Torchat, and is a complete rewrite of the popular p2p IM messenger Torchat.
+
+The underlying protocol of jtorchat is based on python Torchat http://code.google.com/p/torchat/
+
+Philosophy
+
+Accessible to All. Alive and connected to All. Transparent to All.
+How we keep to these philosophy
+
+   1. Accessible to All = Writing it in java allows for easy portability of code between platforms, perhaps even in android phones.
+   2. Alive and connected to All = Broadcast feature, and eventually group chat, will provide talkers the ability to interact as a group, or as a public mass.
+   3. Transparent to All = All jtorchat will come with the source, thus increasing transparency and thus security. 
+
+Features from python Torchat
+
+   1. Basic Messaging to Torchat users - Done
+   2. Popup Alerts - Done
+   3. Time Stamp - Done
+   4. file transfer - Done
+   5. Minimize to tray - Done
+   6. Taskbar flashes on msg - How the hell do you do it in java, crossplatform? 
+
+Features extended beyond python Torchat
+
+   1. Auto buddy request - done - Helps newcomers find people to talk to
+   2. nterface to existing installed tor via GUI - done
+   3. Broadcast Mode - done - Allows a message to be sent to everyone in the network (no sender spoofing protection tho)
+   4. BuddySync? - allows a group to always keep their buddies in sync over tor.
+   5. Group Chat - Not Yet - For secure group communication.
+   6. FileSharing? - allows for calling and downloading files off online buddies. 
+
+Wishlist
+
+   1. put budReq'd buddies into a different group
+   2. move old buddies from the default group to 'Old buddies' group (but not removing them from user set groups) 
