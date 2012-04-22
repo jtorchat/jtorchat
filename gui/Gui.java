@@ -125,7 +125,7 @@ public class Gui {
 					public void actionPerformed(ActionEvent e) {
 						JTextField jtf = new JTextField();
 						jtf.setEditable(false);
-						jtf.setText("http://code.google.com/p/jtorchat/w/list");
+						jtf.setText("https://github.com/jtorchat/jtorchat/wiki");
 						JOptionPane.showMessageDialog(null, jtf, "Wiki link", JOptionPane.PLAIN_MESSAGE);
 
 					}
@@ -244,7 +244,7 @@ public class Gui {
 		f.getContentPane().add(jsp, BorderLayout.CENTER);
 
 		root = new DefaultMutableTreeNode("[root]");
-		buddyNodeholy = new DefaultMutableTreeNode("Holy");
+		buddyNodeholy = new DefaultMutableTreeNode("whitelist");
 		buddyNodeon = new DefaultMutableTreeNode(language.langtext[7]);
 		buddyNode = new DefaultMutableTreeNode(language.langtext[8]);
 		buddyNodeblack = new DefaultMutableTreeNode(language.langtext[39]);

@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.1.0.0.23" Java: "1.6.0_26" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.0.0.47" Java: "1.6.0_23" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -13,7 +13,7 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "tabbedPane1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {space :::p, par l {seq t {par l {comp label1::t:p:158:p, comp label2::t::158:x, comp label3::t::158:x, comp label5::l:p:158:p}, space u:::p, par t:::p {comp textField4::l:::x, comp textField1::l::192:x:1, comp textField2::l::192:x:1, comp textField3::l:::x:1}, space :::p}, seq l {comp label4::::376:x, space :p:4:p}, seq l {comp label6:::p:349:p, space ::23:x}}}}"
+					"$horizontalGroup": "par l {seq {space :::p, par l {seq t {par l {comp label1::t:p:158:p, comp label2::t:::x, comp label3::t:::x, comp label5::l:p:158:p}, space u:::p, par t:::p {comp textField4::l:::x, comp textField1::l::192:x:1, comp textField2::l::192:x:1, comp textField3::l:::x:1}, space :::p}, seq l {comp label4::::376:x, space :p:4:p}, seq l {comp label6:::p:349:p, space ::23:x}}}}"
 					"$verticalGroup": "par l {seq {par l {seq {space :10:10:10, comp label1:::p:28:p}, seq l {space :::p, comp textField1:::p::p}}, space :::p, par b {comp label2::b:p:28:p, comp textField2::b:p::p}, space :::p, par b {comp label3::b:p:25:p, comp textField3::b:p:28:p}, space :::p, par b {comp label5::b::25:x:1, comp textField4::b:p::p:1}, space s:::p, comp label4:::p:27:p, space :p:2:p, comp label6:::p::p, space :::p}}"
 				} ) {
 					name: "panel1"
@@ -58,7 +58,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label6"
-						"text": "\"orginal\" and \"juan\" are pre installed --> Icon Set"
+						"text": "\"orginal\", \"juan\" and \"blind\" are pre installed"
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Images"

@@ -163,7 +163,7 @@ public class SettingsGUI extends JFrame {
 	
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - jhgfdf jhgfc
+		// Generated using JFormDesigner Evaluation license - dfddfd dfdfdf
 		tabbedPane1 = new JTabbedPane();
 		panel1 = new JPanel();
 		label1 = new JLabel();
@@ -191,6 +191,13 @@ public class SettingsGUI extends JFrame {
 
 			//======== panel1 ========
 			{
+
+				// JFormDesigner evaluation mark
+				panel1.setBorder(new javax.swing.border.CompoundBorder(
+					new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+						"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+						javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+						java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 
 				//---- label1 ----
@@ -220,7 +227,7 @@ public class SettingsGUI extends JFrame {
 				label5.setHorizontalAlignment(SwingConstants.TRAILING);
 
 				//---- label6 ----
-				label6.setText("\"orginal\" and \"juan\" are pre installed --> Icon Set");
+				label6.setText("\"orginal\", \"juan\" and \"blind\" are pre installed");
 
 				GroupLayout panel1Layout = new GroupLayout(panel1);
 				panel1.setLayout(panel1Layout);
@@ -232,8 +239,8 @@ public class SettingsGUI extends JFrame {
 								.addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
 									.addGroup(panel1Layout.createParallelGroup()
 										.addComponent(label1, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-										.addComponent(label2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-										.addComponent(label3, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+										.addComponent(label2, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(label3, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(label5, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 									.addGroup(panel1Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
@@ -302,7 +309,7 @@ public class SettingsGUI extends JFrame {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - jhgfdf jhgfc
+	// Generated using JFormDesigner Evaluation license - dfddfd dfdfdf
 	private JTabbedPane tabbedPane1;
 	private JPanel panel1;
 	private JLabel label1;

@@ -56,16 +56,16 @@ public class Config {
 	public static final Properties prop;
 	public static String lang;
 	public static String dlang = "en";
-	public static String TorLin="tor.sh";
-	public static String TorLinobf="torobf.sh";
-	public static String TorWin="tor.exe";
-	public static String TorWinobf="torobf.exe";
+	public static String TorLin="linux/tor.sh";
+	public static String TorLinobf="linux/torobf.sh";
+	public static String TorWin="windows/tor.exe";
+	public static String TorWinobf="windows/torobf.exe";
 	public static String Torbinary;
 	public static String controlfile = "controlfile";
 	public static String answer="";
 
 	// Linux only
-	public static String Torclose="torclose.sh";
+	public static String Torclose="linux/torclose.sh";
 	public static String torpid=Integer.toString(Util.myRandom(1000, 9999));
 	// Only Windows
 	public static String TorWintorrc="torrc.txt";
@@ -177,7 +177,7 @@ public class Config {
 		Config.image_size  = assignInt("image_size", 16, prop);
 		Config.icon_size = assignInt("icon_size", 16, prop);
 		Config.icon_space = assignInt("icon_space", 2, prop);
-		Config.icon_folder = assign("ICON", "orginal", prop);
+		Config.icon_folder = assign("ICON", "juan", prop);
 
 
 		Config.ICON_DIR = Config.BASE_DIR + Config.DATA_DIR + "icon/" + icon_folder;
