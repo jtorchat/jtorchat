@@ -2,11 +2,13 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.*;
+import javax.swing.event.*;
 
 import alpha.Config;
 import alpha.TCPort;
@@ -28,6 +30,7 @@ public class GUISettings extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		initComponents();
+		addelements();
 		language();
 		textField1.setText(TCPort.profile_name);
 		textField2.setText(TCPort.profile_text);
@@ -36,7 +39,6 @@ public class GUISettings extends JFrame {
 		textField6.setText((Config.us != null && Config.us.length() > 0) ? Config.us : "");
 		textField7.setText(Config.sync);
 		textField8.setText(Config.update);
-		textField9.setText(Config.lang);
 		if (Config.alert == 1) { checkBox2.setSelected(true); } else { checkBox2.setSelected(false); }
 		if (Config.loadTor) { checkBox1.setSelected(true); } else { checkBox1.setSelected(false); }
 		if (Config.buddyStart == 1) { checkBox3.setSelected(true); } else { checkBox3.setSelected(false); }
@@ -77,7 +79,6 @@ public class GUISettings extends JFrame {
 		String prof = textField2.getText();
 		String sync = textField7.getText();
 		String update = textField8.getText();
-		String lang = textField9.getText();
 		boolean alert = checkBox2.isSelected();
 		boolean loadTor = checkBox1.isSelected();
 		boolean buddyStart = checkBox3.isSelected();
@@ -89,7 +90,7 @@ public class GUISettings extends JFrame {
 		boolean obfsproxy = checkBox9.isSelected();
 		boolean ClickableLinks = checkBox10.isSelected();
 		boolean offlineMod = checkBox11.isSelected();
-		
+		String lang = list1.getSelectedValue().toString();
 		int sp = -1, lp = -1;
 		
 		if (textField4.getText().length() != 0) {
@@ -192,6 +193,26 @@ public class GUISettings extends JFrame {
 		Config.nowstart = textField7.getText();
 	}
 
+	private void addelements()
+	{
+        int index=0;
+        int now = 0;
+		DefaultListModel listModel = new DefaultListModel();
+		File dir = new File(Config.LANG_DIR);
+		File[] fileList = dir.listFiles();
+		for(File f : fileList) {
+		if (f.getName().endsWith(".ini"))
+		{
+		listModel.addElement(f.getName().subSequence(0,f.getName().length()-4));
+		if ((f.getName().subSequence(0,f.getName().length()-4)).equals(Config.lang))
+		{now=index+1;}
+		index++;
+		}}
+        list1.setModel(listModel);
+        if (now != 0)
+        {list1.setSelectedIndex(now-1);}
+        getlanginfo(Config.lang);
+	    }
 
 	private void language()
 	{
@@ -217,10 +238,8 @@ public class GUISettings extends JFrame {
 		checkBox3.setText(language.langtext[32]);
 		label9.setText(language.langtext[34]);
 		button3.setText(language.langtext[35]);
-		checkBox6.setText(language.langtext[36]);
-		button4.setText(language.langtext[42]);
-		textField10.setText(language.langtext[43]);
-		textField13.setText(language.langtext[44]);
+		checkBox6.setText(language.langtext[36]);;
+
 
 	
 	tabbedPane1.removeAll();
@@ -233,17 +252,22 @@ public class GUISettings extends JFrame {
 
 	}
 
-	private void button4ActionPerformed(ActionEvent e) {
-		String[] info = alpha.language.getinfo(textField9.getText());
+	private void getlanginfo(String file) {
+		String[] info = alpha.language.getinfo(file);
 		textField3.setText(info[0]);
 		textField11.setText(info[1]);
 		textField12.setText(info[2]);
+	}
+
+	private void list1ValueChanged(ListSelectionEvent e) {
+	 getlanginfo(list1.getSelectedValue().toString());
+     Config.lang = list1.getSelectedValue().toString();
 	}
 	
 	
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - jhgfdf jhgfc
+		// Generated using JFormDesigner Evaluation license - dfddfd dfdfdf
 		tabbedPane1 = new JTabbedPane();
 		panel1 = new JPanel();
 		label1 = new JLabel();
@@ -268,12 +292,11 @@ public class GUISettings extends JFrame {
 		checkBox6 = new JCheckBox();
 		panel5 = new JPanel();
 		textField3 = new JTextField();
-		button4 = new JButton();
-		textField9 = new JTextField();
-		textField10 = new JTextField();
 		textField11 = new JTextField();
 		textField12 = new JTextField();
-		textField13 = new JTextField();
+		scrollPane1 = new JScrollPane();
+		list1 = new JList();
+		label10 = new JLabel();
 		panel2 = new JPanel();
 		label4 = new JLabel();
 		textField4 = new JTextField();
@@ -301,6 +324,7 @@ public class GUISettings extends JFrame {
 
 			//======== panel1 ========
 			{
+
 
 
 				//---- label1 ----
@@ -344,33 +368,24 @@ public class GUISettings extends JFrame {
 						.addGroup(panel1Layout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(panel1Layout.createParallelGroup()
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox4, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox5, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox7, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox8, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox10, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(66, Short.MAX_VALUE))
-								.addGroup(panel1Layout.createSequentialGroup()
-									.addComponent(checkBox2, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(52, Short.MAX_VALUE))
 								.addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
 									.addGap(12, 12, 12)
-									.addComponent(label2, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+									.addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 									.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 									.addComponent(textField2, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
 								.addGroup(GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
 									.addComponent(label1, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-									.addComponent(textField1, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(textField1, GroupLayout.PREFERRED_SIZE, 212, GroupLayout.PREFERRED_SIZE))
+								.addGroup(panel1Layout.createSequentialGroup()
+									.addGroup(panel1Layout.createParallelGroup()
+										.addComponent(checkBox4, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
+										.addComponent(checkBox5, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
+										.addComponent(checkBox7, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
+										.addComponent(checkBox8, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
+										.addComponent(checkBox10, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
+										.addComponent(checkBox2, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE))
+									.addContainerGap())))
 				);
 				panel1Layout.setVerticalGroup(
 					panel1Layout.createParallelGroup()
@@ -520,7 +535,7 @@ public class GUISettings extends JFrame {
 							.addComponent(checkBox6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(30, 30, 30)
 							.addComponent(button3, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(69, Short.MAX_VALUE))
+							.addContainerGap(51, Short.MAX_VALUE))
 				);
 			}
 			tabbedPane1.addTab("Update Check", panel4);
@@ -532,76 +547,61 @@ public class GUISettings extends JFrame {
 				//---- textField3 ----
 				textField3.setEditable(false);
 
-				//---- button4 ----
-				button4.setText("Check");
-				button4.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						button4ActionPerformed(e);
-					}
-				});
-
-				//---- textField10 ----
-				textField10.setText("Enter your language (example: en) and restart jtorchat");
-				textField10.setEditable(false);
-
 				//---- textField11 ----
 				textField11.setEditable(false);
 
 				//---- textField12 ----
 				textField12.setEditable(false);
 
-				//---- textField13 ----
-				textField13.setText("When the language file not exist, the default language is en");
-				textField13.setEditable(false);
+				//======== scrollPane1 ========
+				{
+
+					//---- list1 ----
+					list1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					list1.addListSelectionListener(new ListSelectionListener() {
+						@Override
+						public void valueChanged(ListSelectionEvent e) {
+							list1ValueChanged(e);
+						}
+					});
+					scrollPane1.setViewportView(list1);
+				}
+
+				//---- label10 ----
+				label10.setText("Please choose a language.");
 
 				GroupLayout panel5Layout = new GroupLayout(panel5);
 				panel5.setLayout(panel5Layout);
 				panel5Layout.setHorizontalGroup(
 					panel5Layout.createParallelGroup()
-						.addGroup(GroupLayout.Alignment.TRAILING, panel5Layout.createSequentialGroup()
-							.addGap(72, 72, 72)
-							.addComponent(textField9, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-							.addGap(129, 129, 129)
-							.addComponent(button4)
-							.addGap(89, 89, 89))
 						.addGroup(panel5Layout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(textField10, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+							.addContainerGap(20, Short.MAX_VALUE)
+							.addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+								.addComponent(textField3, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+								.addComponent(textField11, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+								.addComponent(textField12, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+								.addComponent(label10, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))
+							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+							.addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
-						.addGroup(panel5Layout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(textField13, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(panel5Layout.createSequentialGroup()
-							.addGap(60, 60, 60)
-							.addGroup(panel5Layout.createParallelGroup()
-								.addComponent(textField12, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField11, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField3, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(77, Short.MAX_VALUE))
 				);
 				panel5Layout.setVerticalGroup(
 					panel5Layout.createParallelGroup()
 						.addGroup(panel5Layout.createSequentialGroup()
-							.addGroup(panel5Layout.createParallelGroup()
+							.addGroup(panel5Layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
 								.addGroup(panel5Layout.createSequentialGroup()
-									.addContainerGap()
-									.addComponent(textField10, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGap(25, 25, 25)
+									.addComponent(scrollPane1, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
 								.addGroup(panel5Layout.createSequentialGroup()
-									.addGap(40, 40, 40)
-									.addComponent(textField13, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-							.addGroup(panel5Layout.createParallelGroup()
-								.addComponent(button4)
-								.addComponent(textField9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-							.addComponent(textField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(18, 18, 18)
-							.addComponent(textField11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(18, 18, 18)
-							.addComponent(textField12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addGap(35, 35, 35)
+									.addComponent(textField3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(18, 18, 18)
+									.addComponent(textField11, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(18, 18, 18)
+									.addComponent(textField12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(label10)))
+							.addContainerGap(16, Short.MAX_VALUE))
 				);
 			}
 			tabbedPane1.addTab("Language", panel5);
@@ -699,7 +699,7 @@ public class GUISettings extends JFrame {
 							.addComponent(checkBox9)
 							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 							.addComponent(checkBox11)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(label3)
 							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 							.addComponent(label7, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
@@ -729,7 +729,7 @@ public class GUISettings extends JFrame {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-	// Generated using JFormDesigner Evaluation license - jhgfdf jhgfc
+	// Generated using JFormDesigner Evaluation license - dfddfd dfdfdf
 	private JTabbedPane tabbedPane1;
 	private JPanel panel1;
 	private JLabel label1;
@@ -754,12 +754,11 @@ public class GUISettings extends JFrame {
 	private JCheckBox checkBox6;
 	private JPanel panel5;
 	private JTextField textField3;
-	private JButton button4;
-	private JTextField textField9;
-	private JTextField textField10;
 	private JTextField textField11;
 	private JTextField textField12;
-	private JTextField textField13;
+	private JScrollPane scrollPane1;
+	private JList list1;
+	private JLabel label10;
 	private JPanel panel2;
 	private JLabel label4;
 	private JTextField textField4;
