@@ -31,6 +31,7 @@ public class Config {
 	public static String LANG_DIR = "";
 	public static String DATA_DIR = "";
 	public static String ICON_DIR = "";
+	public static String ICON_DIR_MAIN = "";
 	public static int SOCKS_PORT; 
 	public static int LOCAL_PORT; 
 	public static int alert; 
@@ -123,6 +124,7 @@ public class Config {
 		PAGE_DIR =  Config.BASE_DIR + Config.DATA_DIR + "page/";
 		TOR_DIR = Config.BASE_DIR + Config.DATA_DIR + "Tor/";
 		LANG_DIR = Config.BASE_DIR + Config.DATA_DIR + "lang/";
+		ICON_DIR_MAIN = Config.BASE_DIR + Config.DATA_DIR + "icon/";
 		//Create all important dir
 		new File(CONFIG_DIR).mkdirs();
 		new File(DOWNLOAD_DIR).mkdirs();
@@ -131,7 +133,7 @@ public class Config {
 		new File(PAGE_DIR).mkdirs();
 		new File(TOR_DIR).mkdirs();
 		new File(LANG_DIR).mkdirs();
-		new File(ICON_DIR).mkdirs();
+		new File(ICON_DIR_MAIN).mkdirs();
 		Logger.log(Logger.NOTICE, "Config", "Using " + CONFIG_DIR + " as CONFIG_DIR");
 		Logger.log(Logger.NOTICE, "Config", "Using " + DOWNLOAD_DIR + " as DOWNLOAD_DIR");
 		Logger.log(Logger.NOTICE, "Config", "Using " + LOG_DIR + " as LOG_DIR");
@@ -177,13 +179,12 @@ public class Config {
 		Config.image_size  = assignInt("image_size", 16, prop);
 		Config.icon_size = assignInt("icon_size", 16, prop);
 		Config.icon_space = assignInt("icon_space", 2, prop);
-		Config.icon_folder = assign("ICON", "juan", prop);
+		Config.icon_folder = assign("ICON", "juan.icon", prop);
 
-
-		Config.ICON_DIR = Config.BASE_DIR + Config.DATA_DIR + "icon/" + icon_folder;
+		Config.ICON_DIR = Config.ICON_DIR_MAIN + icon_folder;
 		if(!new File(ICON_DIR).exists())
 		{
-			Config.ICON_DIR = Config.BASE_DIR + Config.DATA_DIR + "icon/" + "orginal";
+		Config.ICON_DIR = Config.ICON_DIR_MAIN + "juan.icon";
 		}
 		Logger.log(Logger.NOTICE, "Config", "Using " + ICON_DIR + " as ICON_DIR");
 
