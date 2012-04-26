@@ -55,9 +55,9 @@ public class Log extends JFrame {
 		synchronized(LOCK) {
 			DefaultStyledDocument d = (DefaultStyledDocument) instance.textPane1.getDocument();
 			try {
-				
 				d.insertString(d.getLength(), text, style == null ? null : d.getStyle(style));
 				trimText();
+				instance.textPane1.setCaretPosition(d.getLength());
 			} catch (BadLocationException ble) {
 				ble.printStackTrace();
 			}
@@ -70,6 +70,7 @@ public class Log extends JFrame {
 			try {
 				d.insertString(d.getLength(), s, d.getStyle("Err"));
 				trimText();
+				instance.textPane1.setCaretPosition(d.getLength());
 				} catch (BadLocationException ble) {
 				ble.printStackTrace();
 			}
@@ -82,6 +83,7 @@ public class Log extends JFrame {
 			try {
 				d.insertString(d.getLength(), s, null);
 				trimText();
+				instance.textPane1.setCaretPosition(d.getLength());
 			} catch (BadLocationException ble) {
 				ble.printStackTrace();
 			}
@@ -91,9 +93,7 @@ public class Log extends JFrame {
 	private static void trimText() {
 		if (Config.fulllog == 0) {
 			synchronized(LOCK) {
-				int count = 0;
-				int old = instance.textPane1.getCaretPosition();
-				instance.textPane1.setCaretPosition(0);
+				int count = 0;				instance.textPane1.setCaretPosition(0);
 				try {
 					while (instance.textPane1.getDocument().getLength() > 10000) {
 						if (count++ > 50) {
@@ -106,7 +106,6 @@ public class Log extends JFrame {
 				} catch (BadLocationException e) {
 //					e.printStackTrace();
 				}
-				instance.textPane1.setCaretPosition(Math.min(old, instance.textPane1.getDocument().getLength())); // to try avoid lockup
 			}
 		}
 	}
@@ -116,6 +115,7 @@ public class Log extends JFrame {
 	}
 
 	private void clear(ActionEvent e) {
+		instance.textPane1.setCaretPosition(0);
 		instance.textPane1.setDocument(new DefaultStyledDocument());
 		initDocument();
 		System.gc(); // ask the jvm to collect garbage

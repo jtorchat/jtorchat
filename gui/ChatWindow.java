@@ -65,9 +65,6 @@ append("Plain", text);
 }
 else
 {
-
-
-
 String[] splittall = text.split(" ");
 	
 int x=0;
@@ -96,7 +93,8 @@ try {
 else
 {
 append("Plain", splittall[x]);
-append("Plain", " ");
+
+if (x < splittall.length-1){append("Plain", " ");}
 }
 
 

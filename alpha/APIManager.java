@@ -55,6 +55,17 @@ public class APIManager {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public static void fireRemove(Buddy buddy) {
+		try {
+			Logger.log(Logger.DEBUG, "API", buddy.getAddress() + " requested us to del them");
+			for (APIListener apil : listeners)
+				apil.onBuddyRemoved(buddy);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void fireMessage(Buddy buddy, String s) {
 		try {

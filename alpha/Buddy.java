@@ -417,13 +417,6 @@ if (!getBlack())
 				} else if (l.startsWith("ping ")) {
 					if (ourSock == null)
 						connect();
-					// theirCookie = l.split(" ")[2];
-					// try {
-					// sendPong(theirCookie);
-					// } catch (NullPointerException npe) {
-					// Logger.log(Logger.INFO, Buddy.this, "2Caught npe on " +
-					// address);
-					// }
 					try {
 						sendPong(l.split(" ")[2]);
 					} catch (NullPointerException npe) {
@@ -460,6 +453,8 @@ if (!getBlack())
 					APIManager.fireProfileTextChange(this, profile_text, old);
 				} else if (l.startsWith("add_me")) {
 					APIManager.fireAddMe(this);
+				} else if (l.startsWith("remove_me")) {
+					APIManager.fireRemove(this);
 				} else if (l.startsWith("message ")) {
 					APIManager.fireMessage(this, l.split(" ", 2)[1]);
 				} else if (l.startsWith("not_implemented")) {
@@ -467,11 +462,8 @@ if (!getBlack())
 				} else if (APIManager.cmdListeners.containsKey(l.split(" ")[0])) {
 					APIManager.cmdListeners.get(l.split(" ")[0]).onCommand(this, l);
 				} else if (l.startsWith("profile_avatar")) { // will match both profile_avatar_alpha and profile_avatar
-					// intentionally placed after the cmdListeners so as to not cause an issue if someone adds a cmdListener for it
-					
-					// do nothing, only purpose of this is to not flood the log with avatar data
+					Logger.log(Logger.NOTICE, this, "Sorry, we have no avatar support. Coming soon.");
 				}
-
 				else {
 					Logger.log(Logger.WARNING, this, "Recieved unknown from " + address + " " + l);
 					sendRaw("not_implemented ");
@@ -558,6 +550,7 @@ if (!getBlack())
 
 	public void remove() throws IOException {
 		BuddyList.buds.remove(address);
+		try { sendRaw("remove_me"); } catch (IOException e) {}
 		disconnect();
 		APIManager.fireBuddyRemoved(this);
 	}

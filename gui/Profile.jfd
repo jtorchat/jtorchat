@@ -1,0 +1,64 @@
+JFDML JFormDesigner: "5.1.0.0.47" Java: "1.6.0_24" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.GridBagLayout ) {
+			"$columnSpecs": "0:1.0"
+			"$rowSpecs": "0:1.0, 0"
+			"$alignTop": true
+			"$alignLeft": true
+		} ) {
+			name: "this"
+			"$locationPolicy": 0
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {seq {space :::p, par l {comp scrollPane1:::::x, seq t {par l:::p {comp label3:::::x, comp label4:::::x, comp label5:::::x, comp label6:::::x}, space :::x, par l {comp textField4:::p:288:p, par l:::p {comp textField1::t::288:x, comp textField2::t::288:x, comp textField3::t::288:x}}}}, space :::p}}"
+				"$verticalGroup": "par l {seq t {par b {comp textField1::b:p::p, comp label3::b:p::p}, space :::p, par b {comp textField4::b:p::p, comp label4::b:p::p}, space :p:4:p, par b {comp textField2::b:p::p, comp label5::b:p::p}, space :::p, par b {comp textField3::b:p::p, comp label6::b:p::p}, space :p:12:p, comp scrollPane1::::127:x}}"
+			} ) {
+				name: "panel1"
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "scrollPane1"
+					add( new FormComponent( "javax.swing.JTextArea" ) {
+						name: "textArea1"
+						"editable": false
+					} )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField1"
+					"editable": false
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField2"
+					"editable": false
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField3"
+					"editable": false
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField4"
+					"editable": false
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+					"text": "Name:"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label4"
+					"text": "Disp-Name:"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label5"
+					"text": "Tor-ID:"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label6"
+					"text": "Version:"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 400, 290 )
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

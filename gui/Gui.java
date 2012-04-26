@@ -379,6 +379,16 @@ public class Gui {
 					openChatWindow((Buddy) o);
 				}
 			}));
+			
+			
+			popup.add(getMenuItem("Display Profile", new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Profile guis = new Profile((Buddy) o);
+					guis.setVisible(true);
+				}
+			}));
 
 			popup.add(new JPopupMenu.Separator());
 			popup.add(getMenuItem(language.langtext[74], new ActionListener() {
@@ -419,7 +429,7 @@ public class Gui {
 							BuddyList.addHoly(((Buddy) o));
 						}
 					}));
-
+					
 					popup.add(getMenuItem(language.langtext[76], new ActionListener() {
 
 						@Override
