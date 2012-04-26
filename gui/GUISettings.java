@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,7 +29,7 @@ public class GUISettings extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		initComponents();
-		addelements();
+		list1 = util.list.addelements(list1,Config.lang,Config.LANG_DIR,".ini");
 		language();
 		textField1.setText(TCPort.profile_name);
 		textField2.setText(TCPort.profile_text);
@@ -193,27 +192,6 @@ public class GUISettings extends JFrame {
 		Config.nowstart = textField7.getText();
 	}
 
-	private void addelements()
-	{
-        int index=0;
-        int now = 0;
-		DefaultListModel listModel = new DefaultListModel();
-		File dir = new File(Config.LANG_DIR);
-		File[] fileList = dir.listFiles();
-		for(File f : fileList) {
-		if (f.getName().endsWith(".ini"))
-		{
-		listModel.addElement(f.getName().subSequence(0,f.getName().length()-4));
-		if ((f.getName().subSequence(0,f.getName().length()-4)).equals(Config.lang))
-		{now=index+1;}
-		index++;
-		}}
-        list1.setModel(listModel);
-        if (now != 0)
-        {list1.setSelectedIndex(now-1);}
-        getlanginfo(Config.lang);
-	    }
-
 	private void language()
 	{
 
@@ -325,6 +303,12 @@ public class GUISettings extends JFrame {
 			//======== panel1 ========
 			{
 
+				// JFormDesigner evaluation mark
+				panel1.setBorder(new javax.swing.border.CompoundBorder(
+					new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+						"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+						javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+						java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 
 				//---- label1 ----
