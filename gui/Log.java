@@ -18,10 +18,12 @@ import javax.swing.text.StyleConstants;
 
 import alpha.Config;
 
+
 import util.LogWriter;
 
 @SuppressWarnings("serial")
 public class Log extends JFrame {
+	public static long lastclear = System.currentTimeMillis() / 1000;
 	public static final Log instance;
 	public Log() {
 		initComponents();
@@ -91,25 +93,21 @@ public class Log extends JFrame {
 	}
 	
 	private static void trimText() {
-		if (Config.fulllog == 0) {
-			synchronized(LOCK) {
-				int count = 0;				instance.textPane1.setCaretPosition(0);
-				try {
-					while (instance.textPane1.getDocument().getLength() > 10000) {
-						if (count++ > 50) {
-							instance.textPane1.getDocument().remove(0, 10001);
-							break;
-						}
-						int i = instance.textPane1.getText().indexOf("\n");
-						instance.textPane1.getDocument().remove(0, i + 1);
-					}
-				} catch (BadLocationException e) {
-//					e.printStackTrace();
-				}
+		if (Config.fulllog == 0)
+		{
+		if (instance.textPane1.getDocument().getLength() > 10000) {
+			instance.textPane1.setCaretPosition(0);
+			int i = instance.textPane1.getText().indexOf("\n");
+			try {
+			instance.textPane1.getDocument().remove(0, i + 1);
+			} catch (BadLocationException e) {
+			e.printStackTrace();
 			}
-		}
+			trimText();
+			}}
 	}
-
+	
+	
 	private void save(ActionEvent e) {
 		LogWriter.LogWrite(instance.textPane1.getText(),0,"");
 	}
@@ -128,8 +126,8 @@ public class Log extends JFrame {
 	
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+		// Generated using JFormDesigner Evaluation license - dfddfd dfdfdf
 		menuBar1 = new JMenuBar();
-		menu1 = new JMenu();
 		menuItem2 = new JMenuItem();
 		menuItem1 = new JMenuItem();
 		menuItem3 = new JMenuItem();
@@ -143,42 +141,41 @@ public class Log extends JFrame {
 		//======== menuBar1 ========
 		{
 
-			//======== menu1 ========
-			{
-				menu1.setText("File");
+			//---- menuItem2 ----
+			menuItem2.setText("Save");
+			menuItem2.setHorizontalTextPosition(SwingConstants.CENTER);
+			menuItem2.setHorizontalAlignment(SwingConstants.CENTER);
+			menuItem2.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					save(e);
+				}
+			});
+			menuBar1.add(menuItem2);
 
-				//---- menuItem2 ----
-				menuItem2.setText("Save");
-				menuItem2.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						save(e);
-					}
-				});
-				menu1.add(menuItem2);
+			//---- menuItem1 ----
+			menuItem1.setText("Clear");
+			menuItem1.setHorizontalTextPosition(SwingConstants.CENTER);
+			menuItem1.setHorizontalAlignment(SwingConstants.CENTER);
+			menuItem1.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					clear(e);
+				}
+			});
+			menuBar1.add(menuItem1);
 
-				//---- menuItem1 ----
-				menuItem1.setText("Clear");
-				menuItem1.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						clear(e);
-					}
-				});
-				menu1.add(menuItem1);
-				menu1.addSeparator();
-
-				//---- menuItem3 ----
-				menuItem3.setText("Close");
-				menuItem3.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						close(e);
-					}
-				});
-				menu1.add(menuItem3);
-			}
-			menuBar1.add(menu1);
+			//---- menuItem3 ----
+			menuItem3.setText("Close");
+			menuItem3.setHorizontalTextPosition(SwingConstants.CENTER);
+			menuItem3.setHorizontalAlignment(SwingConstants.CENTER);
+			menuItem3.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					close(e);
+				}
+			});
+			menuBar1.add(menuItem3);
 		}
 		setJMenuBar(menuBar1);
 
@@ -193,8 +190,8 @@ public class Log extends JFrame {
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+	// Generated using JFormDesigner Evaluation license - dfddfd dfdfdf
 	private JMenuBar menuBar1;
-	private JMenu menu1;
 	private JMenuItem menuItem2;
 	private JMenuItem menuItem1;
 	private JMenuItem menuItem3;
@@ -203,7 +200,6 @@ public class Log extends JFrame {
 	// JFormDesigner - End of variables declaration  //GEN-END:variables
 
 
-	
 }
 
 
