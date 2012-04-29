@@ -1,4 +1,4 @@
-JFDML JFormDesigner: "5.1.0.0.47" Java: "1.6.0_23" encoding: "UTF-8"
+JFDML JFormDesigner: "5.1.0.0.47" Java: "1.6.0_24" encoding: "UTF-8"
 
 new FormModel {
 	contentType: "form/swing"
@@ -13,33 +13,15 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "tabbedPane1"
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-					"$horizontalGroup": "par l {seq {space :::p, par l {seq t {space :12:12:12, comp label2:::::x, space :::p, comp textField2:::p:212:p}, seq t {comp label1:::p:158:p, space :::p, comp textField1:::p:212:p}, seq {par l {comp checkBox4::l:p:306:p, comp checkBox5::l:p:306:p, comp checkBox7::l:p:306:p, comp checkBox8::l:p:306:p, comp checkBox10::l:p:306:p, comp checkBox2::l:p:320:p}, space :::x}}}}"
-					"$verticalGroup": "par l {seq {space :10:10:10, par b {comp textField1::b:p::p, comp label1::b:p:28:p}, space :5:5:5, par b {comp textField2::b:p::p, comp label2::b:p:28:p}, space :::p, comp checkBox2:::p::p, space :p:4:p, comp checkBox4:::p::p, space :::p, comp checkBox5:::p::p, space :::p, comp checkBox7:::p::p, space :::p, comp checkBox8:::p::p, space :::p, comp checkBox10:::p::p, space :p:20:p}}"
+					"$horizontalGroup": "par l {seq {space :::p, par l {comp checkBox2::l:p:320:p, comp checkBox4::l:p:306:p, comp checkBox5::l:p:306:p, comp checkBox7::l:p:306:p, comp checkBox8::l:p:306:p, comp checkBox10::l:p:306:p}, space ::52:x}}"
+					"$verticalGroup": "par l {seq {space :p:22:p, comp checkBox2:::p::p, space u:::p, comp checkBox4:::p::p, space u:::p, comp checkBox5:::p::p, space u:::p, comp checkBox7:::p::p, space u:::p, comp checkBox8:::p::p, space u:::p, comp checkBox10:::p::p, space :::p}}"
 				} ) {
 					name: "panel1"
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label1"
-						"text": "Profile name: "
-						"horizontalAlignment": 4
-					} )
-					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "textField1"
-						"preferredSize": &Dimension0 new java.awt.Dimension( 180, 28 )
-					} )
-					add( new FormComponent( "javax.swing.JLabel" ) {
-						name: "label2"
-						"text": "Profile text: "
-						"horizontalAlignment": 4
-					} )
-					add( new FormComponent( "javax.swing.JTextField" ) {
-						name: "textField2"
-						"preferredSize": &Dimension1 new java.awt.Dimension( 180, 28 )
-					} )
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "checkBox2"
 						"text": "alert on events"
-						"preferredSize": &Dimension2 new java.awt.Dimension( 60, 18 )
-						"minimumSize": &Dimension3 new java.awt.Dimension( 30, 18 )
+						"preferredSize": &Dimension0 new java.awt.Dimension( 60, 18 )
+						"minimumSize": &Dimension1 new java.awt.Dimension( 30, 18 )
 					} )
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "checkBox4"
@@ -76,20 +58,20 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "textField7"
-						"preferredSize": #Dimension0
+						"preferredSize": &Dimension2 new java.awt.Dimension( 180, 28 )
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "button2"
 						"text": "sync"
-						"maximumSize": &Dimension4 new java.awt.Dimension( 100, 23 )
-						"minimumSize": &Dimension5 new java.awt.Dimension( 100, 23 )
+						"maximumSize": &Dimension3 new java.awt.Dimension( 100, 23 )
+						"minimumSize": &Dimension4 new java.awt.Dimension( 100, 23 )
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sync", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "checkBox3"
 						"text": "sync at every start"
-						"preferredSize": #Dimension2
-						"minimumSize": #Dimension3
+						"preferredSize": #Dimension0
+						"minimumSize": #Dimension1
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Buddy Sync"
@@ -108,20 +90,20 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "textField8"
-						"preferredSize": #Dimension0
+						"preferredSize": #Dimension2
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "button3"
 						"text": "check"
-						"maximumSize": #Dimension4
-						"minimumSize": #Dimension5
+						"maximumSize": #Dimension3
+						"minimumSize": #Dimension4
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "update", true ) )
 					} )
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "checkBox6"
 						"text": "check for update at every start"
-						"preferredSize": #Dimension2
-						"minimumSize": #Dimension3
+						"preferredSize": #Dimension0
+						"minimumSize": #Dimension1
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "Update Check"
@@ -170,7 +152,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "textField4"
-						"preferredSize": #Dimension0
+						"preferredSize": #Dimension2
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label5"
@@ -179,7 +161,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "textField5"
-						"preferredSize": #Dimension1
+						"preferredSize": new java.awt.Dimension( 180, 28 )
 					} )
 					add( new FormComponent( "javax.swing.JLabel" ) {
 						name: "label6"
@@ -193,8 +175,8 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "checkBox1"
 						"text": "Initial Tor Portable at start"
-						"preferredSize": #Dimension2
-						"minimumSize": #Dimension3
+						"preferredSize": #Dimension0
+						"minimumSize": #Dimension1
 					} )
 					add( new FormComponent( "javax.swing.JCheckBox" ) {
 						name: "checkBox9"

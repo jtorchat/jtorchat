@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
+import util.ConfigWriter;
+
 
 
 
@@ -33,10 +35,10 @@ return "I can not load a language file, please check it!";
 	} catch (IOException e1) {}
 } catch (IOException e) {}
 
-if (Config.assign("version", null, prop).equals("0.1"))
+if (ConfigWriter.assign("version", null, prop).equals("0.1"))
 {
-language = Config.assign("language", null, prop);
-native_language = Config.assign("native_language", null, prop);
+language = ConfigWriter.assign("language", null, prop);
+native_language = ConfigWriter.assign("native_language", null, prop);
 int i = 0;
 
 while(i<41)
@@ -63,7 +65,7 @@ if (count.length() == 5)
 count = "0"+count;
 }
 
-langtext[i] = Config.assign("lang"+count, "lang"+count, prop);
+langtext[i] = ConfigWriter.assign("lang"+count, "lang"+count, prop);
 i++;
 } 
 
@@ -77,10 +79,10 @@ return "The Language file is not the newest and i can not load the second file "
 
 } catch (IOException e) {}
 
-language = Config.assign("language", null, prop);
-native_language = Config.assign("native_language", null, prop);
+language = ConfigWriter.assign("language", null, prop);
+native_language = ConfigWriter.assign("native_language", null, prop);
 
-if (Config.assign("version", null, prop).equals("0.2"))
+if (ConfigWriter.assign("version", null, prop).equals("0.2"))
 {
 i = 41;
 while(i<78)
@@ -107,7 +109,7 @@ if (count.length() == 5)
 count = "0"+count;
 }
 
-langtext[i] = Config.assign("lang"+count, "lang"+count, prop);
+langtext[i] = ConfigWriter.assign("lang"+count, "lang"+count, prop);
 i++;
 } 
 }
@@ -116,10 +118,10 @@ else
 return "The second language is not new enough!";	
 }
 }
-else if (Config.assign("version", null, prop).equals("0.2"))
+else if (ConfigWriter.assign("version", null, prop).equals("0.2"))
 {
-	language = Config.assign("language", null, prop);
-	native_language = Config.assign("native_language", null, prop);
+	language = ConfigWriter.assign("language", null, prop);
+	native_language = ConfigWriter.assign("native_language", null, prop);
 	int i = 0;
 
 	while(i<78)
@@ -146,7 +148,7 @@ else if (Config.assign("version", null, prop).equals("0.2"))
 	count = "0"+count;
 	}
 
-	langtext[i] = Config.assign("lang"+count, "lang"+count, prop);
+	langtext[i] = ConfigWriter.assign("lang"+count, "lang"+count, prop);
 	i++;
 	} 	
 }
@@ -174,9 +176,9 @@ return info;
 } catch (IOException e) {}
 
 
-info_lang = Config.assign("language", null, prop);
-info_n_lang = Config.assign("native_language", null, prop);
-version = Config.assign("version", null, prop);
+info_lang = ConfigWriter.assign("language", null, prop);
+info_n_lang = ConfigWriter.assign("native_language", null, prop);
+version = ConfigWriter.assign("version", null, prop);
 
 
 info[0] = "The file has the language is " + info_lang;

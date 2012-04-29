@@ -14,7 +14,6 @@ import alpha.language;
 @SuppressWarnings("serial")
 public class GUIContactAdd extends JFrame {
 
-	private Buddy b;
 
 	// public static void main(String[] a) {
 	// new GUIContactAdd().setVisible(true);
@@ -28,7 +27,6 @@ public class GUIContactAdd extends JFrame {
 	}
 
 	private void ok(ActionEvent e) {
-		if (b == null) { // we're adding a buddy
 			String addr = textField1.getText();
 			if (addr.length() != 16) {
 				JOptionPane.showMessageDialog(null, language.langtext[55], language.langtext[56], JOptionPane.ERROR_MESSAGE);
@@ -43,21 +41,14 @@ public class GUIContactAdd extends JFrame {
 				}
 			new Buddy(addr, dispName,true).connect();
 			dispose();
-		} else {
-			if (textField2.getText().length() > 0)
-				b.overrideName = true;
-			b.setName(textField2.getText());
-			dispose();
-		}
+
 	}
 
 	private void language()
 	{
-		
 		label1.setText(language.langtext[13]);
 		label2.setText(language.langtext[14]);
 		button1.setText(language.langtext[15]);
-
 	}
 	
 	
@@ -123,11 +114,5 @@ public class GUIContactAdd extends JFrame {
 	private JButton button1;
 	// JFormDesigner - End of variables declaration //GEN-END:variables
 
-	public void setBuddy(Buddy o) {
-		this.b = o;
-		textField1.setText(b.getAddress());
-		textField1.setEditable(false);
-		if (b.overrideName)
-			textField2.setText(b.getName());
-	}
+
 }
