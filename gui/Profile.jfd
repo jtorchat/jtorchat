@@ -12,8 +12,8 @@ new FormModel {
 			name: "this"
 			"$locationPolicy": 0
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-				"$horizontalGroup": "par l {seq {space :::p, par l {comp scrollPane1:::::x, seq t {par l:::p {comp label3:::::x, comp label4:::::x, comp label5:::::x, comp label6:::::x}, space :::x, par l {comp textField4:::p:288:p, par l:::p {comp textField1::t::288:x, comp textField2::t::288:x, comp textField3::t::288:x}}}}, space :::p}}"
-				"$verticalGroup": "par l {seq t {par b {comp textField1::b:p::p, comp label3::b:p::p}, space :::p, par b {comp textField4::b:p::p, comp label4::b:p::p}, space :p:4:p, par b {comp textField2::b:p::p, comp label5::b:p::p}, space :::p, par b {comp textField3::b:p::p, comp label6::b:p::p}, space :p:12:p, comp scrollPane1::::127:x}}"
+				"$horizontalGroup": "par l {seq {space :::p, par l {seq {par l:::p {comp label3:::::x, comp label4:::::x, comp label5:::::x, comp label6:::::x}, space :::x, par l {par l:t {par t:l::p {comp textField2::l::228:x, comp textField3::l::228:x}, comp textField4:::p:228:p}, comp textField1::t:p:228:p}, space :::p, par l {comp button1:::p::p, comp button2:::p::p}, space :p:19:p}, seq {comp scrollPane1:::::x, space :::p}}}}"
+				"$verticalGroup": "par l {seq t {par b {comp label3::b:p::p, comp textField1::b:p::p, comp button2::b:p::p}, space :::p, par b {comp label4::b:p::p, comp textField4::b:p::p, comp button1::b:p::p}, space :p:4:p, par b {comp label5::b:p::p, comp textField2::b:p::p}, space :::p, par b {comp label6::b:p::p, comp textField3::b:p::p}, space s:::p, comp scrollPane1::::121:x}}"
 			} ) {
 				name: "panel1"
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
@@ -37,7 +37,6 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "textField4"
-					"editable": false
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "label3"
@@ -55,7 +54,26 @@ new FormModel {
 					name: "label6"
 					"text": "Version:"
 				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button1"
+					"text": "save"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button2"
+					"text": "save"
+					"visible": false
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button2ActionPerformed", true ) )
+				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button3"
+				"text": "save"
+				"visible": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button3ActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 1
+			} )
 		}, new FormLayoutConstraints( null ) {
 			"size": new java.awt.Dimension( 400, 290 )
 			"location": new java.awt.Point( 0, 0 )
