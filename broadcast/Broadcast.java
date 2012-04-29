@@ -1,5 +1,6 @@
 package broadcast;
 import java.awt.Color;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -60,6 +61,7 @@ public class Broadcast {
 		Logger.log(Logger.NOTICE, "Broadcast", "Loaded: " + tagMap.keySet());
 //		myTags = Config.assign("tags", "", prop);
 		
+		
 		try {
 			bcastLogOut = new FileOutputStream("bcastLog.txt", true);
 		} catch (FileNotFoundException fnfe) {
@@ -79,7 +81,16 @@ public class Broadcast {
 	}
 	
 	public static void loadSettings() throws FileNotFoundException {
-		Scanner s = new Scanner(new FileInputStream(Config.CONFIG_DIR + "broadcast.ini"));
+		Scanner s;
+		boolean exists = (new File(Config.CONFIG_DIR + "broadcast.ini")).exists();
+		if (exists) {
+		s = new Scanner(new FileInputStream(Config.CONFIG_DIR + "broadcast.ini"));
+		Logger.log(Logger.NOTICE, "Broadcast", "Load from broadcast.ini");
+		} else {
+		s = new Scanner(new FileInputStream(Config.CONFIG_DIR + "backup/broadcast.ini"));
+	    Logger.log(Logger.NOTICE, "Broadcast", "Load from backup");
+		}
+		
 		tagMap.clear();
 		while (s.hasNextLine()) {
 			String l = s.nextLine().trim();
