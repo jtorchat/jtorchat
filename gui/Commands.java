@@ -279,15 +279,18 @@ private static String command;
 				
 		if(s.substring(8).equals("on")){
 			Config.updateStatus = 1;
+			TCPort.sendMyStatus();
 			return "0"+"Set status on";
 		}
 		else if(s.substring(8).equals("away")){
 			Config.updateStatus = 2;
+			TCPort.sendMyStatus();
 			return "0"+"Set status away";
 		}
 		else
 		{
-			Config.updateStatus = 3;	
+			Config.updateStatus = 3;
+			TCPort.sendMyStatus();
 			return "0"+"Set status xa"; 
 		}
 		}

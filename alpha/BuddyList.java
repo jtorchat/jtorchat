@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
+import util.ConfigWriter;
+
 
 
 
@@ -46,7 +48,7 @@ public class BuddyList {
 	}
 	
 	public static void loadBuddies() throws FileNotFoundException {
-//		Logger.log(Logger.INFO, "BuddyList loader", Config.CONFIG_DIR + "bl.txt");
+
 		Scanner s = new Scanner(new FileInputStream(Config.CONFIG_DIR + "bl.txt"));
 		Random r = new Random();
 		while (s.hasNextLine()) {
@@ -59,14 +61,18 @@ public class BuddyList {
 				} catch (IOException e) {
 					System.err.println("Error disconnecting buddy: " + e.getLocalizedMessage());
 				}
+			Buddy b;
 			if (l.length() > 16) {
-				Buddy b = new Buddy(l.substring(0, 16), l.substring(17), true); //.connect();
+				b = new Buddy(l.substring(0, 16), l.substring(17), true); 
 				b.reconnectAt = System.currentTimeMillis() + 15000 + r.nextInt(30000);
-				if (l.toCharArray()[16] == '!')
-					b.overrideName = true;
+				ConfigWriter.loadbuddy(b);
 			} else
-				new Buddy(l.substring(0, 16), null, true).reconnectAt = System.currentTimeMillis() + 15000 + r.nextInt(30000); //.connect();
+				b = new Buddy(l.substring(0, 16), null, true);
+			    b.reconnectAt = System.currentTimeMillis() + 15000 + r.nextInt(30000);
+			    ConfigWriter.loadbuddy(b);
 			}
+
+			
 			}
 		loadBlack();
 		loadHoly();
@@ -121,7 +127,18 @@ public class BuddyList {
 	public static void saveBuddies() throws IOException {
 		FileOutputStream fos = new FileOutputStream(Config.CONFIG_DIR + "bl.txt");
 		for (Buddy b : buds.values())
-			fos.write((b.getAddress() + (b.overrideName ? "!" : " ") + ((b.getProfile_name() != null && b.getProfile_name().length() > 0) ? b.getProfile_name() : (b.getName() != null && b.getName().length() > 0) ? b.getName() : "") + "\n").getBytes());
+		{
+			if (b.getName() != null && b.getName().length() > 0)
+			{
+			fos.write((b.getAddress() + " " + b.getName() + "\n").getBytes());
+			}
+			else
+			{
+			fos.write((b.getAddress() + "\n").getBytes());
+			}
+			
+			ConfigWriter.savebuddy(b);
+		}
 		fos.close();
 	saveBlack();
 	saveHoly();
@@ -130,14 +147,14 @@ public class BuddyList {
 	public static void saveBlack() throws IOException {
 		FileOutputStream fos = new FileOutputStream(Config.CONFIG_DIR + "blacklist.txt");
 		for (Buddy b : black.values())
-			fos.write((b.getAddress() + (b.overrideName ? "!" : " ") + ((b.getProfile_name() != null && b.getProfile_name().length() > 0) ? b.getProfile_name() : (b.getName() != null && b.getName().length() > 0) ? b.getName() : "") + "\n").getBytes());
+			fos.write((b.getAddress() + "\n").getBytes());
 		fos.close();
 	}
 	
 	public static void saveHoly() throws IOException {
 		FileOutputStream fos = new FileOutputStream(Config.CONFIG_DIR + "holylist.txt");
 		for (Buddy b : holy.values())
-			fos.write((b.getAddress() + (b.overrideName ? "!" : " ") + ((b.getProfile_name() != null && b.getProfile_name().length() > 0) ? b.getProfile_name() : (b.getName() != null && b.getName().length() > 0) ? b.getName() : "") + "\n").getBytes());
+			fos.write((b.getAddress() + "\n").getBytes());
 		fos.close();
 	}
 
@@ -240,8 +257,6 @@ public class BuddyList {
 										l.substring(17),true); // .connect();
 								b.reconnectAt = System.currentTimeMillis()
 										+ 15000 + r.nextInt(30000);
-								if (l.toCharArray()[16] == '!')
-									b.overrideName = true;
 							} else {
 								new Buddy(l.substring(0, 16), null,true).reconnectAt = System
 										.currentTimeMillis()

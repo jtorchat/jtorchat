@@ -24,7 +24,6 @@ public class Buddy {
 	public static final byte XA = 4;
 
 	private String address;
-	public boolean overrideName = false;
 	private String name; // wtf is this for?, custom name? todo use this somewhere -- used
 	public volatile Socket ourSock = null; // Our socket to them - the output sock
 	public volatile OutputStreamWriter ourSockOut = null;
@@ -39,9 +38,9 @@ public class Buddy {
 	public boolean recievedPong;
 	private boolean sentPong;
 	private String profile_name;
-	private String client;
+	private String client = "";
 
-	private String version;
+	private String version = "";
 	private String profile_text;
 	private Object connectLock = new Object();
 
@@ -498,20 +497,9 @@ if (!getBlack())
 
 	@Override
 	public String toString() {
-		if (overrideName)
-			return address.equals(Config.us) ? language.langtext[61] : (name != null && name.length() > 0) ? name : (profile_name != null && profile_name.length() > 0) ? profile_name : "[" + address + "]"; // + " (" + address + ")";
-		else
-			return address.equals(Config.us) ? language.langtext[61] : (profile_name != null && profile_name.length() > 0) ? profile_name : (name != null && name.length() > 0) ? name : "[" + address + "]"; // + " (" + address + ")";
-		// return profile_name == null ? address : profile_name.length() == 0 ? address : (name != null && name.length() > 0) ? name : profile_name; // + " (" + address + ")";
+		return (name != null && name.length() > 0) ? name : (profile_name != null && profile_name.length() > 0) ? profile_name : "[" + address + "]"; // + " (" + address + ")";
 	}
 
-	public String toStringforme() {
-		if (overrideName)
-			return (name != null && name.length() > 0) ? name : (profile_name != null && profile_name.length() > 0) ? profile_name : "[" + address + "]"; // + " (" + address + ")";
-		else
-			return (profile_name != null && profile_name.length() > 0) ? profile_name : (name != null && name.length() > 0) ? name : "[" + address + "]"; // + " (" + address + ")";
-		// return profile_name == null ? address : profile_name.length() == 0 ? address : (name != null && name.length() > 0) ? name : profile_name; // + " (" + address + ")";
-	}
 
 	public byte getStatus() {
 		return status;
@@ -569,6 +557,18 @@ if (!getBlack())
 
 	public void setName(String text) {
 		this.name = text;
+	}
+	public void setProfileName(String text) {
+		this.profile_name = text;
+	}
+	public void setProfileText(String text) {
+		this.profile_text = text;
+	}
+	public void setVersion(String text) {
+		this.version = text;
+	}
+	public void setClient(String text) {
+		this.client = text;
 	}
 
 }

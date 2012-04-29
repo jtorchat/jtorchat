@@ -71,8 +71,7 @@ public class Gui {
 
 		if ((TCPort.profile_name == null && TCPort.profile_text == null) || Config.firststart == 1) {
 			Logger.log(Logger.WARNING, this.getClass(), "Start setting window");
-			Config.prop.put("firststart", "0");
-
+	
 			GUISettings guis = new GUISettings();
 			guis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			guis.setVisible(true);
@@ -159,6 +158,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Config.updateStatus = 1;
+				TCPort.sendMyStatus();
 			}
 		});
 		jmStatus.add(jmion);
@@ -169,6 +169,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Config.updateStatus = 2;
+				TCPort.sendMyStatus();
 			}
 		});
 		jmStatus.add(jmiaway);
@@ -179,6 +180,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Config.updateStatus = 3;
+				TCPort.sendMyStatus();
 			}
 		});
 		jmStatus.add(jmixa);
@@ -188,8 +190,11 @@ public class Gui {
 		JMenuItem jmiAddContact = new JMenuItem(language.langtext[3]);
 		JMenuItem jmiSettings = new JMenuItem(language.langtext[4]);
 		JMenuItem jmiGUISettings = new JMenuItem("GUI Settings");
+		JMenuItem jmiProfileSettings = new JMenuItem("Profile Settings");
 		JMenuItem jmiExit = new JMenuItem(language.langtext[5]);
 
+		
+		
 		jmiAddContact.addActionListener(new ActionListener() {
 
 			@Override
@@ -217,6 +222,20 @@ public class Gui {
 				guis.setVisible(true);
 			}
 		});
+		jmiProfileSettings.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (Buddy b : BuddyList.buds.values())
+				{
+				if (b.getAddress().equals(Config.us))
+				{
+				Profile guis = new Profile(b);
+				guis.setVisible(true);
+				}
+				}
+			}
+		});
 		jmiExit.addActionListener(new ActionListener() {
 
 			@Override
@@ -228,6 +247,7 @@ public class Gui {
 		jmFile.add(jmiAddContact);
 		jmFile.add(jmiSettings);
 		jmFile.add(jmiGUISettings);
+		jmFile.add(jmiProfileSettings);
 		jmFile.add(new JSeparator());
 		jmFile.add(jmiExit);
 		jmb.add(jmFile);
@@ -387,17 +407,6 @@ public class Gui {
 				public void actionPerformed(ActionEvent e) {
 					Profile guis = new Profile((Buddy) o);
 					guis.setVisible(true);
-				}
-			}));
-
-			popup.add(new JPopupMenu.Separator());
-			popup.add(getMenuItem(language.langtext[74], new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					GUIContactAdd guica = new GUIContactAdd();
-					guica.setBuddy((Buddy) o); // for when editing a buddy
-					guica.setVisible(true);
 				}
 			}));
 
@@ -741,20 +750,20 @@ public class Gui {
 					if (!w.isFocused()) {
 						if (alert != null && !alert.isFinished())
 							alert.kill();
-						alert = new Alert("* " + buddy.toStringforme() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
+						alert = new Alert("* " + buddy.toString() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
 						alert.start();
 					}
 
 				} else if (command.startsWith("1")) {
 					w.append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
-					w.append("Them", "* " + buddy.toStringforme() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
+					w.append("Them", "* " + buddy.toString() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
 					w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
 					w.getTextArea4().requestFocusInWindow();
 
 					if (!w.isFocused()) {
 						if (alert != null && !alert.isFinished())
 							alert.kill();
-						alert = new Alert("* " + buddy.toStringforme() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
+						alert = new Alert("* " + buddy.toString() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
 						alert.start();
 					}
 				} else if (command.startsWith("2")) {
@@ -766,7 +775,7 @@ public class Gui {
 					if (!w.isFocused()) {
 						if (alert != null && !alert.isFinished())
 							alert.kill();
-						alert = new Alert(buddy.toStringforme() + " --> " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
+						alert = new Alert(buddy.toString() + " --> " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
 						alert.start();
 					}
 				}
