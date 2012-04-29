@@ -68,13 +68,11 @@ public class TCPort {
 				}
 			});
 
-			String error = TCServ.init(); // oh god why?! was this in TorLoader.loadTor() ??
-			if (error != null) {
-				TCPort.getLogInstance().setVisible(true);
-				return;
-			}
-			if (Config.loadTor)
-				TorLoader.loadTor();
+
+	
+			
+			if (Config.loadTor == 1){TorLoader.loadTor();}
+			TCServ.init();
 
 			// new Gui().init();
 			runInit("gui.Gui");
@@ -103,7 +101,9 @@ public class TCPort {
 		if (Config.firststart == 1) // We can delete it when we want
 		{
 			if (!BuddyList.buds.containsKey(Config.us)) {
-				new Buddy(Config.us, null, true).connect();
+				Buddy b = new Buddy(Config.us, null, true);
+				b.setName(language.langtext[61]);
+				b.connect();
 			}
 		}
 			
@@ -317,6 +317,42 @@ public class TCPort {
 					b.sendVersion();
 					b.sendProfileName();
 					b.sendProfileText();
+					b.sendStatus();
+				} catch (IOException ioe) {
+					try {
+						ioe.printStackTrace();
+						b.disconnect(); // something is iffy if we error out
+					} catch (IOException e) {
+						// ignored
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
+	public static void sendMyProfil() {
+		for (Buddy b : BuddyList.buds.values()) {
+			if (b.getStatus() >= Buddy.ONLINE) {
+				try {
+					b.sendProfileName();
+					b.sendProfileText();
+				} catch (IOException ioe) {
+					try {
+						ioe.printStackTrace();
+						b.disconnect(); // something is iffy if we error out
+					} catch (IOException e) {
+						// ignored
+					}
+				}
+			}
+		}
+	}
+	public static void sendMyStatus() {
+		for (Buddy b : BuddyList.buds.values()) {
+			if (b.getStatus() >= Buddy.ONLINE) {
+				try {
 					b.sendStatus();
 				} catch (IOException ioe) {
 					try {

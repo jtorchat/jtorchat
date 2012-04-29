@@ -9,10 +9,9 @@ import java.util.Scanner;
 
 public class TCServ {
 	private static ServerSocket ss;
-	private static String error = null;
 	protected static boolean running = true;
 
-	public static String init() {
+	public static void init() {
 		final Object o = new Object();
 		ThreadManager.registerWork(ThreadManager.DAEMON, new Runnable() {
 			@Override
@@ -22,11 +21,6 @@ public class TCServ {
 						ss = new ServerSocket(Config.LOCAL_PORT);
 					} catch (IOException e) {
 						Logger.log(Logger.FATAL, "TCServ", "Failed to start local server: " + e.getLocalizedMessage());
-//						System.err.println("[" + TCServ.class.getCanonicalName() + "] Failed to start local server: " + e.getLocalizedMessage());
-						e.printStackTrace();
-						Logger.log(Logger.FATAL, "TCServ", e.getLocalizedMessage());
-						TCPort.halt(new RuntimeException("Failed to start local server: " + e.getLocalizedMessage()));
-						error="Failed to start local server!";
 						return;
 					}
 					synchronized(o) {
@@ -117,14 +111,15 @@ public class TCServ {
 				}
 			}
 		}, "Starting local server on " + Config.LOCAL_PORT + ".", "Server thread");
+
 		try {
 			synchronized(o) {
 				o.wait();
 			}
 		} catch (InterruptedException e) {
-			// ignored
+		
 		}
-		return error;
+		return;
 	}
 
 	public static void halt() {
