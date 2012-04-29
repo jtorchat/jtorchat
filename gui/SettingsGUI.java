@@ -2,15 +2,11 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import javax.swing.*;
 import javax.swing.event.*;
-
+import util.ConfigWriter;
 import alpha.Config;
-import alpha.TCPort;
+
 
 
 
@@ -28,7 +24,7 @@ public class SettingsGUI extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		initComponents();
-		list1 = util.list.addelements(list1,Config.icon_folder.subSequence(0,Config.icon_folder.length()-5).toString(),Config.ICON_DIR_MAIN,".icon");
+		list1 = util.list.addelements(list1,Config.icon_folder.substring(0,Config.icon_folder.length()-5),Config.ICON_DIR_MAIN,".icon");
 		language();
 		textField1.setText(Integer.toString(Config.image_size));
 		textField2.setText(Integer.toString(Config.icon_size));
@@ -74,7 +70,6 @@ public class SettingsGUI extends JFrame {
 				
 				
 				Config.image_size = tray_size;
-				Config.prop.put("image_size", tray_size+ "");
 
 				
 			} catch (NumberFormatException nfe) {
@@ -91,7 +86,6 @@ public class SettingsGUI extends JFrame {
 					return;
 				}
 				Config.icon_size = buddy_size;
-				Config.prop.put("icon_size",buddy_size+ "");
 				
 				
 				
@@ -110,7 +104,6 @@ public class SettingsGUI extends JFrame {
 				}
 				
 				Config.icon_space = buddy_space;
-				Config.prop.put("icon_space", buddy_space+ "");
 				
 
 			} catch (NumberFormatException nfe) {
@@ -118,20 +111,7 @@ public class SettingsGUI extends JFrame {
 				return;
 			}
 		}
-		
-
-		Config.prop.put("ICON", Config.icon_folder);
-		
-	    
-	    TCPort.sendMyInfo();
-		try {
-			Config.prop.store(new FileOutputStream(Config.CONFIG_DIR + "settings.ini"), null);
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		
+	    ConfigWriter.saveall(1);
 		dispose();
 		synchronized(this) {
 			this.notifyAll(); // tell anyone waiting on us that we're done
@@ -194,12 +174,6 @@ public class SettingsGUI extends JFrame {
 			//======== panel1 ========
 			{
 
-				// JFormDesigner evaluation mark
-				panel1.setBorder(new javax.swing.border.CompoundBorder(
-					new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-						"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-						javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-						java.awt.Color.red), panel1.getBorder())); panel1.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
 
 				//---- label1 ----

@@ -213,7 +213,7 @@ x++;
 						else if (command.startsWith("2"))
 						{
 							append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
-							append("Me", "* " + BuddyList.buds.get(Config.us).toStringforme()+ " " + (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
+							append("Me", "* " + BuddyList.buds.get(Config.us).toString()+ " " + (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
 				
 							textPane1.setCaretPosition(textPane1.getDocument().getLength());
 							textArea4.requestFocusInWindow();
