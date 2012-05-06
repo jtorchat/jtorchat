@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Style;
@@ -26,11 +27,15 @@ public class Log extends JFrame {
 	public static long lastclear = System.currentTimeMillis() / 1000;
 	public static final Log instance;
 	public Log() {
-		initComponents();
-		setSize(755, 402);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		textPane1.setEditable(false);
-		initDocument();
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+				initComponents();
+				setSize(755, 402);
+				setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				textPane1.setEditable(false);
+				initDocument();
+            }
+		});
 	}
 	
 	private void initDocument() {
@@ -53,43 +58,57 @@ public class Log extends JFrame {
 
 	private static Object LOCK = new Object(); 
 	
-	public static void append(String text, String style) {
-		synchronized(LOCK) {
-			DefaultStyledDocument d = (DefaultStyledDocument) instance.textPane1.getDocument();
-			try {
-				d.insertString(d.getLength(), text, style == null ? null : d.getStyle(style));
-				trimText();
-				instance.textPane1.setCaretPosition(d.getLength());
-			} catch (BadLocationException ble) {
-				ble.printStackTrace();
-			}
-		}
+	public static void append(final String text, final String style) {
+
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+				synchronized(LOCK) {
+					DefaultStyledDocument d = (DefaultStyledDocument) instance.textPane1.getDocument();
+					try {
+						d.insertString(d.getLength(), text, style == null ? null : d.getStyle(style));
+						trimText();
+						instance.textPane1.setCaretPosition(d.getLength());
+					} catch (BadLocationException ble) {
+						ble.printStackTrace();
+					}
+				}
+		            }
+		});
 	}
 
-	public static void updateErr(String s) {
-		synchronized(LOCK) {
-			DefaultStyledDocument d = (DefaultStyledDocument) instance.textPane1.getDocument();
-			try {
-				d.insertString(d.getLength(), s, d.getStyle("Err"));
-				trimText();
-				instance.textPane1.setCaretPosition(d.getLength());
-				} catch (BadLocationException ble) {
-				ble.printStackTrace();
-			}
-		}
+	public static void updateErr(final String s) {
+
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+				synchronized(LOCK) {
+					DefaultStyledDocument d = (DefaultStyledDocument) instance.textPane1.getDocument();
+					try {
+						d.insertString(d.getLength(), s, d.getStyle("Err"));
+						trimText();
+						instance.textPane1.setCaretPosition(d.getLength());
+						} catch (BadLocationException ble) {
+						ble.printStackTrace();
+					}
+				}
+            }
+		});
 	}
 
-	public static void updateOut(String s) {
-		synchronized(LOCK) {
-			DefaultStyledDocument d = (DefaultStyledDocument) instance.textPane1.getDocument();
-			try {
-				d.insertString(d.getLength(), s, null);
-				trimText();
-				instance.textPane1.setCaretPosition(d.getLength());
-			} catch (BadLocationException ble) {
-				ble.printStackTrace();
-			}
-		}
+	public static void updateOut(final String s) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+				synchronized(LOCK) {
+					DefaultStyledDocument d = (DefaultStyledDocument) instance.textPane1.getDocument();
+					try {
+						d.insertString(d.getLength(), s, null);
+						trimText();
+						instance.textPane1.setCaretPosition(d.getLength());
+					} catch (BadLocationException ble) {
+						ble.printStackTrace();
+					}
+				}
+            }
+		});
 	}
 	
 	private static void trimText() {
@@ -113,14 +132,22 @@ public class Log extends JFrame {
 	}
 
 	private void clear(ActionEvent e) {
-		instance.textPane1.setCaretPosition(0);
-		instance.textPane1.setDocument(new DefaultStyledDocument());
-		initDocument();
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+				instance.textPane1.setCaretPosition(0);
+				instance.textPane1.setDocument(new DefaultStyledDocument());
+				initDocument();
+            }
+		});
 		System.gc(); // ask the jvm to collect garbage
 	}
 
 	private void close(ActionEvent e) {
-		instance.setVisible(false);
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	instance.setVisible(false);
+            }
+		});
 	}
 
 	

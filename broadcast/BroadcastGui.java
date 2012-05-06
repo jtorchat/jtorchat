@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+import javax.swing.SwingUtilities;
 
 import alpha.Buddy;
 import alpha.Config;
@@ -25,7 +26,7 @@ public class BroadcastGui {
 		Gui.getInstance().cmdListeners.put("broadcast", lis = new Listener());
 		Gui.getInstance().cmdListeners.put("bcast", lis);
 
-		JMenuItem jmiBuddyReq = new JMenuItem(language.langtext[6]);
+		final JMenuItem jmiBuddyReq = new JMenuItem(language.langtext[6]);
 		
 		jmiBuddyReq.addActionListener(new ActionListener() {
 			@Override
@@ -33,8 +34,12 @@ public class BroadcastGui {
 				Broadcast.broadcast("$buddyRequest", Config.us, null, true, true);
 			}
 		});
-		Gui.getInstance().getFileMenu().add(new JSeparator());
-		Gui.getInstance().getFileMenu().add(jmiBuddyReq);
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+				Gui.getInstance().getFileMenu().add(new JSeparator());
+				Gui.getInstance().getFileMenu().add(jmiBuddyReq);
+            }
+		});
 
 	
 	}

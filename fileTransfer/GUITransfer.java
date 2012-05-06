@@ -19,65 +19,67 @@ public class GUITransfer extends JFrame {
 	private IFileTransfer ift;
 	private int startstop;
 
-	public GUITransfer(IFileTransfer ift, Buddy b, String fileName, boolean sending) {
-		this.ift = ift;
-		this.buddy = b;
-		this.fileName = fileName;
-		this.sending = sending;
-		this.startstop = 0;
+	public GUITransfer(final IFileTransfer ift, final Buddy b, final String fileName, final boolean sending) {
+		GUITransfer.this.ift = ift;
+		GUITransfer.this.buddy = b;
+		GUITransfer.this.fileName = fileName;
+		GUITransfer.this.sending = sending;
+		GUITransfer.this.startstop = 0;
 		initComponents();
 		language();
 		label1.setText("<html><br><br>");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		if (sending)
 		addWindowListener(new WindowAdapter() {
-            @Override
+			@Override
 			public void windowClosing(WindowEvent e) {
-            	if (GUITransfer.this.ift != null)
-            		GUITransfer.this.ift.close();
-            }
-        });
+				if (GUITransfer.this.ift != null)
+					GUITransfer.this.ift.close();
+			}
+		});
 		setSize(getWidth() + 5, getHeight() + 5);
 	}
 
-	public void update(long fileSize, long recieved, String status) {
-		if (recieved == -1) {
-			button1.setText(language.langtext[62]);
-			button2.setVisible(false);
-		}
-		if (sending)
-		{
-		button2.setVisible(false);
-		button3.setVisible(false);	
-		button4.setVisible(false);	
-		button5.setVisible(false);	
-		}
-		double perc = Math.round(((double) recieved / (double) fileSize) * 1000) / 10d;
-		label1.setText("<html>" + (sending ? "Sending " : "Recieving ") + fileName + "<br>" + (sending ? "to " : "from ") + buddy.toString(true) + "<br>" + perc + "% (" + recieved + " of " + fileSize + " bytes)    " + status);
-		setTitle(perc + "% - " + fileName);
-		progressBar1.setValue((int) ((double) recieved / (double) fileSize * 100d));
-		//Logger.oldOut.println(getClass().getCanonicalName() + ": gui() " + fileSize + ", " + recieved + ", " + status);
-		if (fileSize == recieved) {
-			button1.setText(language.langtext[62]);
-			completed = true;
-			if (!sending && ((FileReceiver) ift).fileNameSave != null && ((FileReceiver) ift).fileNameSave.length() > 0) {
-				((FileReceiver) ift).close();
-				button1.setText(language.langtext[62]);
-			}}
-		
-		if (fileSize == recieved & !sending) {
-			button2.setVisible(false);
-			button3.setVisible(true);	
-			button4.setVisible(true);	
-			button5.setVisible(true);	
-        }
-		else if (fileSize != recieved & !sending) {
-			if (recieved == -1) { button2.setVisible(false); } else { button2.setVisible(true); }
-			button3.setVisible(false);	
-			button4.setVisible(false);	
-			button5.setVisible(false);	
-		}
-		
+	public void update(final long fileSize, final long recieved, final String status) {
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+				if (recieved == -1) {
+					button1.setText(language.langtext[62]);
+					button2.setVisible(false);
+				}
+				if (sending) {
+					button2.setVisible(false);
+					button3.setVisible(false);	
+					button4.setVisible(false);	
+					button5.setVisible(false);	
+				}
+				double perc = Math.round(((double) recieved / (double) fileSize) * 1000) / 10d;
+				label1.setText("<html>" + (sending ? "Sending " : "Recieving ") + fileName + "<br>" + (sending ? "to " : "from ") + buddy.toString(true) + "<br>" + perc + "% (" + recieved + " of " + fileSize + " bytes)    " + status);
+				setTitle(perc + "% - " + fileName);
+				progressBar1.setValue((int) ((double) recieved / (double) fileSize * 100d));
+				//Logger.oldOut.println(getClass().getCanonicalName() + ": gui() " + fileSize + ", " + recieved + ", " + status);
+				if (fileSize == recieved) {
+					button1.setText(language.langtext[62]);
+					completed = true;
+					if (!sending && ((FileReceiver) ift).fileNameSave != null && ((FileReceiver) ift).fileNameSave.length() > 0) {
+						((FileReceiver) ift).close();
+						button1.setText(language.langtext[62]);
+					}
+				}
+				
+				if (fileSize == recieved & !sending) {
+					button2.setVisible(false);
+					button3.setVisible(true);	
+					button4.setVisible(true);	
+					button5.setVisible(true);	
+		        } else if (fileSize != recieved & !sending) {
+					if (recieved == -1) { button2.setVisible(false); } else { button2.setVisible(true); }
+					button3.setVisible(false);	
+					button4.setVisible(false);	
+					button5.setVisible(false);	
+				}
+            }
+		});
 		
 	}
 
@@ -127,14 +129,14 @@ public class GUITransfer extends JFrame {
 		ift.delete();
 	}
 
-private void language(){
-	
-	button2.setText(language.langtext[64]);
-	button5.setText(language.langtext[68]);
-	button4.setText(language.langtext[67]);
-	button3.setText(language.langtext[66]);
-	button1.setText(language.langtext[65]);
-}
+	private void language(){
+		
+		button2.setText(language.langtext[64]);
+		button5.setText(language.langtext[68]);
+		button4.setText(language.langtext[67]);
+		button3.setText(language.langtext[66]);
+		button1.setText(language.langtext[65]);
+	}
 
 	private void initComponents() {
 		// JFormDesigner - Component initialization - DO NOT MODIFY //GEN-BEGIN:initComponents
