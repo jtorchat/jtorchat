@@ -49,10 +49,6 @@ public class Broadcast {
 	public static HashMap<String, DefaultStyledDocument> minilog = hasGUI() ? new HashMap<String, DefaultStyledDocument>() : null;
 
 	public static void init() {
-		if (lis != null) {
-			// wth
-			return;
-		}
 		try {
 			loadSettings();
 		} catch (FileNotFoundException fnfe) {
@@ -113,8 +109,8 @@ public class Broadcast {
 		myTags = "";
 		for (String st : tagMap.keySet())
 			myTags += st + " ";
-		if (myTags.length() > 0)
-			myTags.substring(0, myTags.length() - 1);
+//		if (myTags.length() > 0) // does nothing
+//			myTags.substring(0, myTags.length() - 1);
 	}
 	
 	public static void saveSettings() throws IOException {

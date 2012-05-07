@@ -37,7 +37,7 @@ public class Util {
 
 	public static String readStringTillChar(InputStream is, char ch) throws IOException {
 		String s = "";
-		char c;
+		char c; // !a char is never negative!
 		while ((c = (char) is.read()) != -1 && c != ch)
 			s += c;
 		return s;

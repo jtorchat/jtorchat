@@ -444,8 +444,8 @@ private static String command;
 
             msg = msg.replaceAll("\n", "\\n").trim();
             
-			if (msg.trim().endsWith("\\\\n")) {
-				msg.substring(0, msg.length() - 6);}
+//			if (msg.trim().endsWith("\\\\n")) { // does nothing
+//				msg.substring(0, msg.length() - 6);}
     		try {
     		if (flag)
     		{

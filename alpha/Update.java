@@ -19,7 +19,7 @@ public class Update {
 
 	public static String loadUpdate(String remote_bl_URL) {
 		// Don't load if no url was specified
-		if ((remote_bl_URL == null)||(remote_bl_URL == "")) {
+		if ((remote_bl_URL == null)||(remote_bl_URL.length() == 0)) {
 			Logger.log(Logger.INFO, "loadUpdate",
 					"No remote buddylist specified. Skipping remote load.");
 			Logger.log(Logger.INFO, "loadUpdate",

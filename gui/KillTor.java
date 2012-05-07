@@ -58,8 +58,8 @@ public static int newpb = 0;
 		Runtime run = Runtime.getRuntime();
 		Process pr,pr2;
 		try {
-			pr = run.exec(command);
-			pr2 = run.exec(command2);
+			pr = run.exec(command); // NOTE could potentially be null
+			pr2 = run.exec(command2); // NOTE could potentially be null
 			try {
 				pr.waitFor();
 				pr2.waitFor();

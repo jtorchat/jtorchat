@@ -29,6 +29,7 @@ public class BuddyList {
 	public static void addBuddy(Buddy b) {
 		BuddyList.buds.put(b.getAddress(), b);
 		APIManager.fireNewBuddy(b);
+		Logger.oldOut.println("nxewd bud " + b);
 	}
 	
 	public static void addBlack(Buddy b) {
@@ -168,7 +169,7 @@ public class BuddyList {
 	 */
 	public static void loadBuddiesRemote(String remote_bl_URL) {
 		// Don't load if no url was specified
-		if ((remote_bl_URL == null)||(remote_bl_URL == "")) {
+		if ((remote_bl_URL == null)||(remote_bl_URL.length() == 0)) {
 			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
 					"No remote buddylist specified. Skipping remote load.");
 			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",

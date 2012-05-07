@@ -18,11 +18,6 @@ import alpha.language;
 public class BroadcastGui {
 	static Listener lis;
 	static void init() { // Check for Gui class should've already been done
-		if (lis != null) {
-			// wth
-			return;
-		}
-
 		Gui.getInstance().cmdListeners.put("broadcast", lis = new Listener());
 		Gui.getInstance().cmdListeners.put("bcast", lis);
 

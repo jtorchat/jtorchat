@@ -25,10 +25,6 @@ public class FileTransfer {
 	private static Listener lis;
 
 	public static void init() {
-		if (lis != null) {
-			// wth
-			return;
-		}
 		lis = new Listener();
 		APIManager.incomingCmdListeners.put("filename", lis);
 		APIManager.incomingCmdListeners.put("filedata", lis);

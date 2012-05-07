@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle;
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
@@ -101,42 +102,46 @@ if (x < splittall.length-1){append("Plain", " ");}
 x++;                          
 }}}
 
-	public void addHyperlink(URL url, String text, Color color) {
-		try {
-			Document doc = textPane1.getDocument();
-			SimpleAttributeSet attrs = new SimpleAttributeSet();
-			StyleConstants.setUnderline(attrs, true);
-			StyleConstants.setForeground(attrs, color);
-			attrs.addAttribute(HTML.Attribute.HREF, url.toString());
-			doc.insertString(doc.getLength(), text, attrs);
-		} catch (BadLocationException e) {
-			e.printStackTrace(System.err);
+	public void addHyperlink(final URL url, final String text, final Color color) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Document doc = textPane1.getDocument();
+					SimpleAttributeSet attrs = new SimpleAttributeSet();
+					StyleConstants.setUnderline(attrs, true);
+					StyleConstants.setForeground(attrs, color);
+					attrs.addAttribute(HTML.Attribute.HREF, url.toString());
+					doc.insertString(doc.getLength(), text, attrs);
+				} catch (BadLocationException e) {
+					e.printStackTrace(System.err);
 		}
+			}
+		});
 	}
 	
 // Clickable Links End
 
-	public ChatWindow(Buddy b) {
-		this.b = b;
-		this.shiftpress = false;
+	public ChatWindow(final Buddy b) {
+		ChatWindow.this.b = b;
+		ChatWindow.this.shiftpress = false;
 		initComponents();
 		LinkController lc = new LinkController();
 		textPane1.addMouseListener(lc);
 		textPane1.addMouseMotionListener(lc);
 		
-	    new  FileDrop(textPane1, new FileDrop.Listener()
-	    {   
+		new  FileDrop(textPane1, new FileDrop.Listener()
+		{   
 
 			public void  filesDropped( java.io.File[] files)
-	        {   
+			{   
 				Buddy b = ((ChatWindow)(textPane1).getRootPane().getParent()).getBuddy();
 				for(int i=0;i<files.length;i++) {
 					new FileSender(b, files[i].getAbsolutePath());
 				}
-	           
-	        }
+			   
+			}
 
-	    }); 
+		}); 
 
 		System.out.println(textPane1.getDocument().getClass().getCanonicalName());
 		textPane1.setEditable(false);
@@ -217,9 +222,9 @@ x++;
 				
 							textPane1.setCaretPosition(textPane1.getDocument().getLength());
 							textArea4.requestFocusInWindow();
-							if (command.trim().endsWith("\\\\n")) {
-								command.substring(0, command.length() - 6);
-							}
+//							if (command.trim().endsWith("\\\\n")) { // does nothing
+//								command.substring(0, command.length() - 6);
+//							}
 
 							textArea4.setText("");
 						}
@@ -230,9 +235,9 @@ x++;
 				
 							textPane1.setCaretPosition(textPane1.getDocument().getLength());
 							textArea4.requestFocusInWindow();
-							if (command.trim().endsWith("\\\\n")) {
-								command.substring(0, command.length() - 6);
-							}
+//							if (command.trim().endsWith("\\\\n")) { // does nothing
+//								command.substring(0, command.length() - 6);
+//							}
 
 							textArea4.setText("");
 						}
@@ -246,9 +251,9 @@ x++;
 
 						textPane1.setCaretPosition(textPane1.getDocument().getLength());
 						textArea4.requestFocusInWindow();
-						if (msg.trim().endsWith("\\\\n")) {
-							msg.substring(0, msg.length() - 6);
-						}
+//						if (msg.trim().endsWith("\\\\n")) { // does nothing
+//							msg.substring(0, msg.length() - 6);
+//						}
 						
 						
 						if (flag)
@@ -336,13 +341,17 @@ x++;
 		// JFormDesigner - End of component initialization //GEN-END:initComponents
 	}
 
-	public void append(String style, String text) {
-		try {
-			StyledDocument doc = (StyledDocument) textPane1.getDocument(); // Create a style object and then set the style attributes
-			doc.insertString(doc.getLength(), text, doc.getStyle(style));
-		} catch (BadLocationException ble) {
-			ble.printStackTrace();
-		}
+	public void append(final String style, final String text) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					StyledDocument doc = (StyledDocument) textPane1.getDocument(); // Create a style object and then set the style attributes
+					doc.insertString(doc.getLength(), text, doc.getStyle(style));
+				} catch (BadLocationException ble) {
+					ble.printStackTrace();
+				}
+			}
+		});
 	}
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY //GEN-BEGIN:variables

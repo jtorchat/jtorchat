@@ -505,26 +505,29 @@ public class Gui {
 		return w;
 	}
 
-	public static void blacklist(Buddy buddy) {
+	public static void blacklist(final Buddy buddy) {
 
-		MutableTreeNode node = nodeMap.remove(buddy.getAddress());
-		if (node != null) // remove entry in the gui
-			((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
+		SwingUtilities.invokeLater(new Runnable(){
+			public void run() {
+				MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+				if (node != null) // remove entry in the gui
+					((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
 
-		node = nodeMap.get(buddy.getAddress());
-		if (node != null)
-			node.removeFromParent();
-		nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
-
-		if (buddy.getAddress().equals(Config.us)) {
-			((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeblack, 0);
-		} else {
-			((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeblack, buddyNodeblack.getChildCount());
-		}
-
-		if (buddyNodeblack.getChildCount() == 1) {
-			jt.expandRow(0);
-		}
+				node = nodeMap.get(buddy.getAddress());
+				if (node != null)
+					node.removeFromParent();
+				nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+				if (buddy.getAddress().equals(Config.us)) {
+					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeblack, 0);
+				} else {
+					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeblack, buddyNodeblack.getChildCount());
+				}
+		
+				if (buddyNodeblack.getChildCount() == 1) {
+					jt.expandRow(0);
+				}
+			}
+		});
 
 	}
 
@@ -552,59 +555,67 @@ public class Gui {
 
 	}
 
-	public static void pardon(Buddy buddy) {
+	public static void pardon(final Buddy buddy) {
 
 		if (buddy.getStatus() >= Buddy.ONLINE) {
 
-			MutableTreeNode node = nodeMap.remove(buddy.getAddress());
-			if (node != null) // remove entry in the gui
-				((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
 
-			node = nodeMap.get(buddy.getAddress());
-			if (node != null)
-				node.removeFromParent();
-			nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+			SwingUtilities.invokeLater(new Runnable(){
+				public void run() {
+					MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+					if (node != null) // remove entry in the gui
+						((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
 
-			if (buddy.getHoly()) {
-				if (buddy.getAddress().equals(Config.us)) {
-					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
-				} else {
-					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, buddyNodeholy.getChildCount());
+					node = nodeMap.get(buddy.getAddress());
+					if (node != null)
+						node.removeFromParent();
+					nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+					if (buddy.getHoly()) {
+						if (buddy.getAddress().equals(Config.us)) {
+							((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
+						} else {
+							((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, buddyNodeholy.getChildCount());
+						}
+						if (buddyNodeholy.getChildCount() == 1) {
+							jt.expandRow(0);
+						}
+					} else {
+						if (buddy.getAddress().equals(Config.us)) {
+							((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, 0);
+						} else {
+							((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, buddyNodeon.getChildCount());
+						}
+						if (buddyNodeon.getChildCount() == 1) {
+							jt.expandRow(0);
+						}
+					}
 				}
-				if (buddyNodeholy.getChildCount() == 1) {
-					jt.expandRow(0);
-				}
-			} else {
-				if (buddy.getAddress().equals(Config.us)) {
-					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, 0);
-				} else {
-					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, buddyNodeon.getChildCount());
-				}
-				if (buddyNodeon.getChildCount() == 1) {
-					jt.expandRow(0);
-				}
-			}
+			});
 
 		} else {
 
-			MutableTreeNode node = nodeMap.remove(buddy.getAddress());
-			if (node != null) // remove entry in the gui
-				((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
+			SwingUtilities.invokeLater(new Runnable(){
+				public void run() {
 
-			node = nodeMap.get(buddy.getAddress());
-			if (node != null)
-				node.removeFromParent();
-			nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+					MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+					if (node != null) // remove entry in the gui
+						((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
 
-			if (buddy.getAddress().equals(Config.us)) {
-				((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
-			} else {
-				((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());
-			}
-
-			if (buddyNode.getChildCount() == 1) {
-				jt.expandRow(0);
-			}
+					node = nodeMap.get(buddy.getAddress());
+					if (node != null)
+						node.removeFromParent();
+					nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+					if (buddy.getAddress().equals(Config.us)) {
+						((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
+					} else {
+						((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());
+					}
+		
+					if (buddyNode.getChildCount() == 1) {
+						jt.expandRow(0);
+					}
+				}
+			});
 
 		}
 
@@ -630,40 +641,44 @@ public class Gui {
 					if (newStatus >= Buddy.ONLINE && oldStatus <= Buddy.HANDSHAKE) {
 		
 						if (!BuddyList.black.containsKey(buddy.getAddress())) {
-							MutableTreeNode node = nodeMap.remove(buddy.getAddress());
-							if (node != null) // remove entry in the gui
-								((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
-		
-							node = nodeMap.get(buddy.getAddress());
-							if (node != null)
-								node.removeFromParent();
-							nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
 		
 							Alert alert;
 							alert = new Alert(buddy.toString() + " is online");
 							alert.start();
-		
-							if (buddy.getHoly()) {
-								if (buddy.getAddress().equals(Config.us)) {
-									((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
-								} else {
-									((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, buddyNodeholy.getChildCount());
+
+							SwingUtilities.invokeLater(new Runnable(){
+								public void run() {
+									MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+									if (node != null) // remove entry in the gui
+										((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
+				
+									node = nodeMap.get(buddy.getAddress());
+									if (node != null)
+										node.removeFromParent();
+									nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+									if (buddy.getHoly()) {
+										if (buddy.getAddress().equals(Config.us)) {
+											((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
+										} else {
+											((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, buddyNodeholy.getChildCount());
+										}
+				
+										if (buddyNodeholy.getChildCount() == 1) {
+											jt.expandRow(0);
+										}
+									} else {
+										if (buddy.getAddress().equals(Config.us)) {
+											((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, 0);
+										} else {
+											((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, buddyNodeon.getChildCount());
+										}
+				
+										if (buddyNodeon.getChildCount() == 1) {
+											jt.expandRow(0);
+										}
+									}
 								}
-		
-								if (buddyNodeholy.getChildCount() == 1) {
-									jt.expandRow(0);
-								}
-							} else {
-								if (buddy.getAddress().equals(Config.us)) {
-									((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, 0);
-								} else {
-									((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeon, buddyNodeon.getChildCount());
-								}
-		
-								if (buddyNodeon.getChildCount() == 1) {
-									jt.expandRow(0);
-								}
-							}
+							});
 		
 							if (new File(Config.MESSAGE_DIR + buddy.getAddress() + ".txt").exists()) {
 								try {
@@ -689,24 +704,28 @@ public class Gui {
 					} else if (oldStatus >= Buddy.ONLINE && newStatus <= Buddy.HANDSHAKE) {
 		
 						if (!BuddyList.black.containsKey(buddy.getAddress())) {
-							MutableTreeNode node = nodeMap.remove(buddy.getAddress());
-							if (node != null) // remove entry in the gui
-								((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
-		
-							node = nodeMap.get(buddy.getAddress());
-							if (node != null)
-								node.removeFromParent();
-							nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
-		
-							if (buddy.getAddress().equals(Config.us)) {
-								((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
-							} else {
-								((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());
-							}
-		
-							if (buddyNode.getChildCount() == 1) {
-								jt.expandRow(0);
-							}
+
+							SwingUtilities.invokeLater(new Runnable(){
+								public void run() {
+									MutableTreeNode node = nodeMap.remove(buddy.getAddress());
+									if (node != null) // remove entry in the gui
+										((DefaultTreeModel) jt.getModel()).removeNodeFromParent(node);
+				
+									node = nodeMap.get(buddy.getAddress());
+									if (node != null)
+										node.removeFromParent();
+									nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+									if (buddy.getAddress().equals(Config.us)) {
+										((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
+									} else {
+										((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());
+									}
+				
+									if (buddyNode.getChildCount() == 1) {
+										jt.expandRow(0);
+									}
+								}
+							});
 						}
 					}
 	            }
@@ -739,20 +758,24 @@ public class Gui {
 			SwingUtilities.invokeLater(new Runnable() {
 	            public void run() {
 
-					ChatWindow w = getChatWindow(buddy, true, true);
+					final ChatWindow w = getChatWindow(buddy, true, true);
 		
-					String msg = s.trim().replaceAll("\n", "\\\\n").replaceAll("\n", "\\\\n").replaceAll("\r", "");
+					final String msg = s.trim().replaceAll("\n", "\\\\n").replaceAll("\n", "\\\\n").replaceAll("\r", "");
 		
 					if (msg.startsWith("/")) {
-						if (msg.trim().endsWith("\\\\n")) {
-							msg.substring(0, msg.length() - 6);
-						}
+//						if (msg.trim().endsWith("\\\\n")) { // its ignored anyway
+//							msg.substring(0, msg.length() - 6);
+//						}
 						String command = Commands.runin(buddy, msg);
 						if (command.startsWith("0")) {
 							w.append("Me", "Private: ");
 							w.append("Them", command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
-							w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
-							w.getTextArea4().requestFocusInWindow();
+							SwingUtilities.invokeLater(new Runnable() {
+								public void run() {
+									w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
+									w.getTextArea4().requestFocusInWindow();
+								}
+							});
 		
 							if (!w.isFocused()) {
 								if (alert != null && !alert.isFinished())
@@ -764,8 +787,12 @@ public class Gui {
 						} else if (command.startsWith("1")) {
 							w.append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
 							w.append("Them", "* " + buddy.toString() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
-							w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
-							w.getTextArea4().requestFocusInWindow();
+							SwingUtilities.invokeLater(new Runnable() {
+								public void run() {
+									w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
+									w.getTextArea4().requestFocusInWindow();
+								}
+							});
 		
 							if (!w.isFocused()) {
 								if (alert != null && !alert.isFinished())
@@ -776,8 +803,12 @@ public class Gui {
 						} else if (command.startsWith("2")) {
 							w.append("Time Stamp", "(" + ChatWindow.getTime() + ") ");
 							w.append("Them", " --> " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
-							w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
-							w.getTextArea4().requestFocusInWindow();
+							SwingUtilities.invokeLater(new Runnable() {
+								public void run() {
+									w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
+									w.getTextArea4().requestFocusInWindow();
+								}
+							});
 		
 							if (!w.isFocused()) {
 								if (alert != null && !alert.isFinished())
@@ -800,8 +831,13 @@ public class Gui {
 						w.append("Them", buddy.toString() + ": ");
 						w.addUrlText(s.replaceAll("\\\\n", "\n").trim() + "\n");
 						// w.getTextArea3().insert("(" + ChatWindow.getTime() + ") " + buddy.toString() + ": " + s + "\n", w.getTextArea3().getText().length());
-						w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
-						w.getTextArea4().requestFocusInWindow();
+
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
+								w.getTextArea4().requestFocusInWindow();
+							}
+						});
 					}
 	            }
 			});
@@ -827,20 +863,24 @@ public class Gui {
 			SwingUtilities.invokeLater(new Runnable() {
 	            public void run() {
 					Logger.oldOut.println("new bud " + buddy);
-					MutableTreeNode node = nodeMap.get(buddy.getAddress());
-					if (node != null)
-						node.removeFromParent();
-					nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
-		
-					if (buddy.getAddress().equals(Config.us)) {
-						((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
-					} else {
-						((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());
-					}
-		
-					if (buddyNode.getChildCount() == 1) {
-						jt.expandRow(0);
-					}
+
+					SwingUtilities.invokeLater(new Runnable(){
+						public void run() {
+							MutableTreeNode node = nodeMap.get(buddy.getAddress());
+							if (node != null)
+								node.removeFromParent();
+							nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
+							if (buddy.getAddress().equals(Config.us)) {
+								((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, 0);
+							} else {
+								((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNode, buddyNode.getChildCount());
+							}
+				
+							if (buddyNode.getChildCount() == 1) {
+								jt.expandRow(0);
+							}
+						}
+					});
 	            }
 			});
 		}
