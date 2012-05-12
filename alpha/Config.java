@@ -1,6 +1,5 @@
 package alpha;
 
-
 import java.io.File;
 import java.util.Properties;
 
@@ -16,16 +15,16 @@ public class Config {
 	public static final String VERSIONB = "7";
 	public static final String VERSIONC = "9";
 	public static String comment = "";
-	
+
 	// Test for connections
 	public static final int DEAD_CONNECTION_TIMEOUT = 240;
-	public static final int KEEPALIVE_INTERVAL = (int) (Math.random()*120); //120;
+	public static final int KEEPALIVE_INTERVAL = (int) (Math.random() * 120); // 120;
 	public static final int MAX_UNANSWERED_PINGS = 4;
 	public static final int CONNECT_TIMEOUT = 70;
 
-	// Compile with 
-	public static final String BUILD = VERSIONA+ "."+ VERSIONB + "." + VERSIONC;
-	public static final String VERSION = BUILD +" "+ comment;
+	// Compile with
+	public static final String BUILD = VERSIONA + "." + VERSIONB + "." + VERSIONC;
+	public static final String VERSION = BUILD + " " + comment;
 
 	// Important Folders
 	public static String BASE_DIR = "";
@@ -33,21 +32,20 @@ public class Config {
 	public static String CONFIG_DIR = "";
 	public static String DOWNLOAD_DIR = "";
 	public static String LOG_DIR = "";
-	public static String MESSAGE_DIR = ""; 
-	public static String PAGE_DIR = ""; 
+	public static String MESSAGE_DIR = "";
+	public static String PAGE_DIR = "";
 	public static String TOR_DIR = "";
 	public static String LANG_DIR = "";
 	public static String DATA_DIR = "";
 	public static String ICON_DIR = "";
 	public static String ICON_DIR_MAIN = "";
-	
-	
-    // Config or Control Variables
+
+	// Config or Control Variables
 	public static final Properties prop;
 	public static int loadTor;
-	public static int SOCKS_PORT; 
-	public static int LOCAL_PORT; 
-	public static int alert; 
+	public static int SOCKS_PORT;
+	public static int LOCAL_PORT;
+	public static int alert;
 	public static int visiblelog;
 	public static int fulllog;
 	public static int buddyStart;
@@ -64,8 +62,8 @@ public class Config {
 	public static int icon_size;
 	public static int icon_space;
 	public static String icon_folder;
-	public static String sync; 
-	public static String update; 
+	public static String sync;
+	public static String update;
 	public static String us;
 	public static String nowstart = "";
 	public static String nowstartupdate = "";
@@ -75,24 +73,21 @@ public class Config {
 	public static String answer;
 	public static String os;
 
-	
 	// Paths to all Imortant Files
-	public static String TorLin="linux/tor.sh";
-	public static String TorLinobf="linux/torobf.sh";
-	public static String TorWin="windows/jtor.exe";
-	public static String TorWinobf="windows/jtorobf.exe";
+	public static String TorLin = "linux/tor.sh";
+	public static String TorLinobf = "linux/torobf.sh";
+	public static String TorWin = "windows/jtor.exe";
+	public static String TorWinobf = "windows/jtorobf.exe";
 	public static String Torbinary;
 	public static String controlfile = "controlfile";
 
 	// Linux only
-	public static String Torclose="linux/torclose.sh";
-	public static String torpid=Integer.toString(Util.myRandom(1000, 9999));
+	public static String Torclose = "linux/torclose.sh";
+	public static String torpid = Integer.toString(Util.myRandom(1000, 9999));
 	// Only Windows
-	public static String TorWintorrc="torrc.txt";
-	public static String TorWintorrcobf="torrcobf.txt";
+	public static String TorWintorrc = "torrc.txt";
+	public static String TorWintorrcobf = "torrcobf.txt";
 	public static String Tortorrc;
-
-
 
 	static {
 		os = System.getProperty("os.name").toLowerCase();
@@ -104,20 +99,34 @@ public class Config {
 
 		// Choose the right Folder with Icons
 		Config.ICON_DIR = Config.ICON_DIR_MAIN + icon_folder;
-		if(!new File(ICON_DIR).exists()){Config.ICON_DIR = Config.ICON_DIR_MAIN + "juan.icon";}
+		if (!new File(ICON_DIR).exists()) {
+			Config.ICON_DIR = Config.ICON_DIR_MAIN + "juan.icon";
+		}
 		Logger.log(Logger.NOTICE, "Config", "Using " + ICON_DIR + " as ICON_DIR");
-		if (Config.buddyStart == 1 & Config.offlineMod == 0){nowstart=sync;}
-		if (Config.updateStart == 1 & Config.offlineMod == 0){nowstartupdate=update;}
+		if (Config.buddyStart == 1 & Config.offlineMod == 0) {
+			nowstart = sync;
+		}
+		if (Config.updateStart == 1 & Config.offlineMod == 0) {
+			nowstartupdate = update;
+		}
 
 		// Choose the right binary for every system
 		if (os.indexOf("win") >= 0) {
-			if(obfsproxy == 0){Torbinary=TorWin;Tortorrc=TorWintorrc;}
-			else{Torbinary=TorWinobf;Tortorrc=TorWintorrcobf;}
+			if (obfsproxy == 0) {
+				Torbinary = TorWin;
+				Tortorrc = TorWintorrc;
+			} else {
+				Torbinary = TorWinobf;
+				Tortorrc = TorWintorrcobf;
+			}
 		} else if (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0) {
-			if(obfsproxy == 0){Torbinary=TorLin;}
-			else{Torbinary=TorLinobf;}
+			if (obfsproxy == 0) {
+				Torbinary = TorLin;
+			} else {
+				Torbinary = TorLinobf;
+			}
 		}
-		
+
 		answer = language.loadlang();
 		Logger.log(Logger.INFO, "Config", "Using " + SOCKS_PORT + " as socks port.");
 		Logger.log(Logger.INFO, "Config", "Using " + LOCAL_PORT + " as local port.");

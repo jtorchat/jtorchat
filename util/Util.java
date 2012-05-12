@@ -1,7 +1,5 @@
 package util;
 
-
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,10 +8,10 @@ import java.util.Arrays;
 
 public class Util {
 
-    public static int myRandom(int low, int high) {  
-        return (int) (Math.random() * (high - low) + low);  
-    }  
-	
+	public static int myRandom(int low, int high) {
+		return (int) (Math.random() * (high - low) + low);
+	}
+
 	public static byte[] escape(byte[] b1) {
 		for (int i = 0; i < b1.length; i++) {
 			if (b1[i] == '\\') {
@@ -37,7 +35,7 @@ public class Util {
 
 	public static String readStringTillChar(InputStream is, char ch) throws IOException {
 		String s = "";
-		char c;
+		char c; // !a char is never negative!
 		while ((c = (char) is.read()) != -1 && c != ch)
 			s += c;
 		return s;

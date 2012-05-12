@@ -55,8 +55,7 @@ public class APIManager {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	public static void fireRemove(Buddy buddy) {
 		try {
 			Logger.log(Logger.DEBUG, "API", buddy.getAddress() + " requested us to del them");
