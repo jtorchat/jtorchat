@@ -28,7 +28,7 @@ public class Alert extends Thread {
 
 	@SuppressWarnings("serial")
 	public Alert(final String s) {
-		if (Config.alert == 0){ // returns immediately if alerts is disabled
+		if (Config.alert == 0) { // returns immediately if alerts is disabled
 			return;
 		}
 		// afaik this doesnt need to be run on the EDT as the EDT isn't monitoring this window unti setVisible is called
@@ -90,14 +90,14 @@ public class Alert extends Thread {
 	@Override
 	public void run() {
 		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+			public void run() {
 				numAlerts.getAndIncrement();
 				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 				Rectangle mwb = ge.getMaximumWindowBounds();
-		
+
 				f.setLocation(mwb.x + mwb.width - dispWidth - 1, mwb.y + mwb.height - dispHeight - 1 - dispHeight * (numAlerts.get() - 1) - (numAlerts.get() - 1));
 				f.setVisible(true);
-            }
+			}
 		});
 		while (running && pr-- > 1)
 			try {
