@@ -153,7 +153,7 @@ public class Broadcast {
 					}
 				}
 			}
-		if (BuddyList.buds.get(Config.us).getStatus() < Buddy.ONLINE) { // might throw npe, but npe wouuld mean that other code fcked up
+		if (BuddyList.buds.get(Config.us).getStatus() < Buddy.ONLINE) { // might throw npe, but npe would mean that other code fcked up
 			lis.onCommand(BuddyList.buds.get(Config.us), "broadcast " + tag + " " + sender + " " + r + " " + msg);
 		}
 		if (sent == 0)

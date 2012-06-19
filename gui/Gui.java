@@ -115,7 +115,7 @@ public class Gui {
 		JMenu jmBroad = new JMenu("Broadcast");
 		JMenu jmHelp = new JMenu(language.langtext[2]);
 		final JMenuItem jmiHelpLink = new JMenuItem(language.langtext[11]);
-		jmiHelpLink.addActionListener(new ActionListener() { // note - the link is copiable so as to not open the link in the users normal browser automatically which could tip off anyone sniffing the network that they are using jtorcat
+		jmiHelpLink.addActionListener(new ActionListener() { // note - the link is copiable so as to not open the link in the users normal browser automatically which could tip off anyone sniffing the network that they are using jtorchat
 
 					@Override
 					public void actionPerformed(ActionEvent e) {

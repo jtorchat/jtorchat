@@ -114,9 +114,9 @@ public class TCPort {
 								} else if (l.startsWith("oskill ")) { // kills oursock of the buddy following oskill
 									BuddyList.buds.get(l.split(" ")[1]).ourSock.close();
 									BuddyList.buds.get(l.split(" ")[1]).ourSock = null;
-								} else if (l.startsWith("msg ")) { // send messaage to a buddy
+								} else if (l.startsWith("msg ")) { // send message to a buddy
 									BuddyList.buds.get(l.split(" ")[1]).sendMessage(l.split(" ", 3)[2]);
-								} else if (l.startsWith("raw ")) { // send raw messaage to a buddy
+								} else if (l.startsWith("raw ")) { // send raw message to a buddy
 									BuddyList.buds.get(l.split(" ")[1]).sendRaw(l.split(" ", 3)[2]);
 
 								}
@@ -183,7 +183,7 @@ public class TCPort {
 									b.ourSock = null;
 									b.setStatus(Buddy.OFFLINE);
 								}
-								// TODO check unsanswered pings
+								// TODO check unanswered pings
 								if (b.unansweredPings > 5)
 									b.disconnect();
 								if (b.ourSock != null && b.ourSockOut != null && b.theirSock != null && b.getStatus() >= Buddy.ONLINE && System.currentTimeMillis() - b.lastStatusRecieved > Config.DEAD_CONNECTION_TIMEOUT * 1000) {
@@ -192,7 +192,7 @@ public class TCPort {
 								}
 								if (b.ourSock != null && b.theirSock != null && b.recievedPong && b.getTimeSinceLastStatus() > (Config.KEEPALIVE_INTERVAL - 20) * 1000)
 									b.sendStatus(); // Sends status every 100 seconds supposed to be every
-								// KEEPALIVE_INTERVAL but 20 seconds shorter just incase :\
+								// KEEPALIVE_INTERVAL but 20 seconds shorter just in case :\
 								if (b.ourSock != null && b.ourSockOut != null && !b.recievedPong && (System.currentTimeMillis() - b.lastPing) > (Config.KEEPALIVE_INTERVAL / 4) * 1000)
 									b.sendPing(); //
 								if (b.reconnectAt != -1 && System.currentTimeMillis() - b.reconnectAt > 0) {

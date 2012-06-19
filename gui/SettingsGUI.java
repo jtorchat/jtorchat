@@ -130,10 +130,10 @@ public class SettingsGUI extends JFrame {
 		label1.setText("Tray icon size: ");
 		label2.setText("Buddy icon size: ");
 		label3.setText("Space between Buddys: ");
-		label4.setText("You can see the change when you have restart!");
+		label4.setText("You must restart to see the change!");
+		
 		tabbedPane1.removeAll();
 		tabbedPane1.addTab("Icons", panel1);
-
 	}
 
 	private void list1ValueChanged(ListSelectionEvent e) {
@@ -189,7 +189,7 @@ public class SettingsGUI extends JFrame {
 				label3.setHorizontalAlignment(SwingConstants.TRAILING);
 
 				// ---- label4 ----
-				label4.setText("You can see the change when you have restart!");
+				label4.setText("You must restart to see the change!");
 				label4.setHorizontalTextPosition(SwingConstants.CENTER);
 
 				// ======== scrollPane1 ========
