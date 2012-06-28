@@ -57,8 +57,7 @@ public class Buddy {
 
 		this.cookie = generateCookie();
 
-		if (now) // Prevent flooding
-		{
+		if (now) { // Prevent flooding
 			BuddyList.addBuddy(this);
 		}
 	}
@@ -146,7 +145,7 @@ public class Buddy {
 								}
 								Logger.log(Logger.SEVERE, Buddy.this.getClass(), "BROKEN - " + address);
 								// ourScanner = new Scanner(new InputStreamReader(ourSock.getInputStream(), "UTF-8"));
-								// Logger.oldOut.println("erar");
+								// Logger.oldOut.println("error");
 								// ourScanner.useDelimiter("\n");
 								// while (ourScanner.hasNext()) {
 								// Logger.oldOut.println("ss");
@@ -155,8 +154,8 @@ public class Buddy {
 								// if (APIManager.incomingCmdListeners.containsKey(l.split(" ")[0])) {
 								// APIManager.incomingCmdListeners.get(l.split(" ")[0]).onCommand(Buddy.this, l);
 								// } else
-								// Logger.log(Logger.SEVERE, Buddy.this.getClass(), "Recieved unknown '" + l + "' on ourSock from " + Buddy.this.toString(true));
-								// Logger.oldOut.println("esnd her");
+								// Logger.log(Logger.SEVERE, Buddy.this.getClass(), "Received unknown '" + l + "' on ourSock from " + Buddy.this.toString(true));
+								// Logger.oldOut.println("send her");
 								// }
 								// Logger.oldOut.println("BROKEN");
 							} catch (Exception e) {
@@ -339,8 +338,8 @@ public class Buddy {
 				synchronized (connectLock) {
 					try {
 						Logger.log(Logger.NOTICE, this, "Waiting...");
-						// connectLock.wait(45000); // 45sec wait for conenct
-						connectLock.wait(); // wait for conenct
+						// connectLock.wait(45000); // 45sec wait for connect
+						connectLock.wait(); // wait for connect
 						// !NOTE! notify is called regardless of success or failure
 					} catch (InterruptedException e) {
 					}
@@ -353,9 +352,9 @@ public class Buddy {
 				Logger.log(Logger.SEVERE, this, "status == OFFLINE && connectTime != -1");
 				// synchronized(connectLock) {
 				// try {
-				// // connectLock.wait(45000); // 45sec wait for conenct
+				// // connectLock.wait(45000); // 45sec wait for connect
 				// Logger.log(Logger.NOTICE, this, "Waiting...");
-				// connectLock.wait(); // wait for conenct
+				// connectLock.wait(); // wait for connect
 				// // !NOTE! notify is called regardless of success or failure
 				// } catch (InterruptedException e) { }
 				// }
@@ -382,8 +381,8 @@ public class Buddy {
 						if (l.startsWith("pong ")) {
 							if (l.split(" ")[1].equals(cookie)) {
 								unansweredPings = 0;
-								// also implies that oursock is fully connected aswell
-								// but not nessesarily
+								// also implies that oursock is fully connected as well
+								// but not necessarily
 								recievedPong = true;
 								Logger.log(Logger.NOTICE, this, address + " sent pong");
 								if (ourSock != null && ourSockOut != null && status > OFFLINE) {

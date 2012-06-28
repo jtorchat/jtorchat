@@ -39,7 +39,7 @@ public class FileReceiver implements IFileTransfer {
 	private boolean createfile;
 	private File fileopen;
 
-	// ths will be instantiated automatically on an incoming file transfer.
+	// this will be instantiated automatically on an incoming file transfer.
 	// it will then notify the GUI which will open a window and give us a callback to interact
 	public FileReceiver(Buddy b, String id, int blockSize, long fileSize, String fileName) {
 		this.buddy = b;
@@ -305,12 +305,12 @@ public class FileReceiver implements IFileTransfer {
 
 	}
 
-	public void closeSave() { // in pytorchat the equivelant is close
+	public void closeSave() { // in pytorchat the equivalent is close
 		// this is called from the GUI (or its replacement)
 		// therefore this FileReceiver object cannot work without
 		// a GUI attached to it (or some other piece of code) that
 		// properly provides and reacts to the callback function
-		// and closes this obect after it is done
+		// and closes this object after it is done
 		// (user clicked save or whatever this GUI or GUI-replacement does)
 
 		if (this.closed)
