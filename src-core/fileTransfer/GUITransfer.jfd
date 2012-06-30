@@ -1,0 +1,92 @@
+JFDML JFormDesigner: "5.1.0.0.22" Java: "1.7.0_02" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.GridBagLayout ) {
+			"$columnSpecs": "0, 0, 0, 0, 0, 0, 0, 0, 55, 0, 0, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
+			"$rowSpecs": "0, 0, 0, 0"
+			"$hGap": 5
+			"$vGap": 5
+			"$alignLeft": true
+			"$alignTop": true
+		} ) {
+			name: "this"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "<html><br><br>wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"insets": new java.awt.Insets( 10, 10, 0, 0 )
+				"gridwidth": 25
+			} )
+			add( new FormComponent( "javax.swing.JProgressBar" ) {
+				name: "progressBar1"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 1
+				"gridwidth": 25
+				"insets": new java.awt.Insets( 0, 10, 0, 10 )
+				"weightx": 1.0
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button2"
+				"text": "Start"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "startstop", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 2
+				"hAlign": 0
+				"vAlign": 0
+				"insets": &Insets0 new java.awt.Insets( 0, 0, 10, 10 )
+				"gridx": 8
+				"gridwidth": 2
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button5"
+				"text": "Dir"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "opendir", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 2
+				"hAlign": 0
+				"vAlign": 0
+				"insets": #Insets0
+				"gridx": 10
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button4"
+				"text": "Open"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "open", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 2
+				"hAlign": 0
+				"vAlign": 0
+				"insets": #Insets0
+				"gridx": 11
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button3"
+				"text": "Delete"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "delete", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 2
+				"hAlign": 0
+				"vAlign": 0
+				"insets": #Insets0
+				"gridx": 12
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "Cancel"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancel", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 13
+				"gridy": 2
+				"hAlign": 0
+				"vAlign": 0
+				"insets": #Insets0
+				"gridwidth": 3
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 5, 0 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

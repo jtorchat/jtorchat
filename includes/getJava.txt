@@ -1,0 +1,6 @@
+Please install the newest Java from here:
+http://www.java.com/de/download/
+
+The following Java Versions work:
+OpenJDK 6,7 --> Compile on OpenJDK 6
+Sun Java 6,7
