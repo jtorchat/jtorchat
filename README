@@ -1,6 +1,16 @@
 LOOKING FOR DOWNLOADS? GO TO https://github.com/jtorchat/jtorchat/downloads
 
-Want to chat? Join us on IRC: #jtorchat at qvak6rmc6rdsaodv.onion (port 6667)
+For now, if you just want jtorchat to 'work', look for a {stable release}. We are in the middle of a massive code overhaul, as we need to try and fix a hard to detect bug.
+
+Want to chat? Want to help? Join us on IRC: #jtorchat at qvak6rmc6rdsaodv.onion (port 6667)
+
+---------
+
+30 june 2012:
+We are now going to attempt to fix a long term freeze bug, by refactoring the GUI. However we will also take the opportunity to seperate the frontend from the core. Which would allow us to have different frontends.
+
+An ant build file has now been created, to provide a starting point to tacking this, by providing a consistent way to build this project.
+
 ---------
 
 Here is the actually working source from jtorchat.
