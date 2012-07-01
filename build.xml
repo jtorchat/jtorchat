@@ -1,61 +1,129 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project name="jtorchat" default="dist" basedir=".">
-    <description>
+<project name="jtorchat" default="end" basedir=".">
+	<description>
         build file for the jtorchat project
     </description>
-  <!-- set global properties for this build -->
-  <property name="srcCore" location="src-core"/>
-  <property name="build" location="build"/>
-  <property name="dist"  location="dist"/>
+	<!-- set global properties for this build -->
+	<property name="srcCore" location="src-core" />
+	<property name="srcGui" location="src-gui" />
+	<property name="srcNcurse" location="src-ncurse" />
+	<property name="srcIrcd" location="src-ircd" />
+	<property name="build" location="build" />
+	<property name="dist" location="dist" />
 
-  <target name="init">
-    <!-- Create the time stamp -->
-    <tstamp/>
-    <!-- Create the build directory structure used by compile -->
-    <mkdir dir="${build}"/>
-  	<!-- Generate the folder that will be distributed -->
-    <copy includeemptydirs="true" todir="${dist}/torchat-${DSTAMP}">
-        <fileset dir="./includes"></fileset>
-    </copy>
-  	<!-- Copy over the source code as well to /src/ in the distribution -->
-    <copy includeemptydirs="true" todir="${dist}/torchat-${DSTAMP}/data/src/src-core">
-        <fileset dir="./src-core"></fileset>
-    </copy>
-    <copy includeemptydirs="true" todir="${dist}/torchat-${DSTAMP}/data/src/src-gui">
-        <fileset dir="./src-gui"></fileset>
-    </copy>
-    <copy includeemptydirs="true" todir="${dist}/torchat-${DSTAMP}/data/src/src-ncurse">
-        <fileset dir="./src-ncurse"></fileset>
-    </copy>
-    <copy includeemptydirs="true" todir="${dist}/torchat-${DSTAMP}/data/src/src-ircd">
-        <fileset dir="./src-ircd"></fileset>
-    </copy>
-  </target>
+	  <target name="init">
+	    <!-- Create the time stamp -->
+	    <tstamp/>
+	    <!-- Create the build directory structure used by compile -->
+	    <mkdir dir="${build}"/>
+	   <!-- Generate the folder that will be distributed-->
+    	<mkdir dir="${dist}/torchat-${DSTAMP}"/>
+	   <!-- Insert /data/ folder and other support files -->
+	  	<exec executable="cp">
+	  	       <arg value="-p" />
+	  	       <arg value="-r" />
+	  	       <arg value="./includes/." />
+	  	       <arg value="${dist}/torchat-${DSTAMP}" />
+	  	</exec>
+	   <!-- Copy over the source code as well to /src/ in the distribution -->
+	    <copy includeemptydirs="true" todir="${dist}/torchat-${DSTAMP}/data/src/src-core">
+	        <fileset dir="./src-core"></fileset>
+	    </copy>
+	    <copy includeemptydirs="true" todir="${dist}/torchat-${DSTAMP}/data/src/src-gui">
+	        <fileset dir="./src-gui"></fileset>
+	    </copy>
+	    <copy includeemptydirs="true" todir="${dist}/torchat-${DSTAMP}/data/src/src-ncurse">
+	        <fileset dir="./src-ncurse"></fileset>
+	    </copy>
+	    <copy includeemptydirs="true" todir="${dist}/torchat-${DSTAMP}/data/src/src-ircd">
+	        <fileset dir="./src-ircd"></fileset>
+	    </copy>
+	  </target>
 
-  <target name="compile" depends="init" description="compile the source " >
-    <!-- Compile the java code from ${src} into ${build} -->
-    <javac srcdir="${srcCore}" destdir="${build}" includeantruntime="false"/>
-  </target>
+	<target name="compileCoreJar" depends="init" description="compile the core source and turn it into a jar ">
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
 
-  <target name="dist" depends="compile" description="generate the distribution" >
-    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/torchat-${DSTAMP}/jtorchat-core.jar" basedir="${build}">
-    	<manifest>
-    	    <attribute name="Main-Class" value="alpha.TCPort"/>
-    	    <attribute name="Class-Path" value="."/>
-    	</manifest>
-	</jar>
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${srcCore}" destdir="${build}" includeantruntime="false" />
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/torchat-${DSTAMP}/jtorchat-core.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" value="alpha.TCPort" />
+				<!-- <attribute name="Class-Path" value="." /> -->
+			</manifest>
+		</jar>
+
+		<!-- Delete build folder so we can clear the way for the next jar -->
+		<delete dir="${build}" />
+
+	</target>
+
+	<target name="compileGuiJar" depends="compileCoreJar" description="compile the gui source and turn it into a jar ">
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${srcGui}" destdir="${build}" includeantruntime="false" />
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/torchat-${DSTAMP}/jtorchat-gui.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" value="gui.gui" />
+				<attribute name="Class-Path" value="jtorchat-core.jar" />
+			</manifest>
+		</jar>
+
+		<!-- Delete build folder so we can clear the way for the next jar -->
+		<delete dir="${build}" />
+	</target>
+
+	<target name="compileNcurseJar" depends="compileGuiJar" description="compile the Ncurse source and turn it into a jar ">
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${srcNcurse}" destdir="${build}" includeantruntime="false" />
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/torchat-${DSTAMP}/jtorchat-ncurse.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" value="ncurse.ncurse" />
+				<attribute name="Class-Path" value="jtorchat-core.jar" />
+			</manifest>
+		</jar>
+
+		<!-- Delete build folder so we can clear the way for the next jar -->
+		<delete dir="${build}" />
+	</target>
+
+	<target name="compileIrcdJar" depends="compileNcurseJar" description="compile the IRCD source and turn it into a jar ">
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${srcIrcd}" destdir="${build}" includeantruntime="false" />
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/torchat-${DSTAMP}/jtorchat-ircd.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Main-Class" value="ircd.ircd" />
+				<attribute name="Class-Path" value="jtorchat-core.jar" />
+			</manifest>
+		</jar>
+
+		<!-- Delete build folder so we can clear the way for the next jar -->
+		<delete dir="${build}" />
+	</target>
+
+	<target name="end" depends="compileIrcdJar" description="finished">
+	<!-- tar and gip the resulting project in dist-->
+	    <tar compression="gzip" destfile="${dist}/tar-gzip-archive/jtorchat-${DSTAMP}.tar.gz">
+	        <tarfileset dir="${dist}/torchat-${DSTAMP}/">
+	        </tarfileset>
+	    </tar>
+	</target>
 	
-	<!-- Delete build folder so we can clear the way for the next jar -->
-    <delete dir="${build}"/>
-  </target>
-	
- 
-
-  <target name="clean"
-        description="clean up" >
-    <!-- Delete the ${build} and ${dist} directory trees -->
-    <delete dir="${build}"/>
-    <delete dir="${dist}"/>
-  </target>
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
 </project>

@@ -8,8 +8,8 @@
 # Copyright 2011 The Tor Project.  See LICENSE for licensing information.
 # copy from Tor linux bundle
 
-LD_LIBRARY_PATH="lib/"
-LDPATH="lib/"
+LD_LIBRARY_PATH="./linux/lib/"
+LDPATH="./linux/lib/"
 export LDPATH
 export LD_LIBRARY_PATH
 ./linux/tor.lin -f torrc.txt &
