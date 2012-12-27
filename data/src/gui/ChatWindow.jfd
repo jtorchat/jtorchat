@@ -1,0 +1,30 @@
+JFDML JFormDesigner: "5.1.0.0.23" Java: "1.6.0_26" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {comp scrollPane4::l::303:x, comp scrollPane3::l::303:x}"
+			"$verticalGroup": "par l {seq t {comp scrollPane3::::294:x, space :::p, comp scrollPane4:::p:59:p}}"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane3"
+				add( new FormComponent( "javax.swing.JTextPane" ) {
+					name: "textPane1"
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane4"
+				add( new FormComponent( "javax.swing.JTextArea" ) {
+					name: "textArea4"
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyReleased", "textArea4KeyReleased", true ) )
+					addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "textArea4KeyPressed", true ) )
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 315, 385 )
+		} )
+	}
+}
