@@ -1,0 +1,43 @@
+LOOKING FOR DOWNLOADS? GO TO https://github.com/jtorchat/jtorchat/downloads
+
+For now, if you just want jtorchat to 'work', look for a {stable release}. We are in the middle of a massive code overhaul, as we need to try and fix a hard to detect bug.
+
+Want to chat? Want to help? Join us on IRC: #jtorchat at qvak6rmc6rdsaodv.onion (port 6667)
+
+
+Here is the actually working source from jtorchat.
+When you will help us please create forks and send us new code.
+
+This project needs developers who are willing to improve and strengthen jtorchat and ensure that it always have the latest tor binary. Get in touch with us and we'll get you started. 
+
++++ jTorchat V0.7.11 at Dez 2012 - new Tor binaries, hope for fix the crash bug
+
++++ jTorchat V0.7.10 at Apr 2012 - Porlington fix
+
++++ jTorchat V0.7.9 at Apr 2012 - new menus, many fixes and more
+
++++ jTorchat V0.7.8 at Apr 2012 - file transfer fix, better language gui, more fixes
+
++++ jTorchat V0.7.7 at Apr 2012 - better blacklist and whitelist
+
++++ jTorchat V0.7.6 at Mar 2012 - fixes
+
++++ jTorchat V0.7.5 at Mar 2012 - read the readme from the file
+
++++ jTorchat V0.7.4 at Feb 2012 - many fixes
+
++++ jTorchat V0.7.3 at Feb 2012 - File-Transfer linux bug fix
+
++++ jTorchat V0.7.2 at Feb 2012 - windows & linux with obfsproxy, portable linux support, update check
+
++++ jTorchat V0.7.1 at Feb 2012 - SHIFT-ENTER and a help command for old versions (Note: Accidentally compiled only for java7, will fix in next release. Just upgrade your java)
+
++++ jTorchat V0.7.0b at Feb 2012 - only jtorchat.exe wrapper added, for the convenience of window users. (and to ensure they use the latest jre)
+
++++ jTorchat V0.7.0 at Feb 2012 - support for page, and irc-like commands like "/help", and buddysync
+
++++ jTorchat V0.6.2 at Feb 2012 - tentative support for linux (file ver was incorrectly set V6.2)
+
++++ jTorchat V0.6.1 at Jan 2012 - Bugfixes, added ability to set a nick for someone
+
++++ jTorchat V0.6 at Jan 2012 - Implemented file transfer
