@@ -1,1 +1,0 @@
-The source code for each jar is located here. As always, please contribute to jtorchat if you find anything to make it better.
