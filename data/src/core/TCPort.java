@@ -1,10 +1,10 @@
 package core;
 
-import java.io.File;
+import gui.GuiLog;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -12,17 +12,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import util.Util;
-
 
 public class TCPort {
 	
 	// Direct compile and run from source for fixing the path
 	public static boolean run_from_source = false;
-	public static String base_pwd;
 	public static String profile_name; // = "JTCDev-Tsu";
 	public static String profile_text; // = "JTCDev-Text";
 	public static String status = "available"; // available away xa
+	public static String[] extern_source_path;
 	private static boolean launched;
 	@SuppressWarnings("unused")
 	private static boolean halted;
@@ -30,38 +28,16 @@ public class TCPort {
 
 
 	public static void main(String[] args) {
-		String os = System.getProperty("os.name").toLowerCase();
-
+		GuiLog.instance = new GuiLog();
+		extern_source_path=args;
+		
 		try {
 
-			if (args.length > 0)
-			{
-				base_pwd = args[0];
-				base_pwd = new File(base_pwd).getCanonicalPath() + "/";
-			}
-			else
-			{
-			String path = TCPort.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		    base_pwd = URLDecoder.decode(path, "UTF-8"); 
-		    
-		    if(run_from_source)
-		    {base_pwd=base_pwd+"../../../";}else
-		    {
-		    if (os.indexOf("win") >= 0) { base_pwd=base_pwd.split("/", 2)[1]; }
-		    base_pwd=Util.reverse(base_pwd);
-		    base_pwd=base_pwd.split("/", 2)[1]; 
-		    base_pwd=Util.reverse(base_pwd);
-		    base_pwd=base_pwd+"/";
-		    }
-			}
-			
-			  
-
-			final JFrame logInstance = getLogInstance();
-			if (logInstance != null)
+		
+			if (GuiLog.instance != null)
 			{
 				if(Config.visiblelog == 1) {
-					logInstance.setVisible(true);
+					GuiLog.instance.setVisible(true);
 				}
 			}
 
@@ -257,9 +233,9 @@ public class TCPort {
 		System.err.println("*** Error during startup, Halting! ***");
 		e.printStackTrace();
 		TCServ.halt();
-		if (getLogInstance() != null) {
-			getLogInstance().setVisible(true);
-			getLogInstance().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		if (GuiLog.instance != null) {
+			GuiLog.instance.setVisible(true);
+			GuiLog.instance.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			if (launched) {
 				try {
 					BuddyList.saveBuddies();
@@ -287,15 +263,6 @@ public class TCPort {
 		System.err.println("*** Error during startup, Halted! ***");
 	}
 
-	static JFrame getLogInstance() {
-		try {
-			Class<?> c = Class.forName("gui.GuiLog");
-			return (JFrame) c.getDeclaredField("instance").get(null);
-		} catch (Exception e) {
-			// ignored
-		}
-		return null;
-	}
 
 
 	private static void runStaticInit(String string) {

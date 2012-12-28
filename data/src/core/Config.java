@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.Properties;
 
 import util.ConfigWriter;
-import util.Folder;
+import util.DataControl;
 import util.Util;
 
 public class Config {
@@ -97,9 +97,7 @@ public class Config {
 
 	static {
 		os = System.getProperty("os.name").toLowerCase();
-		Folder.getBaseDir();
-		Folder.getPaths();
-		Folder.createFolder();
+		DataControl.init();
 		prop = new Properties();
 		ConfigWriter.loadall();
 
