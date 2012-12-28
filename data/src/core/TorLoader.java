@@ -1,6 +1,8 @@
 package core;
 
 import gui.GuiKillTor;
+import gui.GuiLog;
+import gui.GuiTorLoading;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +20,7 @@ public class TorLoader {
 	private static Object loadLock = new Object();
 
 	public static void loadTor() {
-		final TorLoading tl = new TorLoading();
+		final GuiTorLoading tl = new GuiTorLoading();
 		tl.getProgressBar1().setIndeterminate(true);
 		tl.setVisible(true);
 		ThreadManager.registerWork(ThreadManager.DAEMON, new Runnable() {
@@ -26,20 +28,10 @@ public class TorLoader {
 			@Override
 			public void run() {
 
-				final String controlFilePath = Config.BASE_DIR+Config.DATA_DIR+Config.controlfile;
-				boolean exists = (new File(controlFilePath)).exists(); // check base dir
-				if (!exists) {
-					Logger.log(Logger.FATAL, CLASS_NAME, "Wrong base dir, the controlfile is not find:" + controlFilePath);
-					TCPort.getLogInstance().setVisible(true);
-					tl.getProgressBar1().setValue(0);
-					tl.getProgressBar1().setIndeterminate(false);
-					tl.gettextArea1().setText("Wrong base dir, the controlfile is not find!");
-				} else {
-
 					if (Config.answer!=null) // if a language file NOT found
 					{
 						Logger.log(Logger.FATAL, CLASS_NAME, Config.answer);
-						TCPort.getLogInstance().setVisible(true);
+						GuiLog.instance.setVisible(true);
 						tl.getProgressBar1().setValue(0);
 						tl.getProgressBar1().setIndeterminate(false);
 						tl.gettextArea1().setText(Config.answer);
@@ -149,7 +141,7 @@ public class TorLoader {
 
 										if (l.contains("broken state. Dying.")) {
 											Logger.log(Logger.FATAL, CLASS_NAME, "Tor has died apparently, Ja.");
-											TCPort.getLogInstance().setVisible(true);
+											GuiLog.instance.setVisible(true);
 											tl.getProgressBar1().setValue(0);
 											tl.getProgressBar1().setIndeterminate(false);
 											tl.gettextArea1().setText(language.langtext[49]);
@@ -160,7 +152,7 @@ public class TorLoader {
 									Logger.log(Logger.SEVERE, CLASS_NAME, e.getLocalizedMessage());
 									if (e.getLocalizedMessage().contains("Cannot"))
 									{
-										TCPort.getLogInstance().setVisible(true);
+										GuiLog.instance.setVisible(true);
 										tl.getProgressBar1().setValue(0);
 										tl.getProgressBar1().setIndeterminate(false);
 										tl.gettextArea1().setText(language.langtext[50]);
@@ -177,7 +169,7 @@ public class TorLoader {
 
 						}
 					}
-				}}
+				}
 
 
 
