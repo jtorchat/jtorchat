@@ -1,4 +1,4 @@
-package core;
+package gui;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -6,15 +6,17 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 
+import core.language;
+
 @SuppressWarnings("serial")
-public class TorLoading extends JFrame {
+public class GuiTorLoading extends JFrame {
 	public JProgressBar getProgressBar1() {
 		return progressBar1;
 	}
 	public JTextArea gettextArea1() {
 		return textArea1;
 	}
-	public TorLoading() {
+	public GuiTorLoading() {
 		initComponents();
 		language();
 		addWindowListener(new WindowAdapter() {
