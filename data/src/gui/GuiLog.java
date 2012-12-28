@@ -25,7 +25,7 @@ import util.LogWriter;
 @SuppressWarnings("serial")
 public class GuiLog extends JFrame {
 	public static long lastclear = System.currentTimeMillis() / 1000;
-	public static final GuiLog instance;
+	public static GuiLog instance;
 	public GuiLog() {
 		initComponents();
 		setSize(755, 402);
