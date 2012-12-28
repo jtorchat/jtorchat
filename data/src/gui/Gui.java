@@ -482,9 +482,7 @@ public class Gui {
 			w = new GuiChatWindow(b);
 			windowMap.put(b.getAddress(), w);
 		}
-		w.setIconImage(b.getStatus() == Buddy.OFFLINE ? TCIconRenderer.offlineImagebase : b.getStatus() == Buddy.HANDSHAKE ? TCIconRenderer.handshakeImagebase : b.getStatus() == Buddy.ONLINE ? TCIconRenderer.onlineImagebase : b.getStatus() == Buddy.AWAY ? TCIconRenderer.awayImagebase : b
-				.getStatus() == Buddy.XA ? TCIconRenderer.xaImagebase : null);
-		w.setTitle(b.toString(true));
+        w.setTitle(b.toString(true));
 
 		w.setFocusableWindowState(false);
 		if (setVis)
@@ -603,15 +601,7 @@ public class Gui {
 
 		@Override
 		public void onStatusChange(Buddy buddy, byte newStatus, byte oldStatus) {
-			for (int i = 0; i < 3; i++) // repaint 3 times since sometimes it fails? FIXME
-				jt.repaint();
-			try {
-				if (getChatWindow(buddy, false, false) != null) { // why was this commented out?
-					getChatWindow(buddy, false, false).setIconImage(newStatus == Buddy.OFFLINE ? TCIconRenderer.offlineImage : newStatus == Buddy.HANDSHAKE ? TCIconRenderer.handshakeImage : newStatus == Buddy.ONLINE ? TCIconRenderer.onlineImage : newStatus == Buddy.AWAY ? TCIconRenderer.awayImage : newStatus == Buddy.XA ? TCIconRenderer.xaImage : null);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			jt.repaint();
 			Logger.oldOut.println(buddy + " changed from " + Buddy.getStatusName(oldStatus) + " to " + Buddy.getStatusName(newStatus));
 			if (newStatus >= Buddy.ONLINE && oldStatus <= Buddy.HANDSHAKE) {
 

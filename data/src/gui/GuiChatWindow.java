@@ -145,8 +145,7 @@ x++;
 
 		System.out.println(textPane1.getDocument().getClass().getCanonicalName());
 		textPane1.setEditable(false);
-		// textPane1.setWrapStyleWord(true); // not needed anymore
-		// textPane1.setLineWrap(true); // not needed anymore
+
 		textArea4.setWrapStyleWord(true);
 		textArea4.setLineWrap(true);
 		addWindowFocusListener(new WindowAdapter() {
