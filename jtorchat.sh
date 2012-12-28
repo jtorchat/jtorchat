@@ -1,8 +1,7 @@
 #!/bin/bash
 JAVA_VER=$(java -version 2>&1 | sed 's/java version "\(.*\)\.\(.*\)\..*"/\1\2/; 1q')
 if [ "$JAVA_VER" -ge 16 ]; then
-SCRIPTPATH=`pwd`
-java -jar jtorchat.jar $SCRIPTPATH
+java -jar jtorchat.jar
 else
 xterm -e editor getJava.txt
 fi
