@@ -33,14 +33,14 @@ public static void init()
 	
 	checkData();
 	
-	Logger.log(Logger.NOTICE, "ConfigWriter", "Using " + Config.CONFIG_DIR + " as CONFIG_DIR");
-	Logger.log(Logger.NOTICE, "ConfigWriter", "Using " + Config.DOWNLOAD_DIR + " as DOWNLOAD_DIR");
-	Logger.log(Logger.NOTICE, "ConfigWriter", "Using " + Config.LOG_DIR + " as LOG_DIR");
-	Logger.log(Logger.NOTICE, "ConfigWriter", "Using " + Config.MESSAGE_DIR + " as MESSAGE_DIR");
-	Logger.log(Logger.NOTICE, "ConfigWriter", "Using " + Config.PAGE_DIR + " as PAGE_DIR");
-	Logger.log(Logger.NOTICE, "ConfigWriter", "Using " + Config.TOR_DIR + " as TOR_DIR");
-	Logger.log(Logger.NOTICE, "ConfigWriter", "Using " + Config.LANG_DIR + " as LANG_DIR");
-	Logger.log(Logger.NOTICE, "ConfigWriter", "Using " + Config.BUDDY_DIR + " as BUDDY_DIR");
+	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.CONFIG_DIR + " as CONFIG_DIR");
+	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.DOWNLOAD_DIR + " as DOWNLOAD_DIR");
+	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.LOG_DIR + " as LOG_DIR");
+	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.MESSAGE_DIR + " as MESSAGE_DIR");
+	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.PAGE_DIR + " as PAGE_DIR");
+	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.TOR_DIR + " as TOR_DIR");
+	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.LANG_DIR + " as LANG_DIR");
+	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.BUDDY_DIR + " as BUDDY_DIR");
 }
 
 public static String get_base_pwd() {
@@ -57,20 +57,30 @@ public static String get_base_pwd() {
 		{
 		String path = TCPort.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 		BASE_DIR = URLDecoder.decode(path, "UTF-8"); 
-	    
-	    if(TCPort.run_from_source)
-	    {BASE_DIR=BASE_DIR+"../../../";}else
+		Logger.log(Logger.NOTICE, "ConfigWriter", BASE_DIR);
+
+		if (os.indexOf("win") >= 0) { BASE_DIR=BASE_DIR.split("/", 2)[1]; }
+		
+		File f1 = new File(BASE_DIR);
+		
+		// is the destination a file then delete this part from the string
+	    if(f1.isFile())
 	    {
-	    if (os.indexOf("win") >= 0) { BASE_DIR=BASE_DIR.split("/", 2)[1]; }
 	    BASE_DIR=Util.reverse(BASE_DIR);
 	    BASE_DIR=BASE_DIR.split("/", 2)[1]; 
 	    BASE_DIR=Util.reverse(BASE_DIR);
 	    BASE_DIR=BASE_DIR+"/";
+		}
+	    // else it is a directory in the output folder and run direct over eclipse
+	    else
+	    {
+	    BASE_DIR=BASE_DIR+"../../../";
 	    }
 		}
-	    } catch (IOException e) {
-		e.printStackTrace();
-	    }
+    } catch (IOException e) {
+	e.printStackTrace();
+    }
+
 	return BASE_DIR;
 }
 
