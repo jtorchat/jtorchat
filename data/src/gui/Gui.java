@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.SystemTray;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -26,21 +25,22 @@ import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import commands.list_of_commands;
+
 import core.APIManager;
 import core.Buddy;
 import core.BuddyList;
-import core.Commands;
 import core.Config;
 import core.Logger;
 import core.TCPort;
 import core.language;
 
+import util.ChatWindow;
 import util.TCIconRenderer;
 import util.Tray;
 
@@ -50,7 +50,7 @@ import listeners.APIListener;
 public class Gui {
 
 	private Listener listener;
-	private JFrame f;
+	public static JFrame f;
 	private static DefaultMutableTreeNode root;
 	private static DefaultMutableTreeNode buddyNodeholy;
 	private static DefaultMutableTreeNode buddyNodeon;
@@ -110,12 +110,9 @@ public class Gui {
 		APIManager.addEventListener(listener);
 		f = new JFrame(Config.us + " - Buddy List");
 		f.setLayout(new BorderLayout());
-		f.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-
-		if (SystemTray.isSupported())
-			Tray.init();
-		else
-			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		// Change HIDE_ON_CLOSE or EXIT_ON_CLOSE when it works
+        Tray.init();
 
 		JMenuBar jmb = new JMenuBar();
 		JMenu jmStatus = new JMenu(language.langtext[1]);
@@ -603,8 +600,31 @@ public class Gui {
 		public void onStatusChange(Buddy buddy, byte newStatus, byte oldStatus) {
 			jt.repaint();
 			Logger.oldOut.println(buddy + " changed from " + Buddy.getStatusName(oldStatus) + " to " + Buddy.getStatusName(newStatus));
-			if (newStatus >= Buddy.ONLINE && oldStatus <= Buddy.HANDSHAKE) {
+			
+			
+			if (newStatus == Buddy.ONLINE && oldStatus != newStatus) {
+				if(Config.alert_on_status_change==1){
+					GuiAlert alert;
+					alert = new GuiAlert(buddy.toString() + " is online.");
+					alert.start();
+					}}
 
+			if (newStatus == Buddy.AWAY && oldStatus != newStatus) {
+				if(Config.alert_on_status_change==1){
+					GuiAlert alert;
+					alert = new GuiAlert(buddy.toString() + " is away.");
+					alert.start();
+					}}
+			
+			if (newStatus == Buddy.XA && oldStatus != newStatus) {
+				if(Config.alert_on_status_change==1){
+					GuiAlert alert;
+					alert = new GuiAlert(buddy.toString() + " is far away.");
+					alert.start();
+					}}
+			
+			if (newStatus >= Buddy.ONLINE && oldStatus <= Buddy.HANDSHAKE) {
+				
 				if (!BuddyList.black.containsKey(buddy.getAddress())) {
 					MutableTreeNode node = nodeMap.remove(buddy.getAddress());
 					if (node != null) // remove entry in the gui
@@ -614,11 +634,7 @@ public class Gui {
 					if (node != null)
 						node.removeFromParent();
 					nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
-
-					GuiAlert alert;
-					alert = new GuiAlert(buddy.toString() + " is online");
-					alert.start();
-
+					
 					if (buddy.getHoly()) {
 						if (buddy.getAddress().equals(Config.us)) {
 							((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
@@ -664,6 +680,12 @@ public class Gui {
 
 			} else if (oldStatus >= Buddy.ONLINE && newStatus <= Buddy.HANDSHAKE) {
 
+				if(Config.alert_on_status_change==1){
+				GuiAlert alert;
+				alert = new GuiAlert(buddy.toString() + " is offline");
+				alert.start();
+				}
+				
 				if (!BuddyList.black.containsKey(buddy.getAddress())) {
 					MutableTreeNode node = nodeMap.remove(buddy.getAddress());
 					if (node != null) // remove entry in the gui
@@ -707,71 +729,28 @@ public class Gui {
 
 		@Override
 		public void onMessage(Buddy buddy, String s) {
-
 			GuiChatWindow w = getChatWindow(buddy, true, true);
-
-			String msg = s.trim().replaceAll("\n", "\\\\n").replaceAll("\n", "\\\\n").replaceAll("\r", "");
-
-			if (msg.startsWith("/")) {
-				if (msg.trim().endsWith("\\\\n")) {
-					msg.substring(0, msg.length() - 6);
-				}
-				String command = Commands.runin(buddy, msg);
-				if (command.startsWith("0")) {
-					w.append("Me", "Private: ");
-					w.append("Them", command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
-					w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
-					w.getTextArea4().requestFocusInWindow();
-
-					if (!w.isFocused()) {
-						if (alert != null && !alert.isFinished())
-							alert.kill();
-						alert = new GuiAlert("* " + buddy.toString() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
-						alert.start();
-					}
-
-				} else if (command.startsWith("1")) {
-					w.append("Time Stamp", "(" + GuiChatWindow.getTime() + ") ");
-					w.append("Them", "* " + buddy.toString() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
-					w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
-					w.getTextArea4().requestFocusInWindow();
-
-					if (!w.isFocused()) {
-						if (alert != null && !alert.isFinished())
-							alert.kill();
-						alert = new GuiAlert("* " + buddy.toString() + " " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
-						alert.start();
-					}
-				} else if (command.startsWith("2")) {
-					w.append("Time Stamp", "(" + GuiChatWindow.getTime() + ") ");
-					w.append("Them", " --> " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
-					w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
-					w.getTextArea4().requestFocusInWindow();
-
-					if (!w.isFocused()) {
-						if (alert != null && !alert.isFinished())
-							alert.kill();
-						alert = new GuiAlert(buddy.toString() + " --> " + command.substring(1).replaceAll("\\\\n", "\n").trim() + "\n");
-						alert.start();
-					}
-				}
-
-			} else {
-
-				if (!w.isFocused() && !buddy.getBlack()) {
-					if (alert != null && !alert.isFinished())
-						alert.kill();
-					alert = new GuiAlert(buddy.toString() + ": " + s);
-					alert.start();
-				}
-
-				w.append("Time Stamp", "(" + GuiChatWindow.getTime() + ") ");
-				w.append("Them", buddy.toString() + ": ");
-				w.addUrlText(s.replaceAll("\\\\n", "\n").trim() + "\n");
-				// w.getTextArea3().insert("(" + ChatWindow.getTime() + ") " + buddy.toString() + ": " + s + "\n", w.getTextArea3().getText().length());
-				w.getTextPane1().setCaretPosition(w.getTextPane1().getDocument().getLength());
-				w.getTextArea4().requestFocusInWindow();
+			String msg = s.trim().replaceAll("\\\\n", "\n").replaceAll("\r", "");
+					
+			boolean right = true;
+			if (msg.startsWith("/")) 
+			{
+			right=list_of_commands.out_command(buddy, msg,w,false);
+			} 
+			else if(msg.startsWith("[Delayed] /"))
+			{
+			right=list_of_commands.out_command(buddy, msg.substring(10),w,true);
 			}
+			
+			if(right){ChatWindow.update_window(2, w,msg,w.get_textArea4().getText(),"",!buddy.isFullyConnected());}
+			
+		if(Config.alert_on_message==1){
+			if (!w.isFocused() && !buddy.getBlack()) {
+				if (alert != null && !alert.isFinished()){alert.kill();}
+				alert = new GuiAlert("New Message: "+buddy.toString());
+				alert.start();
+			}}
+			
 		}
 
 		@Override

@@ -7,9 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -30,9 +27,11 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.html.HTML;
 
+import util.ChatWindow;
+
+import commands.list_of_commands;
+
 import core.Buddy;
-import core.BuddyList;
-import core.Commands;
 import core.Config;
 
 import listeners.LinkController;
@@ -50,22 +49,21 @@ import fileTransfer.FileSender;
 @SuppressWarnings("serial")
 public class GuiChatWindow extends JFrame {
 
-	private Buddy b;
+	public Buddy b;
 	private Style timestampStyle;
 	private Style myNameStyle;
 	private Style theirNameStyle;
-    private String command;
     private Boolean shiftpress;
 	// private Style normalStyle;
     
 // Clickable links start
 
-public void addUrlText(String text) {
+public void addUrlText(String type, String text) {
 		
 		
 if (Config.ClickableLinks == 0)
 {
-append("Plain", text);
+append(type, text);
 }
 else
 {
@@ -78,7 +76,7 @@ if(splittall[x].startsWith("http://"))
 {
 try {
 	addHyperlink(new URL(splittall[x]), splittall[x].substring(7), Color.blue);
-	append("Plain", " ");
+	append(type, " ");
 } catch (MalformedURLException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
@@ -88,7 +86,7 @@ else if (splittall[x].startsWith("https://"))
 {
 try {
 	addHyperlink(new URL(splittall[x]), splittall[x].substring(8), Color.blue);
-	append("Plain", " ");
+	append(type, " ");
 } catch (MalformedURLException e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
@@ -96,9 +94,9 @@ try {
 }
 else
 {
-append("Plain", splittall[x]);
+append(type, splittall[x]);
 
-if (x < splittall.length-1){append("Plain", " ");}
+if (x < splittall.length-1){append(type, " ");}
 }
 
 
@@ -196,83 +194,18 @@ x++;
 		
 		if (e.getKeyCode() == 10 & !shiftpress) { // enter
 			if (!textArea4.getText().trim().equals("")) {
-				boolean flag = b.isFullyConnected();
-				try {
-					String msg = textArea4.getText().trim().replaceAll("\n", "\\\\n").replaceAll("\n", "\\\\n").replaceAll("\r", "");
-					if (msg.startsWith("/")) {
-                        command = Commands.run(b, msg, textPane1.getText());
-						if(command.startsWith("0"))
-						{
-						append("Me", "Private: ");
-						append("Them",  (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
-						textPane1.setCaretPosition(textPane1.getDocument().getLength());
-						textArea4.requestFocusInWindow();
-	
-						textArea4.setText("");
-						}
-						else if (command.startsWith("1"))
-						{
-						textArea4.setText(command.substring(1));
-						}
-						else if (command.startsWith("2"))
-						{
-							append("Time Stamp", "(" + GuiChatWindow.getTime() + ") ");
-							append("Me", "* " + BuddyList.buds.get(Config.us).toString()+ " " + (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
+				String msg = textArea4.getText();
+
 				
-							textPane1.setCaretPosition(textPane1.getDocument().getLength());
-							textArea4.requestFocusInWindow();
-							if (command.trim().endsWith("\\\\n")) {
-								command.substring(0, command.length() - 6);
-							}
-
-							textArea4.setText("");
-						}
-						else if (command.startsWith("3"))
-						{
-							append("Time Stamp", "(" + GuiChatWindow.getTime() + ") ");
-							append("Me", " --> " + (flag ? "" : "[Delayed] ") + command.substring(1) + "\n");
-				
-							textPane1.setCaretPosition(textPane1.getDocument().getLength());
-							textArea4.requestFocusInWindow();
-							if (command.trim().endsWith("\\\\n")) {
-								command.substring(0, command.length() - 6);
-							}
-
-							textArea4.setText("");
-						}
-						
-					} else {
-					
-						// textPane1
-						append("Time Stamp", "(" + getTime() + ") ");
-						append("Me", "Me: ");
-						addUrlText((flag ? "" : "[Delayed] ") + textArea4.getText().trim() + "\n");
-
-						textPane1.setCaretPosition(textPane1.getDocument().getLength());
-						textArea4.requestFocusInWindow();
-						if (msg.trim().endsWith("\\\\n")) {
-							msg.substring(0, msg.length() - 6);
-						}
-						
-						
-						if (flag)
-							b.sendMessage(msg);
-						else {
-							new File(Config.MESSAGE_DIR).mkdirs();
-							FileOutputStream fos = new FileOutputStream(Config.MESSAGE_DIR + b.getAddress() + ".txt", true);
-							fos.write((msg + "\n").getBytes());
-							fos.close();
-						}
-						textArea4.setText("");
+					boolean right = true;
+					if (msg.startsWith("/")) 
+					{
+                    right = list_of_commands.in_command(b, msg,this);
 					}
+					if(right){ChatWindow.update_window(1, this,msg,"",msg,!b.isFullyConnected());}
 					
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			} else {
-				textArea4.setText("");
-				// clear the text area anyways
-			}
+				
+			} else {textArea4.setText("");}
 		}
 	}
 
@@ -348,6 +281,14 @@ x++;
 			ble.printStackTrace();
 		}
 	}
+	
+   public JTextArea get_textArea4() {
+	 return textArea4;
+   }
+
+   public JTextPane get_textPane1() {
+	 return textPane1;
+   }
 
 	// JFormDesigner - Variables declaration - DO NOT MODIFY //GEN-BEGIN:variables
 	// Generated using JFormDesigner Evaluation license - TIm daaa
