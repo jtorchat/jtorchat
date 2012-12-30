@@ -1,5 +1,6 @@
 package core;
 
+import gui.Gui;
 import gui.GuiLog;
 
 import java.io.FileNotFoundException;
@@ -16,9 +17,8 @@ import javax.swing.JTextField;
 public class TCPort {
 	
 	// Direct compile and run from source for fixing the path
-	public static boolean run_from_source = false;
-	public static String profile_name; // = "JTCDev-Tsu";
-	public static String profile_text; // = "JTCDev-Text";
+	public static String profile_name; 
+	public static String profile_text;
 	public static String status = "available"; // available away xa
 	public static String[] extern_source_path;
 	private static boolean launched;
@@ -71,8 +71,8 @@ public class TCPort {
 			if (Config.loadTor == 1){TorLoader.loadTor();}
 			TCServ.init();
 
-			// new Gui().init();
-			runInit("gui.Gui");
+		    new Gui().init();
+			
 			launched = true;
 			try {
 				BuddyList.loadBuddies();
@@ -91,7 +91,7 @@ public class TCPort {
 			}
 
 
-			runStaticInit("fileTransfer.FileTransfer");
+			new fileTransfer.FileTransfer();
 
 			
 
@@ -264,30 +264,6 @@ public class TCPort {
 	}
 
 
-
-	private static void runStaticInit(String string) {
-		try {
-			Class<?> c = Class.forName(string);
-			c.getDeclaredMethod("init").invoke(null);
-			Logger.log(Logger.INFO, "Init", "Loaded " + string);
-		} catch (Exception e) {
-			// ignored
-		}
-	}
-
-	private static void runInit(String string) {
-		try {
-			Class<?> c = Class.forName(string);
-			Object inst = c.getConstructor().newInstance();
-			c.getMethod("init").invoke(inst);
-			Logger.log(Logger.INFO, "Init", "Loaded " + string);
-		} catch (Exception e) {
-			Logger.log(Logger.INFO, "Init", "Failed to load " + string + " | " + e.getLocalizedMessage());
-			// ignored
-		}
-	}
-
-
 	public static void sendMyInfo() {
 		for (Buddy b : BuddyList.buds.values()) {
 			if (b.getStatus() >= Buddy.ONLINE) {
@@ -308,8 +284,6 @@ public class TCPort {
 			}
 		}
 	}
-	
-	
 	
 	public static void sendMyProfil() {
 		for (Buddy b : BuddyList.buds.values()) {
