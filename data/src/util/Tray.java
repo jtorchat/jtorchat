@@ -11,11 +11,20 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import core.Buddy;
 import core.BuddyList;
 import core.Config;
+import core.Logger;
 import core.TCPort;
+import core.TorLoader;
 import core.language;
 
 
@@ -24,9 +33,10 @@ import core.language;
 
 public class Tray {
 	static TrayIcon trayIcon= null;
-	
+	private static final String CLASS_NAME = TorLoader.class.getName();
+
 	public static void init() {
-		if (SystemTray.isSupported()) {
+		if (SystemTray.isSupported() && is_not_gnome3()) {
 		    SystemTray tray = SystemTray.getSystemTray();
 		    Image image = TCIconRenderer.offlineImage;
 	
@@ -42,9 +52,8 @@ public class Tray {
 		        	System.exit(0);
 		        }
 		    };
-		    // create a popup menu
 		    PopupMenu popup = new PopupMenu();
-		    // create menu item for the default action
+		    
 		    MenuItem defaultItem = new MenuItem("Restore/Hide");
 		    defaultItem.setFont(new Font("sansserif", Font.BOLD, 12));
 		    defaultItem.addActionListener(togListener);
@@ -57,14 +66,41 @@ public class Tray {
 		    trayIcon.addActionListener(togListener);
 		    try {
 		        tray.add(trayIcon);
+			    Gui.f.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		    } catch (AWTException e) {
 		        System.err.println(e);
 		    }
-		} else {
-			
+		} else {	   
+        Gui.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Logger.log(Logger.WARNING, CLASS_NAME, "Tray Icons not supported for this system.");
 		}
 
 	}
+// Java Tray Icons not work in Gnome3 :(
+private static boolean is_not_gnome3() {
+	String os = System.getProperty("os.name").toLowerCase();
+if (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0){
+	try {
+	String command= "gnome-shell --version"; 
+	Runtime rt = Runtime.getRuntime(); 	
+	Process pr = rt.exec(command);
+	Reader r = new InputStreamReader(pr.getInputStream());
+    BufferedReader in = new BufferedReader(r);
+    String line;
+	while((line = in.readLine()) != null){
+	if(line.startsWith("GNOME Shell 3")){return false;}
+	}
+	in.close();
+	return true;
+	} catch (IOException e) {
+		return true;
+	}
+    }
+    else
+    {
+    return true;
+    }
+    }
 public static void updateTray()
 {
 	Image image;
@@ -77,6 +113,6 @@ public static void updateTray()
     }
 	if (trayIcon != null) {
     trayIcon.setImage(image);
-}
+    }
 }
 }
