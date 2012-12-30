@@ -12,8 +12,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import core.Config;
-
 
 
 public class GuiAlert extends Thread {
@@ -30,11 +28,7 @@ public class GuiAlert extends Thread {
 
 	@SuppressWarnings("serial")
 	public GuiAlert(final String s) {
-		if (Config.alert == 0){ // returns immediately if alerts is disabled
-			return;
-		}
-		
-		
+
 		
 		f = new JFrame();
 		f.setUndecorated(true);
@@ -73,13 +67,6 @@ public class GuiAlert extends Thread {
 	}
 
 	private void doAWTUtilities() {
-//		try {
-//			Class.forName("com.sun.awt.AWTUtilities");
-//			if ((AWTUtilities.isTranslucencySupported(AWTUtilities.Translucency.PERPIXEL_TRANSLUCENT)) && (AWTUtilities.isTranslucencyCapable(f.getGraphicsConfiguration())))
-//				AWTUtilities.setWindowOpaque(f, false);
-//		} catch (Exception e) {
-//			// ignore
-//		}
 		try {
 			Class<?> awtuc = Class.forName("com.sun.awt.AWTUtilities");
 			Class<?> awtutc = Class.forName("com.sun.awt.AWTUtilities$Translucency");

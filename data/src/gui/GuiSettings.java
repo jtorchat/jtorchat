@@ -17,15 +17,9 @@ import util.ConfigWriter;
 
 @SuppressWarnings("serial")
 public class GuiSettings extends JFrame {
-//	private boolean hasBroadcast = false;
 	
 	public GuiSettings() {
-//		try {
-//			Class.forName("broadcast.Broadcast");
-//			hasBroadcast = true;
-//		} catch (ClassNotFoundException e) {
-//			// ignored
-//		}
+
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		initComponents();
@@ -36,7 +30,8 @@ public class GuiSettings extends JFrame {
 		textField6.setText((Config.us != null && Config.us.length() > 0) ? Config.us : "");
 		textField7.setText(Config.sync);
 		textField8.setText(Config.update);
-		if (Config.alert == 1) { checkBox2.setSelected(true); } else { checkBox2.setSelected(false); }
+		if (Config.alert_on_status_change == 1) { checkBox12.setSelected(true); } else { checkBox12.setSelected(false); }
+		if (Config.alert_on_message == 1) { checkBox2.setSelected(true); } else { checkBox2.setSelected(false); }
 		if (Config.loadTor == 1) { checkBox1.setSelected(true); } else { checkBox1.setSelected(false); }
 		if (Config.buddyStart == 1) { checkBox3.setSelected(true); } else { checkBox3.setSelected(false); }
 		if (Config.transferonstart == 1) { checkBox4.setSelected(true); } else { checkBox4.setSelected(false); }
@@ -75,7 +70,8 @@ public class GuiSettings extends JFrame {
 
 		String sync = textField7.getText();
 		String update = textField8.getText();
-		boolean alert = checkBox2.isSelected();
+		boolean alert_on_message = checkBox2.isSelected();
+		boolean alert_on_status_change = checkBox12.isSelected();
 		boolean loadTor = checkBox1.isSelected();
 		boolean buddyStart = checkBox3.isSelected();
 		boolean updateStart = checkBox6.isSelected();
@@ -124,7 +120,8 @@ public class GuiSettings extends JFrame {
 		Config.lang = lang;
 		Config.sync = sync;
 		Config.update = update;
-		if (alert) { Config.alert = 1; } else {Config.alert = 0; } ;
+		if (alert_on_message) { Config.alert_on_message = 1; } else {Config.alert_on_message = 0; };
+		if (alert_on_status_change) { Config.alert_on_status_change = 1; } else {Config.alert_on_status_change = 0; } ;
 		if (loadTor) { Config.loadTor = 1; } else {Config.loadTor = 0; } ;
 		if (buddyStart) { Config.buddyStart = 1; } else {Config.buddyStart = 0; } ;
 		if (updateStart) { Config.updateStart = 1; } else {Config.updateStart = 0; } ;
@@ -163,6 +160,7 @@ public class GuiSettings extends JFrame {
 	{
 
 		checkBox11.setText("offlineMod (start jtorchat without any internet connection)");
+		checkBox12.setText("Alert on status change");
 		checkBox2.setText(language.langtext[20]);
 		checkBox4.setText(language.langtext[21]);
 		checkBox5.setText(language.langtext[22]);
@@ -213,6 +211,7 @@ public class GuiSettings extends JFrame {
 		// Generated using JFormDesigner Evaluation license - dfddfd dfdfdf
 		tabbedPane1 = new JTabbedPane();
 		panel1 = new JPanel();
+		checkBox12 = new JCheckBox();
 		checkBox2 = new JCheckBox();
 		checkBox4 = new JCheckBox();
 		checkBox5 = new JCheckBox();
@@ -266,10 +265,13 @@ public class GuiSettings extends JFrame {
 
 
 				//---- checkBox2 ----
-				checkBox2.setText("alert on events");
+				checkBox2.setText("alert on message");
 				checkBox2.setPreferredSize(new Dimension(60, 18));
 				checkBox2.setMinimumSize(new Dimension(30, 18));
-
+				
+				checkBox12.setText("alert on status change");
+				checkBox12.setPreferredSize(new Dimension(60, 18));
+				checkBox12.setMinimumSize(new Dimension(30, 18));
 				//---- checkBox4 ----
 				checkBox4.setText("automatic File Transfer start");
 
@@ -292,7 +294,8 @@ public class GuiSettings extends JFrame {
 						.addGroup(panel1Layout.createSequentialGroup()
 							.addContainerGap()
 							.addGroup(panel1Layout.createParallelGroup()
-								.addComponent(checkBox2, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)
+								.addComponent(checkBox12, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
+								.addComponent(checkBox2, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
 								.addComponent(checkBox4, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
 								.addComponent(checkBox5, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
 								.addComponent(checkBox7, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
@@ -304,6 +307,8 @@ public class GuiSettings extends JFrame {
 					panel1Layout.createParallelGroup()
 						.addGroup(panel1Layout.createSequentialGroup()
 							.addGap(22, 22, 22)
+							.addComponent(checkBox12, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 							.addComponent(checkBox2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 							.addComponent(checkBox4)
@@ -637,6 +642,7 @@ public class GuiSettings extends JFrame {
 	// Generated using JFormDesigner Evaluation license - dfddfd dfdfdf
 	private JTabbedPane tabbedPane1;
 	private JPanel panel1;
+	private JCheckBox checkBox12;
 	private JCheckBox checkBox2;
 	private JCheckBox checkBox4;
 	private JCheckBox checkBox5;

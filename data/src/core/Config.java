@@ -46,8 +46,11 @@ public class Config {
 	public static final Properties prop;
 	public static int loadTor;
 	public static int SOCKS_PORT; 
-	public static int LOCAL_PORT; 
-	public static int alert; 
+	public static int LOCAL_PORT;
+	
+	public static int alert_on_message; 
+	public static int alert_on_status_change;
+	
 	public static int visiblelog;
 	public static int fulllog;
 	public static int buddyStart;

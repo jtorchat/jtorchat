@@ -41,9 +41,6 @@ public class ConfigWriter {
 				System.err.println(nfe.getLocalizedMessage());
 			}
 		}
-		if (i == def) {
-			Logger.log(Logger.NOTICE, "Config", string + " not defined using " + def);
-		}
 		return i;
 	}
 
@@ -52,9 +49,6 @@ public class ConfigWriter {
 		String ret = s;
 		if (x != null) {
 			ret = x;
-		}
-		if (ret == null && s == null || s != null && ret != null && ret.equals(s)) {
-			Logger.log(Logger.NOTICE, "Config", string + " not defined using " + s);
 		}
 		return ret;
 	}
@@ -71,7 +65,8 @@ if (really == 0 || really == 2)
 	Config.prop.put("sync", Config.sync+ "");
 	Config.prop.put("update", Config.update+ "");
 	Config.prop.put("lang", Config.lang+ "");
-	Config.prop.put("alert", Config.alert+ "");
+	Config.prop.put("alert_on_message", Config.alert_on_message+ "");
+	Config.prop.put("alert_on_status_change", Config.alert_on_status_change+ "");
 	Config.prop.put("loadPortableTor", Config.loadTor + "");
     Config.prop.put("OnStartBuddySync", Config.buddyStart+ "");
     Config.prop.put("OnStartUpdateCheck", Config.updateStart+ "");
@@ -138,7 +133,8 @@ boolean save = false;
 	Config.lang = assign("lang", Config.dlang, Config.prop);
 	Config.sync = assign("sync", "", Config.prop);
 	Config.update = assign("update", "", Config.prop);
-	Config.alert = assignInt("alert", 1, Config.prop);
+	Config.alert_on_message = assignInt("alert_on_message", 1, Config.prop);
+	Config.alert_on_status_change = assignInt("alert_on_status_change", 1, Config.prop);
 	Config.loadTor = assignInt("loadPortableTor", 1, Config.prop);
 	Config.buddyStart = assignInt("OnStartBuddySync", 0, Config.prop);
 	Config.updateStart = assignInt("OnStartUpdateCheck", 0, Config.prop);
@@ -195,10 +191,7 @@ public static void loadbuddy(Buddy b)
 	b.setClient(assign("client", "", Config.prop));
 	b.setVersion(assign("version", "", Config.prop));
 
-
-
 }
-
 }
 
 
