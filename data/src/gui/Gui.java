@@ -193,8 +193,8 @@ public class Gui {
 
 		JMenuItem jmiAddContact = new JMenuItem(language.langtext[3]);
 		JMenuItem jmiSettings = new JMenuItem(language.langtext[4]);
-		JMenuItem jmiGUISettings = new JMenuItem("GUI Settings");
-		JMenuItem jmiProfileSettings = new JMenuItem("Profile Settings");
+		JMenuItem jmiGUISettings = new JMenuItem(language.langtext[80]);
+		JMenuItem jmiProfileSettings = new JMenuItem(language.langtext[81]);
 		JMenuItem jmiExit = new JMenuItem(language.langtext[5]);
 
 		
@@ -260,7 +260,7 @@ public class Gui {
 		f.getContentPane().add(jsp, BorderLayout.CENTER);
 
 		root = new DefaultMutableTreeNode("[root]");
-		buddyNodeholy = new DefaultMutableTreeNode("whitelist");
+		buddyNodeholy = new DefaultMutableTreeNode(language.langtext[40]);
 		buddyNodeon = new DefaultMutableTreeNode(language.langtext[7]);
 		buddyNode = new DefaultMutableTreeNode(language.langtext[8]);
 		buddyNodeblack = new DefaultMutableTreeNode(language.langtext[39]);

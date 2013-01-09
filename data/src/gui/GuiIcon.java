@@ -127,12 +127,12 @@ public class GuiIcon extends JFrame {
 	private void language()
 	{
 
-		label1.setText("Tray icon size: ");
-		label2.setText("Buddy icon size: ");
-		label3.setText("Space between Buddys: ");
-		label4.setText("You can see the change when you have restart!");
+		label1.setText(core.language.langtext[82]);
+		label2.setText(core.language.langtext[83]);
+		label3.setText(core.language.langtext[84]);
+		label4.setText(core.language.langtext[85]);
 	tabbedPane1.removeAll();
-	tabbedPane1.addTab("Icons", panel1);
+	tabbedPane1.addTab(core.language.langtext[86], panel1);
 
 
 

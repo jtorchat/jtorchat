@@ -159,8 +159,8 @@ public class GuiSettings extends JFrame {
 	private void language()
 	{
 
-		checkBox11.setText("offlineMod (start jtorchat without any internet connection)");
-		checkBox12.setText("Alert on status change");
+		checkBox11.setText(language.langtext[78]);
+		checkBox12.setText(language.langtext[79]);
 		checkBox2.setText(language.langtext[20]);
 		checkBox4.setText(language.langtext[21]);
 		checkBox5.setText(language.langtext[22]);
@@ -194,7 +194,7 @@ public class GuiSettings extends JFrame {
 	}
 
 	private void getlanginfo(String file) {
-		String[] info = core.language.getinfo(file);
+		String[] info = language.get_info_from_file(file);
 		textField3.setText(info[0]);
 		textField11.setText(info[1]);
 		textField12.setText(info[2]);
