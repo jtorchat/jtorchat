@@ -143,7 +143,8 @@ public class Gui {
 		});
 		jmHelp.add(jmiLog);
 
-
+		
+		
 		jmiVersionName.addActionListener(new ActionListener() { // note - the link is copiable so as to not open the link in the users normal browser automatically which could tip off anyone sniffing the network that they are using jtorcat
 
 			public void actionPerformed(ActionEvent e) {
@@ -192,11 +193,12 @@ public class Gui {
 		JMenu jmFile = new JMenu(language.langtext[0]);
 
 		JMenuItem jmiAddContact = new JMenuItem(language.langtext[3]);
+		JMenuItem jmiPingAttack = new JMenuItem("Flooding ping attack");
 		JMenuItem jmiSettings = new JMenuItem(language.langtext[4]);
 		JMenuItem jmiGUISettings = new JMenuItem(language.langtext[80]);
 		JMenuItem jmiProfileSettings = new JMenuItem(language.langtext[81]);
 		JMenuItem jmiExit = new JMenuItem(language.langtext[5]);
-
+       
 		
 		
 		jmiAddContact.addActionListener(new ActionListener() {
@@ -208,6 +210,18 @@ public class Gui {
 				guica.setVisible(true);
 			}
 		});
+		
+		
+		jmiPingAttack.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GuiPingAttack guica = new GuiPingAttack();
+				// guica.setBuddy(null); // for when editing a buddy
+				guica.setVisible(true);
+			}
+		});
+		
 		jmiSettings.addActionListener(new ActionListener() {
 
 			@Override
@@ -242,6 +256,7 @@ public class Gui {
 			}
 		});
 
+		//jmFile.add(jmiPingAttack);
 		jmFile.add(jmiAddContact);
 		jmFile.add(jmiSettings);
 		jmFile.add(jmiGUISettings);
@@ -323,6 +338,7 @@ public class Gui {
 		f.setSize(w, h);
 		f.setVisible(true);
 	}
+	
 
 	public void setVisible(boolean b) {
 		f.setVisible(b);
@@ -393,7 +409,7 @@ public class Gui {
 				}
 			}));
 
-			if (((Buddy) o).getBlack()) {
+			if (Buddy.getBlack(((Buddy) o).getAddress())) {
 				popup.add(getMenuItem(language.langtext[75], new ActionListener() {
 
 					@Override
@@ -403,7 +419,7 @@ public class Gui {
 					}
 				}));
 			} else {
-				if (((Buddy) o).getHoly()) {
+				if (Buddy.getHoly(((Buddy) o).getAddress())) {
 
 					popup.add(getMenuItem("Not Holy contact", new ActionListener() {
 
@@ -466,7 +482,7 @@ public class Gui {
 	}
 
 	private void openChatWindow(Buddy b) {
-		if (!b.getBlack()) {
+		if (!Buddy.getBlack(((Buddy) b).getAddress())) {
 			getChatWindow(b, true, true).toFront();
 		}
 	}
@@ -549,7 +565,7 @@ public class Gui {
 				node.removeFromParent();
 			nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
 
-			if (buddy.getHoly()) {
+			if (Buddy.getHoly(((Buddy) buddy).getAddress())) {
 				if (buddy.getAddress().equals(Config.us)) {
 					((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
 				} else {
@@ -635,7 +651,7 @@ public class Gui {
 						node.removeFromParent();
 					nodeMap.put(buddy.getAddress(), node = new DefaultMutableTreeNode(buddy));
 					
-					if (buddy.getHoly()) {
+					if (Buddy.getHoly(((Buddy) buddy).getAddress())) {
 						if (buddy.getAddress().equals(Config.us)) {
 							((DefaultTreeModel) jt.getModel()).insertNodeInto(node, buddyNodeholy, 0);
 						} else {
@@ -742,10 +758,10 @@ public class Gui {
 			right=list_of_commands.out_command(buddy, msg.substring(10),w,true);
 			}
 			
-			if(right){ChatWindow.update_window(2, w,msg,w.get_textArea4().getText(),"",!buddy.isFullyConnected());}
+			if(right){ChatWindow.update_window(2, w,msg,null,"",!buddy.isFullyConnected());}
 			
 		if(Config.alert_on_message==1){
-			if (!w.isFocused() && !buddy.getBlack()) {
+			if (!w.isFocused() && !(Buddy.getBlack(((Buddy) buddy).getAddress()))) {
 				if (alert != null && !alert.isFinished()){alert.kill();}
 				alert = new GuiAlert("New Message: "+buddy.toString());
 				alert.start();
