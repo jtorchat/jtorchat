@@ -24,25 +24,25 @@ public class Buddy {
 	public static final byte AWAY = 3;
 	public static final byte XA = 4;
 
-	private String address;
+	String address;
 	private String name; // wtf is this for?, custom name? todo use this somewhere -- used
 	public volatile Socket ourSock = null; // Our socket to them - the output sock
 	public volatile OutputStreamWriter ourSockOut = null;
 	public volatile Socket theirSock = null; // Their socket to us - the input sock
-	private String cookie = null;
+	String cookie = null;
 	private String theirCookie = null;
-	private byte status = OFFLINE;
+	byte status = OFFLINE;
 
 	private int connectFailCount = 0;
 
-	private Random random;
+	public static Random random = new Random();
 	public boolean recievedPong;
 	private boolean sentPong;
-	private String profile_name;
-	private String client = "";
+	String profile_name;
+	String client = "";
 
-	private String version = "";
-	private String profile_text;
+	String version = "";
+	String profile_text;
 	private Object connectLock = new Object();
 
 	private long connectedAt;
@@ -54,7 +54,6 @@ public class Buddy {
 	public int unansweredPings;
 
 	public Buddy(String address, String name, Boolean now) {
-		this.random = new Random();
 
 		this.address = address;
 		this.name = name;
@@ -67,7 +66,7 @@ public class Buddy {
 		 }
 	}
 
-	private String generateCookie() {
+	public static String generateCookie() {
 		String s = "";
 		String a = "abcdefghijklmnopqrstuvwxyz1234567890";
 		for (int i = 0; i < 77; i++)
@@ -76,7 +75,7 @@ public class Buddy {
 	}
 
 	public void connect() {
-		if (!getBlack())
+		if (!getBlack(this.address))
 		{	
 		if (ourSock != null) {
 			reconnectAt = -1;
@@ -90,7 +89,7 @@ public class Buddy {
 
 			@Override
 			public void run() {
-				if (!getBlack())
+				if (!getBlack(Buddy.this.address))
 				{	
 				try {
 					reconnectAt = -1;
@@ -144,12 +143,11 @@ public class Buddy {
 							}
 							s += (char) b;
 							if ((char) b == ' ' && !s.substring(0, s.length() - 1).contains(" ")) {
-								if (APIManager.incomingCmdListeners.containsKey(s.trim())) {
-									APIManager.incomingCmdListeners.get(s.trim()).onCommand(Buddy.this, s, is);
+									BuddyIncoming.init_outin(s, Buddy.this, is);
 									s = "";
 								}
 							}
-						}
+						
 						Logger.log(Logger.SEVERE, Buddy.this.getClass(),"BROKEN - " + address);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -225,7 +223,7 @@ public class Buddy {
 	private int npe1Count;
 
 	public void sendRaw(String command) throws IOException {
-		if (!getBlack())
+		if (!getBlack(this.address))
 		{	
 		synchronized (OSO_LOCK) {
 			try {
@@ -244,7 +242,7 @@ public class Buddy {
 		return address;
 	}
 	
-	public Boolean getBlack() {
+	public static Boolean getBlack(String address) {
 		if (BuddyList.black.containsKey(address))
 		{
 			return true;	
@@ -255,7 +253,7 @@ public class Buddy {
 		}
 	}
 	
-	public Boolean getHoly() {
+	public static Boolean getHoly(String address) {
 		if (BuddyList.holy.containsKey(address))
 		{
 			return true;	
@@ -329,7 +327,7 @@ public class Buddy {
 
 	public void attatch(Socket s, Scanner sc) throws IOException {
 		
-if (!getBlack())
+if (!getBlack(this.address))
 {	
 		if (theirSock != null) {
 			disconnect();
@@ -363,7 +361,7 @@ if (!getBlack())
 		this.recievedPong = false;
 		try {
 			while (sc.hasNext()) {
-				if (!getBlack())
+				if (!getBlack(this.address))
 				{
 				String l = sc.next();
 				if (!sentPong && theirCookie != null) {
@@ -378,76 +376,7 @@ if (!getBlack())
 						}
 					}
 				}
-				if (l.startsWith("pong ")) {
-					if (l.split(" ")[1].equals(cookie)) {
-						unansweredPings = 0;
-						// also implies that oursock is fully connected aswell
-						// but not nessesarily
-						recievedPong = true;
-						Logger.log(Logger.NOTICE, this, address + " sent pong");
-						if (ourSock != null && ourSockOut != null && status > OFFLINE)
-						{
-						onFullyConnected();
-					    }
-						else {
-							Logger.log(Logger.SEVERE, this, "[" + address + "] - :/ We should be connected here. Resetting connection!");
-							disconnect();
-							connect();
-							return;
-						}
-					} else {
-						Logger.log(Logger.SEVERE, this, "!!!!!!!!!! " + address + " !!!!!!!!!! sent us bad pong !!!!!!!!!!");
-						Logger.log(Logger.SEVERE, this, "!!!!!!!!!! " + address + " !!!!!!!!!! ~ Disconnecting them");
-						disconnect();
-					}
-				} else if (l.startsWith("ping ")) {
-					if (ourSock == null)
-						connect();
-					try {
-						sendPong(l.split(" ")[2]);
-					} catch (NullPointerException npe) {
-						Logger.log(Logger.INFO, Buddy.this, "2Caught npe on " + address + ", DC.");
-						disconnect();
-					}
-					theirCookie = null;
-				} else if (!recievedPong) {
-					Logger.log(Logger.WARNING, this, "Recieved before pong from " + address + " " + l);
-					continue;
-				} else
-
-				if (l.startsWith("status ")) {
-					lastStatusRecieved = System.currentTimeMillis();
-					byte nstatus = l.split(" ")[1].equalsIgnoreCase("available") ? ONLINE : l.split(" ")[1].equalsIgnoreCase("xa") ? XA : l.split(" ")[1].equalsIgnoreCase("away") ? AWAY : -1;
-					setStatus(nstatus); // checks for change in method
-				} else if (l.startsWith("profile_name")) {
-					String old = profile_name;
-                    profile_name = l.split(" ", 2)[1];
-					APIManager.fireProfileNameChange(this, profile_name, old);
-				} else if (l.startsWith("client")) {
-					client = l.split(" ", 2)[1];
-				} else if (l.startsWith("version")) {
-					version = l.split(" ", 2)[1];
-				} else if (l.startsWith("profile_text")) {
-					String old = profile_text;
-					profile_text = l.split(" ", 2)[1];
-					APIManager.fireProfileTextChange(this, profile_text, old);
-				} else if (l.startsWith("add_me")) {
-					APIManager.fireAddMe(this);
-				} else if (l.startsWith("remove_me")) {
-					APIManager.fireRemove(this);
-				} else if (l.startsWith("message ")) {
-					APIManager.fireMessage(this, l.split(" ", 2)[1]);
-				} else if (l.startsWith("not_implemented")) {
-					Logger.log(Logger.NOTICE, this, "Recieved " + l.trim() + " from " + address);
-				} else if (APIManager.cmdListeners.containsKey(l.split(" ")[0])) {
-					APIManager.cmdListeners.get(l.split(" ")[0]).onCommand(this, l);
-				} else if (l.startsWith("profile_avatar")) { // will match both profile_avatar_alpha and profile_avatar
-					Logger.log(Logger.NOTICE, this, "Sorry, we have no avatar support. Coming soon.");
-				}
-				else {
-					Logger.log(Logger.WARNING, this, "Recieved unknown from " + address + " " + l);
-					sendRaw("not_implemented ");
-				}
+				BuddyIncoming.init(l, this);
 			}}
 		} catch (SocketException se) {
 			Logger.log(Logger.DEBUG, this, "[" + address + "] attatch() " + se.getLocalizedMessage() + " | " + se.getStackTrace()[0]);
