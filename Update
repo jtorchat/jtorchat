@@ -1,8 +1,5 @@
 <version!0!7!11!>
-<typ!important!>
-
-This is the file for checking updates.
-You can use it with this link:
-"https://raw.github.com/jtorchat/jtorchat/services/Update"
-
 <CLOSE_STREAM>
+
+This file can use to check for an update.
+"https://raw.github.com/jtorchat/jtorchat/services/Update"
