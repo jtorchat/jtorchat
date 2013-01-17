@@ -23,6 +23,6 @@ Features extended beyond python Torchat
     Auto buddy request - done - Helps newcomers find people to talk to
     Interface to existing installed tor via GUI - done
     BuddySync - allows a group to always keep their buddies in sync over tor.
-    Group Chat - Not Yet - For secure group communication.
     FileSharing - allows for calling and downloading files off online buddies. 
     PageSystem - allows to set automatic answers for specified commands.
+
