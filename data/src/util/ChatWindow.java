@@ -72,8 +72,11 @@ public class ChatWindow {
 		}
 		
 		w.get_textPane1().setCaretPosition(w.get_textPane1().getDocument().getLength());
+		
+		if(new_textarea!=null){
 		w.get_textArea4().requestFocusInWindow();
 		w.get_textArea4().setText(new_textarea);
+		}
 
 		if(send!=""){	
 			
