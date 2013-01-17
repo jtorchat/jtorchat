@@ -30,7 +30,7 @@ public static void init()
 	Config.LANG_DIR = Config.BASE_DIR + Config.DATA_DIR + "lang/";
 	Config.ICON_DIR_MAIN = Config.BASE_DIR + Config.DATA_DIR + "icon/";	
 	Config.BUDDY_DIR = Config.BASE_DIR + Config.DATA_DIR + "buddy/";	
-	
+		
 	checkData();
 	
 	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.CONFIG_DIR + " as CONFIG_DIR");
@@ -41,6 +41,8 @@ public static void init()
 	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.TOR_DIR + " as TOR_DIR");
 	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.LANG_DIR + " as LANG_DIR");
 	Logger.log(Logger.NOTICE, CLASS_NAME, "Using " + Config.BUDDY_DIR + " as BUDDY_DIR");
+
+	
 }
 
 public static String get_base_pwd() {
