@@ -5,18 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.Proxy;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
 import util.ConfigWriter;
+import util.RequestHTTP;
 
 
 
@@ -173,85 +168,13 @@ public class BuddyList {
 	 * REMOTE BUDDY LOAD VIA TOR
 	 */
 	public static void loadBuddiesRemote(String remote_bl_URL) {
-		// Don't load if no url was specified
-		if ((remote_bl_URL == null)||(remote_bl_URL == "")) {
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"No remote buddylist specified. Skipping remote load.");
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"Tip: sync = example.com/bl.txt ; in settings.ini");
-			return;
-		} else {
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"Loading buddies from remote url... ");
-		}
 
-		/*
-		 * SOCKET RETREIVE REMOTE FILE VIA PROXY TO SCANNER OBJECT
-		 */
-		Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-				"REMOTE BUDDYLISTURL LOCATION: " + remote_bl_URL);
-
-		try {
-			//assume https:// if lacking protocol
-			if(!remote_bl_URL.matches(".+://.+")){
-				remote_bl_URL = "https://"+remote_bl_URL;
-			}
-
-			// Parse the URL for socket usage via URL. Can't use URL directly
-			// due to DNS leaks
-			URL aURL = new URL(remote_bl_URL);
-			// Placed parsed URL into vars for general usage
-			// http://example.com:80/docs/books/tutorial/index.html?name=networking#DOWNLOADING
-			String host = aURL.getHost(); // host = example.com
-			int port = aURL.getPort(); // port = 80
-			String path = aURL.getPath(); // path = /docs/books/tutorial/index.html
-			// Sometimes portnumber is not declared (shows as port = -1), assume
-			// port 80 in that case
-			if (port < 0) {
-				port = 80;
-			}
-
-			// Declare a new proxyed socket and connect to it (No DNS leak via
-			// createUnresolved)
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"Configering secure proxy tunnel to buddylist; Port: "
-							+ Config.SOCKS_PORT + " host: 127.0.0.1");
-            Socket ourSock = new Socket(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("127.0.0.1", Config.SOCKS_PORT)));
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"Starting secure remote proxy tunnel to buddylist");
-			ourSock.connect(InetSocketAddress.createUnresolved(host, port));
-
-			// INPUT/OUTPUT STREAM
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"opening in/out stream");
-			InputStream is = ourSock.getInputStream();
-			OutputStream os = ourSock.getOutputStream();
-
-			// read incoming data
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"start inputstream scanner");
-			Scanner s = new Scanner(new InputStreamReader(is)); // create
-																// scanner obj
-
-			// Send Request Header to output stream
-			String sendString = "GET " + path + " HTTP/1.0 \r\n" + "Host: "
-					+ host + "\r\n" + "\r\n";
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote", sendString);
-			os.write(sendString.getBytes());
-
-			/*
-			 * PROCESS FILE AND MERGE BUDDY
-			 */
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"Processing remote buddies");
 			Random r = new Random();
-
-			while (s.hasNextLine()) {
-				String l = s.nextLine();
-				// Hunt for matching address in a new line
-
-				// Skip anything less than 16 char, as substring cannot handle
-				// it (it will error out)
+		    ArrayList<String> input = RequestHTTP.load(remote_bl_URL);
+		    
+		    for (int i = 0; i < input.size(); i++) {
+	            String l = input.get(i);
+	            
 				if (l.length() >= 16) {
 					// regex checker
 					if (l.matches("^([a-zA-Z0-9]{16}(?:[ !].{0,}||))")) {
@@ -276,21 +199,9 @@ public class BuddyList {
 						}
 					}
 				}
-			}
-			s.close();
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"Processing Done");
-			// Close input/output stream
-			os.close();
-			is.close();
-			// Close socket
-			ourSock.close();
-		} catch (IOException e1) {
-			Logger.log(Logger.INFO, "BuddyList loadBuddiesRemote",
-					"ERROR: Cannot remote buddies list - Skipping: " + e1);
-			return;
-		}
-		
+	            
+			if(l.startsWith("<CLOSE_STREAM>")){break;}    
+		    }   
 	}
 
 }
