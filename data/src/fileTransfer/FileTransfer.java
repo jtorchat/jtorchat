@@ -1,57 +1,34 @@
 package fileTransfer;
 
-
-import gui.GuiChatWindow;
-import gui.Gui;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 
-import core.APIManager;
 import core.Buddy;
 import core.Logger;
 
 
 import util.Util;
 
-import listeners.CommandListener;
-import listeners.IncomingCommandListener;
 
 public class FileTransfer {
 
 	static HashMap<String, FileSender> senders = new HashMap<String, FileSender>();
 	static HashMap<String, FileReceiver> receivers = new HashMap<String, FileReceiver>();
 
-	private static Listener lis;
-
-	public static void init() {
-		if (lis != null) {
-			// wth
-			return;
-		}
-		lis = new Listener();
-		APIManager.incomingCmdListeners.put("filename", lis);
-		APIManager.incomingCmdListeners.put("filedata", lis);
-		APIManager.cmdListeners.put("filedata_ok", lis);
-		APIManager.cmdListeners.put("filedata_error", lis);
-		APIManager.cmdListeners.put("file_stop_sending", lis);
-		APIManager.cmdListeners.put("file_stop_receiving", lis);
-	}
-
-	private static class Listener implements IncomingCommandListener, CommandListener {
-
 		private static final String COMMAND_SEPARATOR = " ";
-
-		// Util.readTillLinebreak(is)
-		@Override
-		public void onCommand(Buddy buddy, String command, InputStream is) {
+		
+		
+		public static void in_filename(Buddy buddy, String command, InputStream is) {
 			
-
-			//Logger.oldOut.println("ft: " + command);
-			try {
-			if (command.startsWith("filename")) {
-				String[] spl = Util.readStringTillChar(is, '\n').split(COMMAND_SEPARATOR, 4);
+             	String[] spl;
+				try {
+					spl = Util.readStringTillChar(is, '\n').split(COMMAND_SEPARATOR, 4);
+				} catch (IOException e) {				
+                 e.printStackTrace();
+                return;	
+				}
+				
 				String id = spl[0];
 				long fileSize = Long.valueOf(spl[1]);
 				int blockSize = Integer.valueOf(spl[2]);
@@ -61,40 +38,33 @@ public class FileTransfer {
 				String base = fileName.substring(0, fileName.length() - ext.length());
 				if (base.trim().length() == 0)
 					fileName = base + fileName;
-				//Logger.oldOut.println("filename recieved from " + buddy + " | " + id + ", " + fileSize + ", " + blockSize + ", " + fileName + " | " + base + ", " + ext);
 				
-				if (buddy.getHoly())
-				{
+
 				Logger.log(Logger.NOTICE, "FileTransfer", "filename recieved from " + buddy + " | " + id + ", " + fileSize + ", " + blockSize + ", " + fileName + " | " + base + ", " + ext);
 				new FileReceiver(buddy, id, blockSize, fileSize, fileName);
-				}
-				else
-				{
 				
-				boolean flag = buddy.isFullyConnected();
+		         }
 				
-				if (command.startsWith("filename")) {
-				Gui.getChatWindow(buddy, true, true).append("Time Stamp", "(" + GuiChatWindow.getTime() + ") ");
-				Gui.getChatWindow(buddy, true, true).append("Them", " --> " + "Try to start File-Transfer but I'm not Holy!!!" + "\n");
+			
+			
+			
+		public static void in_filedata(Buddy buddy, String command, InputStream is) {
+			String id;
+			long start;
+			String hash;
+			byte[] data;
+				try {
+				id = Util.readStringTillChar(is, ' ');
+			    start = Long.valueOf(Util.readStringTillChar(is, ' '));
+			    hash = Util.readStringTillChar(is, ' ');
+				data = Util.unescape(Util.readBytesTillChar(is, '\n'));
 
 				
-				if (flag)
-				{
-					try {
-						buddy.sendMessage("/pa " + "You are not on the Holy list");
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}}
+				} catch (IOException e1) {					
+                e1.printStackTrace();
+                return;
 				}
 				
-			} else if (command.startsWith("filedata")) {
-				String id = Util.readStringTillChar(is, ' ');
-				long start = Long.valueOf(Util.readStringTillChar(is, ' '));
-				String hash = Util.readStringTillChar(is, ' ');
-				byte[] data = Util.unescape(Util.readBytesTillChar(is, '\n'));
-
 				FileReceiver receiver = receivers.get(buddy.getAddress() + COMMAND_SEPARATOR + id);
 				if (receiver != null) {
 					//int amountExpected = (int) ((receiver.fileSize - start) > receiver.blockSize ? receiver.blockSize : receiver.fileSize - start);
@@ -121,26 +91,13 @@ public class FileTransfer {
 						}
 					}
 			}
-			} catch (IOException ioe) {
-				Logger.log(Logger.NOTICE, "FileTransfer", "IOException on " + buddy.toString(true) + COMMAND_SEPARATOR + ioe.getLocalizedMessage());
-				try {
-					buddy.disconnect();
-				} catch (IOException e) {
-					// ignored
-				}
-			}
-			//Logger.oldOut.println("end onc");
-		
 
-				
 
-			
-		}
 
-		@Override
-		public void onCommand(Buddy buddy, String s) {
 
-			 if (s.startsWith("filedata_ok ")) {
+		public static void in_filedata_ok(Buddy buddy, String s) {
+
+
 					String[] spl = s.split(COMMAND_SEPARATOR, 3);
 					String id = spl[1];
 					long start = Long.valueOf(spl[2]);
@@ -159,7 +116,9 @@ public class FileTransfer {
 								// ignored
 							}
 						}
-				} else if (s.startsWith("filedata_error ")) {
+				
+		}
+		public static void in_filedata_error(Buddy buddy, String s) {
 					String[] spl = s.split(COMMAND_SEPARATOR, 3);
 					String id = spl[1];
 					long start = Long.valueOf(spl[2]);
@@ -178,20 +137,29 @@ public class FileTransfer {
 								// ignored
 							}
 						}
-				} else if (s.startsWith("file_stop_sending ")) {
+				} 
+			 
+			 
+			 
+		public static void in_file_stop_sending(Buddy buddy, String s) {
+			 
 					String id = s.split(COMMAND_SEPARATOR, 2)[1]; // NOTE - in pytorchat this is done by self.id = self.blob doesnt make sense
-
 					FileSender sender = senders.get(buddy.getAddress() + COMMAND_SEPARATOR + id);
 					if (sender != null)
 						sender.close();
-				} else if (s.startsWith("file_stop_receiving ")) {
+					
+			 }
+					
+					
+		public static void in_file_stop_receiving(Buddy buddy, String s) {
+	
+					
 					String id = s.split(COMMAND_SEPARATOR, 2)[1]; // NOTE - in pytorchat this is done by self.id = self.blob doesnt make sense
 					FileReceiver receiver = receivers.get(buddy.getAddress() + COMMAND_SEPARATOR + id);
 					if (receiver != null)
 						receiver.close();
-				}
-
-	}}
+				
+	      }
 
 	public static HashMap<String, FileSender> getSenders() {
 		return senders;

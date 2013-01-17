@@ -78,7 +78,7 @@ public class FileReceiver implements IFileTransfer {
 		}
 		else
 		{
-Logger.log(Logger.WARNING, this.getClass(), "answer with error until you press start");
+Logger.log(Logger.WARNING, this.getClass(), "Wait for press Start.");
 		}
 		}
 	}
@@ -237,14 +237,88 @@ public void open()
 @Override
 public void opendir()
 {
+
 			this.fileopen = new File(Config.DOWNLOAD_DIR);
 			try {
 				Desktop.getDesktop().open(this.fileopen);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// Fix for Ubuntu and other linux systems.
+		   Logger.log(Logger.INFO, this.getClass(), "Can not open the folder with Desktop.getDesktop");
+
+			String os = System.getProperty("os.name").toLowerCase();
+			if (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0) {
+		   Logger.log(Logger.INFO, this.getClass(), "You are on linux, start a file manager with command.");
+		   try {
+			   Logger.log(Logger.INFO, this.getClass(), "Try to start Nautilus.");
+
+			    Runtime.getRuntime().exec(new String[]{"nautilus", Config.DOWNLOAD_DIR});
+			} catch (IOException e1) {
+				   Logger.log(Logger.INFO, this.getClass(), "Nautilus does not work!");
+
+				   
+				   try {
+					   Logger.log(Logger.INFO, this.getClass(), "Try to start Thunar.");
+
+					    Runtime.getRuntime().exec(new String[]{"thunar", Config.DOWNLOAD_DIR});
+					} catch (IOException e11) {
+						   Logger.log(Logger.INFO, this.getClass(), "Thunar does not work!");
+
+						   
+						   try {
+							   Logger.log(Logger.INFO, this.getClass(), "Try to start Dolphin.");
+
+							    Runtime.getRuntime().exec(new String[]{"dolphin", Config.DOWNLOAD_DIR});
+							} catch (IOException e111) {
+								   Logger.log(Logger.INFO, this.getClass(), "Dolphin does not work!");
+								   
+						 		   
+					               try {
+									   Logger.log(Logger.INFO, this.getClass(), "Try to start Konqueror.");
+
+									    Runtime.getRuntime().exec(new String[]{"konqueror", Config.DOWNLOAD_DIR});
+									} catch (IOException e1111) {
+										   Logger.log(Logger.INFO, this.getClass(), "Konqueror does not work!");
+
+									       try {
+											   Logger.log(Logger.INFO, this.getClass(), "Try to start PCMan File Manager.");
+
+											    Runtime.getRuntime().exec(new String[]{"pcmanfm", Config.DOWNLOAD_DIR});
+											} catch (IOException e11111) {
+												   Logger.log(Logger.INFO, this.getClass(), "PCMan File Manager does not work!");
+												   
+
+											       try {
+													   Logger.log(Logger.INFO, this.getClass(), "Try to start Krusader.");
+
+													    Runtime.getRuntime().exec(new String[]{"krusader", Config.DOWNLOAD_DIR});
+													} catch (IOException e111111) {
+														 Logger.log(Logger.INFO, this.getClass(), "Krusader does not work!");
+														   
+														 Logger.log(Logger.INFO, this.getClass(), "Sorry I have not an other idea, please contact us.");     
+												   
+													}		   
+												   
+												   
+										   
+											}				   
+										   
+										   
+								   
+									}	
+								   
+								   
+								   
+						   
+							}		   
+						   
+				   
+					}	   
+				   
+		   
 			}
-}
+				
+			}
+}}
 
 
 @Override
@@ -269,6 +343,15 @@ if (!createfile)
 		e.printStackTrace();
 	}
 	createfile = true;
+}
+else
+{
+	try {
+		this.buddy.sendRaw("filedata_error " + this.id + " " + this.nextStart);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 }
 	
 	

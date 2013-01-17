@@ -68,9 +68,13 @@ public class GUITransfer extends JFrame {
 		
 		if (fileSize == recieved & !sending) {
 			button2.setVisible(false);
-			button3.setVisible(true);	
+			button3.setVisible(true);
+			
+			// Fix for poor people
+			if(Desktop.isDesktopSupported()){
 			button4.setVisible(true);	
 			button5.setVisible(true);	
+			}
         }
 		else if (fileSize != recieved & !sending) {
 			if (recieved == -1) { button2.setVisible(false); } else { button2.setVisible(true); }
