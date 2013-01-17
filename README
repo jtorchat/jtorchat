@@ -6,14 +6,19 @@ Philosophy:
 Accessible to All. Alive and connected to All. Transparent to All.
 How we keep to these philosophy
 
-    Accessible to All =                Writing it in java allows for easy 
-                                                 portability of code between platforms, 
-				                 perhaps even in android phones.
-    Alive and connected to All = Broadcast feature, and eventually group chat, 
-                                                 will provide talkers the ability 
-						 to interact as a group, or as a public mass.
-    Transparent to All =              All jtorchat will come with the source, 
-                                                 thus increasing transparency and thus security. 
+Accessible to All =                
+	Writing it in java allows for easy 
+	portability of code between platforms, 
+	perhaps even in android phones.
+
+Alive and connected to All = 
+	Broadcast feature, and eventually group chat, 
+	will provide talkers the ability 
+	to interact as a group, or as a public mass.
+
+Transparent to All =              
+	All jtorchat will come with the source, 
+	thus increasing transparency and thus security. 
 
 Features from python Torchat
 
