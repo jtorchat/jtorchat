@@ -1,14 +1,13 @@
-#summary A Buddy list for sync
-This is the default buddylist for jTorchat.<br/>
-If you are online often, then please add yourself here.<br/>
-Otherwise remove your entry (if already on the list).<br/>
-If you don't have access to edit this page <br/>
-write a comment and we will do it for you.<br/><br/>
+A Buddy list for sync:
 
-The jTorchat will use this URL https://jtorchat.googlecode.com/svn/wiki/Buddy_List.wiki
+This is the default buddylist for jTorchat.
+If you are online often, then please add yourself here.
+Otherwise remove your entry (if already on the list).
+If you don't have access to edit this page
+write a comment and we will do it for you.
+
+The jTorchat will use this URL "https://raw.github.com/jtorchat/jtorchat/services/Buddylist"
 ------------------------------------------------------------------------
-
-{{{
 
 p36ggotckdl5hkun userid0dev
 djtcxftb2pwmxjvk!switchboard operator
