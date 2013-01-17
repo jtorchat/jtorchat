@@ -1,16 +1,12 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import listeners.APIListener;
-import listeners.CommandListener;
-import listeners.IncomingCommandListener;
+
 
 public class APIManager {
 	private static ArrayList<APIListener> listeners = new ArrayList<APIListener>();
-	public static HashMap<String, CommandListener> cmdListeners = new HashMap<String, CommandListener>();
-	public static HashMap<String, IncomingCommandListener> incomingCmdListeners = new HashMap<String, IncomingCommandListener>();
+
 
 	public static void addEventListener(APIListener apil) {
 		listeners.add(apil);
