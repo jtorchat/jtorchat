@@ -3,17 +3,20 @@ package util;
 
 
 import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Util {
-
+	public static Random random = new Random();
+	
     public static int myRandom(int low, int high) {  
         return (int) (Math.random() * (high - low) + low);  
     }  
-	
+
 	public static byte[] escape(byte[] b1) {
 		for (int i = 0; i < b1.length; i++) {
 			if (b1[i] == '\\') {
