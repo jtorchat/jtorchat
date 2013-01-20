@@ -153,6 +153,12 @@ boolean save = false;
 	
 	if (save){saveall(2);}
 }
+public static void deletebuddy(Buddy b)
+{
+	File old = new File(Config.BUDDY_DIR + b.getAddress());
+	old.delete();
+}
+
 
 public static void savebuddy(Buddy b)
 {
