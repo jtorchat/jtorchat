@@ -15,7 +15,7 @@ public class in_page_disp {
         s="/page_disp index";
         }
 
-		s="/page_disp '"+s.substring(11).replaceAll("[^a-zA-Z]"+"'",""); // Replace all special letters
+		s="/page_disp "+s.substring(11).replaceAll("[^a-zA-Z]",""); // Replace all special letters
 
 		String msg = util_page.read(s.substring(11));
 		if(msg=="")
