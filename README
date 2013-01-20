@@ -1,12 +1,18 @@
 Download Location:
 
+For Windows as Zip
 --->
-https://github.com/jtorchat/jtorchat/blob/packages/jtorchat%200.7.11.tar.gz?raw=true
+https://github.com/jtorchat/jtorchat/blob/packages/0.7.12/jtorchat%200.7.12.zip?raw=true
 --->
 
-
+For Linux as tar.gz
+--->
+https://github.com/jtorchat/jtorchat/blob/packages/0.7.12/jtorchat%200.7.12.tar.gz?raw=true
+--->
 
 This project needs developers who are willing to improve and strengthen jtorchat and ensure that it always have the latest tor binary. Get in touch with us and we'll get you started. 
+
++++ jTorchat V0.7.12 at Jan 2013 - fix focus bug in ChatWindow, add disconnect command, fix /log and /page_disp
 
 +++ jTorchat V0.7.11 at Jan 2013 - new Tor binaries, fix crash bug, fix file transfer, add https for automatic buddylist and update check, tray icon now disabled for gnome3 and some more.
 
