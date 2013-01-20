@@ -14,7 +14,7 @@ public class Config {
 	public static final String CLIENT = "JTC [T2]";
 	public static final String VERSIONA = "0";
 	public static final String VERSIONB = "7";
-	public static final String VERSIONC = "11";
+	public static final String VERSIONC = "12";
 	public static String comment = "";
 	
 	// Test for connections

@@ -59,6 +59,7 @@ public class TCPort {
 					try {
 						if (launched)
 							BuddyList.saveBuddies();
+						    BuddyList.disconnect_all();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

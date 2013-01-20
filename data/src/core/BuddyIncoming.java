@@ -23,6 +23,7 @@ public class BuddyIncoming {
 		else if (save.equals("add_me")) {in_add_me(in,b);} 
 		else if (save.equals("remove_me")) {in_remove_me(in,b);} 
 		else if (save.equals("message")) {in_message(in,b);} 
+		else if (save.equals("disconnect")) {in_disconnect(in,b);} 
 		else if (save.equals("not_implemented")) {in_not_implemented(in,b);} 
 		else if (save.equals("profile_avatar")) {in_profile_avatar(in,b);}
 		else if (save.equals("filedata_ok")) {FileTransfer.in_filedata_ok(b,in);}
@@ -89,6 +90,11 @@ public class BuddyIncoming {
 	private static void in_profile_avatar(String in, Buddy b)
 	{
 		Logger.log(Logger.NOTICE, b, "Sorry, we have no avatar support. Coming soon.");
+	}
+	private static void in_disconnect(String in, Buddy b)
+	{
+		Logger.log(Logger.NOTICE, b, "Recieved disconnect command from " + b.getAddress());
+		try {b.disconnect();} catch (IOException e) {}
 	}
 	private static void in_nothing(String in, Buddy b)
 	{
