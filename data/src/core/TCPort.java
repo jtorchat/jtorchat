@@ -48,27 +48,15 @@ public class TCPort {
 					Logger.setOverride(true);
 					Logger.stopGLog();
 					Logger.log(Logger.INFO, "Shutdown", "Starting...");
-					// for (Buddy b : BuddyList.buds.values()) {
-					// try {
-					// b.disconnect();
-					// } catch (IOException e) {
-					// System.err.println("Error disconnecting " + b.getAddress() + ": " + e.getLocalizedMessage());
-					// }
-					// }
-					TorLoader.cleanUp();
 					try {
 						if (launched)
 							BuddyList.saveBuddies();
 						    BuddyList.disconnect_all();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					} catch (IOException e) {}
+					TorLoader.cleanUp();
 				}
 			});
 
-
-	
-			
 			if (Config.loadTor == 1){TorLoader.loadTor();}
 			TCServ.init();
 
