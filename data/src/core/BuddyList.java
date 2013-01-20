@@ -21,6 +21,14 @@ public class BuddyList {
 	public static HashMap<String, Buddy> black = new HashMap<String, Buddy>();
 	public static HashMap<String, Buddy> holy = new HashMap<String, Buddy>();
 	
+	public static void  disconnect_all()
+	{
+		for (Buddy b : BuddyList.buds.values()) {
+	    if(b.isFullyConnected()){try {b.sendDisconnect();} catch (IOException e) {}}
+	    try {b.disconnect();} catch (IOException e) {}
+		}
+	}
+	
 	public static void addBuddy(Buddy b) {
 		BuddyList.buds.put(b.getAddress(), b);
 		APIManager.fireNewBuddy(b);
