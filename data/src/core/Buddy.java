@@ -11,6 +11,7 @@ import java.net.SocketException;
 import java.util.Random;
 import java.util.Scanner;
 
+import util.ConfigWriter;
 import util.Tray;
 
 
@@ -396,6 +397,10 @@ if (!getBlack(this.address))
 	public void sendMessage(String string) throws IOException {
 		sendRaw("message " + string);
 	}
+	
+	public void sendDisconnect() throws IOException {
+		sendRaw("disconnect");
+	}
 
 	public static String getStatusName(byte b) {
 		return b == OFFLINE ? "Offline" : b == HANDSHAKE ? "Handshake" : b == ONLINE ? "Online" : b == AWAY ? "Away" : b == XA ? "Extended Away" : "Idk.";
@@ -447,6 +452,7 @@ if (!getBlack(this.address))
 	}
 
 	public void remove() throws IOException {
+		ConfigWriter.deletebuddy(this);
 		BuddyList.buds.remove(this.address);
 		try { if(this.isFullyConnected()){this.sendRaw("remove_me");} } catch (IOException e) {}
 		disconnect();

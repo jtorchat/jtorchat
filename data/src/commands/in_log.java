@@ -10,9 +10,8 @@ public class in_log {
 		
 		String filename;
 		String buddyname = buddy.getName();
-		if(buddyname.equals("")){buddyname = buddy.getAddress();}
+		if(buddyname==null || buddyname.equals("")){buddyname = buddy.getAddress();}
 		filename = LogWriter.LogWrite(w.get_textPane1().getText(),1,buddyname);
-		  
 	    ChatWindow.update_window(7, w,"This Chat log here " + filename + " in the Log Folder.","","",false);
 	}
 }
