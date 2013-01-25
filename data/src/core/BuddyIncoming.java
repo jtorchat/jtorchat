@@ -1,6 +1,5 @@
 package core;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import fileTransfer.FileTransfer;
@@ -94,17 +93,12 @@ public class BuddyIncoming {
 	private static void in_disconnect(String in, Buddy b)
 	{
 		Logger.log(Logger.NOTICE, b, "Recieved disconnect command from " + b.getAddress());
-		try {b.disconnect();} catch (IOException e) {}
+		b.disconnect();
 	}
 	private static void in_nothing(String in, Buddy b)
 	{
 		Logger.log(Logger.WARNING, b, "Recieved unknown from " + b.address + " " + in);
-		try {
-			b.sendRaw("not_implemented ");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		b.sendRaw("not_implemented ");
 	}
 	private static void in_pong(String in, Buddy b)
 	{
@@ -113,32 +107,17 @@ public class BuddyIncoming {
 			b.recievedPong = true;
 			Logger.log(Logger.NOTICE, b, b.address + " sent pong");
 			if (b.ourSock != null && b.ourSockOut != null && b.status > Buddy.OFFLINE)
-			{try {
-				b.onFullyConnected();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}}
+			{b.onFullyConnected();}
 			else {
 				Logger.log(Logger.SEVERE, b, "[" + b.address + "] - :/ We should be connected here. Resetting connection!");
-				try {
-					b.disconnect();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				b.disconnect();
 				b.connect();
 				return;
 			}
 		} else {
 			Logger.log(Logger.SEVERE, b, "!!!!!!!!!! " + b.address + " !!!!!!!!!! sent us bad pong !!!!!!!!!!");
 			Logger.log(Logger.SEVERE, b, "!!!!!!!!!! " + b.address + " !!!!!!!!!! ~ Disconnecting them");
-			try {
-				b.disconnect();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			b.disconnect();
 		}
 	}
 	
@@ -146,21 +125,7 @@ public class BuddyIncoming {
 private static void in_ping(String in, Buddy b)
 {
 		if (b.ourSock == null){b.connect();}
-		try {
-			try {
-				b.sendPong(in.split(" ")[2]);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (NullPointerException npe) {
-			try {
-				b.disconnect();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		b.sendPong(in.split(" ")[2]);
 }
 	
 	

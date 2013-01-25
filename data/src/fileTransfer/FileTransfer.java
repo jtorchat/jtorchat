@@ -80,16 +80,7 @@ public class FileTransfer {
 					receiver.data(start, hash, data);
 					//Logger.oldOut.println("ft c");
 				} else
-					try {
-						buddy.sendRaw("file_stop_sending " + id);
-					} catch (IOException e) {
-						e.printStackTrace();
-						try {
-							buddy.disconnect();
-						} catch (IOException ioe) {
-							// ignored
-						}
-					}
+					buddy.sendRaw("file_stop_sending " + id);
 			}
 
 
@@ -106,16 +97,7 @@ public class FileTransfer {
 					if (sender != null)
 						sender.recievedOk(start);
 					else
-						try {
-							buddy.sendRaw("file_stop_receiving " + id);
-						} catch (IOException e) {
-							e.printStackTrace();
-							try {
-								buddy.disconnect();
-							} catch (IOException ioe) {
-								// ignored
-							}
-						}
+						buddy.sendRaw("file_stop_receiving " + id);
 				
 		}
 		public static void in_filedata_error(Buddy buddy, String s) {
@@ -127,16 +109,7 @@ public class FileTransfer {
 					if (sender != null)
 						sender.restart(start);
 					else
-						try {
-							buddy.sendRaw("file_stop_receiving " + id);
-						} catch (IOException e) {
-							e.printStackTrace();
-							try {
-								buddy.disconnect();
-							} catch (IOException ioe) {
-								// ignored
-							}
-						}
+						buddy.sendRaw("file_stop_receiving " + id);
 				} 
 			 
 			 

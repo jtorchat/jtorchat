@@ -312,16 +312,7 @@ public class FileSender implements Runnable, IFileTransfer {
 	
 	
 	public void sendStopMessage() {
-		try {
-			buddy.sendRaw("file_stop_receiving " + this.id);
-		} catch (IOException e) {
-			try {
-				buddy.disconnect();
-			} catch (IOException e1) {
-				// ignored
-			}
-			e.printStackTrace();
-		}
+		buddy.sendRaw("file_stop_receiving " + this.id);
 	}
 
 	@Override

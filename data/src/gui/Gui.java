@@ -455,11 +455,7 @@ public class Gui {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					try {
-						((Buddy) o).remove();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					((Buddy) o).remove();
 				}
 			}));
 
@@ -677,12 +673,7 @@ public class Gui {
 						try {
 							Scanner sc = new Scanner(new FileInputStream(Config.MESSAGE_DIR + buddy.getAddress() + ".txt"));
 							while (sc.hasNextLine()) {
-								try {
-									buddy.sendMessage(sc.nextLine());
-								} catch (IOException ioe) {
-									buddy.disconnect();
-									break;
-								}
+							 buddy.sendMessage(sc.nextLine());
 							}
 							sc.close();
 							new File(Config.MESSAGE_DIR + buddy.getAddress() + ".txt").delete();
