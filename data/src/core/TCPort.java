@@ -48,27 +48,15 @@ public class TCPort {
 					Logger.setOverride(true);
 					Logger.stopGLog();
 					Logger.log(Logger.INFO, "Shutdown", "Starting...");
-					// for (Buddy b : BuddyList.buds.values()) {
-					// try {
-					// b.disconnect();
-					// } catch (IOException e) {
-					// System.err.println("Error disconnecting " + b.getAddress() + ": " + e.getLocalizedMessage());
-					// }
-					// }
-					TorLoader.cleanUp();
 					try {
 						if (launched)
 							BuddyList.saveBuddies();
 						    BuddyList.disconnect_all();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					} catch (IOException e) {}
+					TorLoader.cleanUp();
 				}
 			});
 
-
-	
-			
 			if (Config.loadTor == 1){TorLoader.loadTor();}
 			TCServ.init();
 
@@ -244,11 +232,7 @@ public class TCPort {
 					Logger.log(Logger.WARNING, "The End", "Error saving buddies: " + e1.getLocalizedMessage());
 				}
 				for (Buddy b : ((HashMap<String, Buddy>) BuddyList.buds.clone()).values())
-					try {
-						b.remove();
-					} catch (IOException e1) {
-						Logger.log(Logger.WARNING, "The End", "Error removing buddy " + (b == null ? "null" : b.toString(true)) + ": " + e1.getLocalizedMessage());
-					}
+					b.remove();
 				launched = false;
 			}
 			try {
@@ -268,20 +252,12 @@ public class TCPort {
 	public static void sendMyInfo() {
 		for (Buddy b : BuddyList.buds.values()) {
 			if (b.getStatus() >= Buddy.ONLINE) {
-				try {
-					b.sendClient();
-					b.sendVersion();
-					b.sendProfileName();
-					b.sendProfileText();
-					b.sendStatus();
-				} catch (IOException ioe) {
-					try {
-						ioe.printStackTrace();
-						b.disconnect(); // something is iffy if we error out
-					} catch (IOException e) {
-						// ignored
-					}
-				}
+				if(!b.sendClient()){return;}
+				if(!b.sendVersion()){return;}
+				if(!b.sendProfileName()){return;}
+				if(!b.sendProfileText()){return;}
+				if(!b.sendStatus()){return;}
+
 			}
 		}
 	}
@@ -289,33 +265,15 @@ public class TCPort {
 	public static void sendMyProfil() {
 		for (Buddy b : BuddyList.buds.values()) {
 			if (b.getStatus() >= Buddy.ONLINE) {
-				try {
-					b.sendProfileName();
-					b.sendProfileText();
-				} catch (IOException ioe) {
-					try {
-						ioe.printStackTrace();
-						b.disconnect(); // something is iffy if we error out
-					} catch (IOException e) {
-						// ignored
-					}
-				}
+				if(!b.sendProfileName()){return;}
+				if(!b.sendProfileText()){return;}
 			}
 		}
 	}
 	public static void sendMyStatus() {
 		for (Buddy b : BuddyList.buds.values()) {
 			if (b.getStatus() >= Buddy.ONLINE) {
-				try {
-					b.sendStatus();
-				} catch (IOException ioe) {
-					try {
-						ioe.printStackTrace();
-						b.disconnect(); // something is iffy if we error out
-					} catch (IOException e) {
-						// ignored
-					}
-				}
+			b.sendStatus();
 			}
 		}
 	}

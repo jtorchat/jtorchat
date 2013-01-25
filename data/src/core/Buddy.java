@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -151,12 +150,7 @@ public class Buddy {
 						
 						Logger.log(Logger.SEVERE, Buddy.this.getClass(),"BROKEN - " + address);
 					} catch (Exception e) {
-						e.printStackTrace();
-						try {
-							disconnect();
-						} catch (IOException ioe) {
-							// ignored
-						}
+						disconnect();
 					}
 				}
 			}}
@@ -223,7 +217,7 @@ public class Buddy {
 	public Scanner ourScanner;
 	private int npe1Count;
 
-	public void sendRaw(String command) throws IOException {
+	public boolean sendRaw(String command) {
 		if (!getBlack(this.address))
 		{	
 		synchronized (OSO_LOCK) {
@@ -231,12 +225,14 @@ public class Buddy {
 				Logger.log(Logger.DEBUG, this, "Send " + address + " " + command);
 				ourSockOut.write((command + ((char) 10)));
 				ourSockOut.flush();
+				return true;
 			} catch (IOException e) {
 				Logger.log(Logger.WARNING, this, "[" + address + "] ourSock = null; theirSock = null; " + e.getLocalizedMessage());
 				disconnect();
-				throw e;
+				return false;
 			}
 		}}
+		return false;
 	}
 
 	public String getAddress() {
@@ -265,32 +261,32 @@ public class Buddy {
 		}
 	}
 
-	public void sendPong(String pong) throws IOException {
-		sendRaw("pong " + pong);
+	public boolean sendPong(String pong)  {
 		sentPong = true;
+		return sendRaw("pong " + pong);
 	}
 
-	public void sendClient() throws IOException {
-		sendRaw("client " + Config.CLIENT);
+	public boolean sendClient()  {
+		return sendRaw("client " + Config.CLIENT);
 	}
 
-	public void sendVersion() throws IOException {
-		sendRaw("version " + Config.VERSION);
+	public boolean sendVersion()  {
+		return sendRaw("version " + Config.VERSION);
 	}
 
-	public void sendProfileName() throws IOException {
-		sendRaw("profile_name " + TCPort.profile_name);
+	public boolean sendProfileName()  {
+		return sendRaw("profile_name " + TCPort.profile_name);
 	}
 
-	public void sendProfileText() throws IOException {
-		sendRaw("profile_text " + TCPort.profile_text);
+	public boolean sendProfileText()  {
+		return sendRaw("profile_text " + TCPort.profile_text);
 	}
 
-	public void sendAddMe() throws IOException {
-		sendRaw("add_me");
+	public boolean sendAddMe() {
+		return sendRaw("add_me");
 	}
 
-	public void sendStatus() throws IOException {
+	public boolean sendStatus() {
 		
 		if (Config.updateStatus > 0 & Config.updateStatus < 4)
 		{
@@ -298,17 +294,15 @@ public class Buddy {
 		Config.updateStatus = 0;
 		}
 		
-		
-		sendRaw("status " + TCPort.status);
 		lastStatus = System.currentTimeMillis();
-	
+		return sendRaw("status " + TCPort.status);
 	}
 
 	public void setTheirCookie(String theirCookie) {
 		this.theirCookie = theirCookie;
 	}
 
-	public void onFullyConnected() throws IOException {
+	public void onFullyConnected() {
 		sendClient();
 		sendVersion();
 		sendProfileName();
@@ -360,33 +354,24 @@ if (!getBlack(this.address))
 		// FIXME really need to fix replying to commands before we're connected
 		this.theirSock = s;
 		this.recievedPong = false;
-		try {
-			while (sc.hasNext()) {
-				if (!getBlack(this.address))
-				{
-				String l = sc.next();
-				if (!sentPong && theirCookie != null) {
-					try {
-						sendPong(theirCookie);
-					} catch (NullPointerException npe) {
-						Logger.log(Logger.INFO, Buddy.this, "1Caught npe on " + address);
-						if (npe1Count++ > 5) {
-							disconnect();
-							connect();
-							return;
-						}
+		while (sc.hasNext()) {
+			if (!getBlack(this.address))
+			{
+			String l = sc.next();
+			if (!sentPong && theirCookie != null) {
+			
+					if(!sendPong(theirCookie))
+					{
+					Logger.log(Logger.INFO, Buddy.this, "1Caught npe on " + address);
+					if (npe1Count++ > 5) {
+						disconnect();
+						connect();
+						return;
 					}
-				}
-				BuddyIncoming.init(l, this);
-			}}
-		} catch (SocketException se) {
-			Logger.log(Logger.DEBUG, this, "[" + address + "] attatch() " + se.getLocalizedMessage() + " | " + se.getStackTrace()[0]);
-			// SocketExceptions are quite common and generally nothing to worry about
-		} catch (IOException e) {
-			Logger.log(Logger.WARNING, this, "[" + address + "] theirSock = null; ourSock = null; " + e.getLocalizedMessage() + " | " + e.getStackTrace()[0]);
-			disconnect();
-			throw e;
-		}
+					}
+			}
+			BuddyIncoming.init(l, this);
+		}}
 }
 	}
 
@@ -394,12 +379,12 @@ if (!getBlack(this.address))
 		return s != null && s.isConnected() && !s.isClosed();
 	}
 
-	public void sendMessage(String string) throws IOException {
-		sendRaw("message " + string);
+	public boolean sendMessage(String string) {
+		return sendRaw("message " + string);
 	}
 	
-	public void sendDisconnect() throws IOException {
-		sendRaw("disconnect");
+	public boolean sendDisconnect() {
+		return sendRaw("disconnect");
 	}
 
 	public static String getStatusName(byte b) {
@@ -440,21 +425,26 @@ if (!getBlack(this.address))
 		return connectTime;
 	}
 
-	public void disconnect() throws IOException { // should be used with caution
+	public boolean disconnect(){ // should be used with caution
+		Logger.log(Logger.NOTICE, this, "Disconnect called on " + address + " | Retry in " + (reconnectAt - System.currentTimeMillis()));
+		setStatus(OFFLINE);
+		try {
 		if (ourSock != null)
-			ourSock.close();
+		ourSock.close();
 		ourSock = null;
 		if (theirSock != null)
 			theirSock.close();
 		theirSock = null;
-		setStatus(OFFLINE);
-		Logger.log(Logger.NOTICE, this, "Disconnect called on " + address + " | Retry in " + (reconnectAt - System.currentTimeMillis()));
+		return true;
+		} catch (IOException e) {
+        return false;
+		}
 	}
 
-	public void remove() throws IOException {
+	public void remove() {
 		ConfigWriter.deletebuddy(this);
 		BuddyList.buds.remove(this.address);
-		try { if(this.isFullyConnected()){this.sendRaw("remove_me");} } catch (IOException e) {}
+		if(this.isFullyConnected()){this.sendRaw("remove_me");}
 		disconnect();
 		APIManager.fireBuddyRemoved(this);
 	}

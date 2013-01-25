@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 
 import javax.swing.*;
 
@@ -40,11 +39,7 @@ public class GuiContactAdd extends JFrame {
 			}
 			String dispName = textField2.getText();
 			if (BuddyList.buds.containsKey(addr))
-				try {
-					BuddyList.buds.get(addr).remove();
-				} catch (IOException ioe) {
-					System.err.println("Error disconnecting buddy: " + ioe.getLocalizedMessage());
-				}
+				BuddyList.buds.get(addr).remove();
 			new Buddy(addr, dispName,true).connect();
 			dispose();
 

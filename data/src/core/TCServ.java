@@ -62,13 +62,7 @@ public class TCServ {
 										if (b.ourSock == null)
 											b.connect();
 										else if (b.ourSockOut != null)
-											try {
-												b.sendPong(l.split(" ")[2]); // TODO FIXME URGENT check if not connected!
-											} catch (SocketException se) {
-												// ignored
-											} catch (IOException ioe) {
-												ioe.printStackTrace();
-											}
+											b.sendPong(l.split(" ")[2]); // TODO FIXME URGENT check if not connected!
 										b.attatch(s, sc);
 									} else {
 										

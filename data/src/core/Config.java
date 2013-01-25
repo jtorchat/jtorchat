@@ -6,20 +6,22 @@ import java.util.Properties;
 
 import util.ConfigWriter;
 import util.DataControl;
-import util.Util;
 
 public class Config {
 
+	// The file in the Data folder to test that it is the right path
+	public static String controlfile = "controlfile";
+	
 	// What Client and Version
 	public static final String CLIENT = "JTC [T2]";
 	public static final String VERSIONA = "0";
 	public static final String VERSIONB = "7";
-	public static final String VERSIONC = "12";
+	public static final String VERSIONC = "13";
 	public static String comment = "";
 	
 	// Test for connections
 	public static final int DEAD_CONNECTION_TIMEOUT = 240;
-	public static final int KEEPALIVE_INTERVAL = (int) (Math.random()*120); //120;
+	public static final int KEEPALIVE_INTERVAL = (int)(Math.random()*120); //120;
 	public static final int MAX_UNANSWERED_PINGS = 4;
 	public static final int CONNECT_TIMEOUT = 70;
 
@@ -86,12 +88,8 @@ public class Config {
 	public static String TorWin="windows/jtor.exe";
 	public static String TorWinobf="windows/jtorobf.exe";
 	public static String Torbinary;
-	public static String controlfile = "controlfile";
 	
-	// Linux only
-	public static String Torclose="linux/torclose.sh";
-	public static String torpid=Integer.toString(Util.myRandom(1000, 9999));
-
+	// Windows need the Tor config files by start
 	public static String TorWINLINtorrc="torrc.txt";
 	public static String TorWINLINtorrcobf="torrcobf.txt";
 	public static String Tortorrc;

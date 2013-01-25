@@ -24,8 +24,8 @@ public class BuddyList {
 	public static void  disconnect_all()
 	{
 		for (Buddy b : BuddyList.buds.values()) {
-	    if(b.isFullyConnected()){try {b.sendDisconnect();} catch (IOException e) {}}
-	    try {b.disconnect();} catch (IOException e) {}
+	    if(b.isFullyConnected()){b.sendDisconnect();}
+	    b.disconnect();
 		}
 	}
 	
@@ -35,12 +35,7 @@ public class BuddyList {
 	}
 	
 	public static void addBlack(Buddy b) {
-		try {
-			b.disconnect();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		b.disconnect();
 		BuddyList.black.put(b.getAddress(), b);
 		Gui.blacklist(b);
 	}
@@ -59,11 +54,7 @@ public class BuddyList {
 			// from 0 to 16 is address, 17 onwards is name
 			if (l.length() > 15) {
 			if (buds.containsKey(l.substring(0, 16)))
-				try {
-					buds.remove(l.substring(0, 16)).disconnect();
-				} catch (IOException e) {
-					System.err.println("Error disconnecting buddy: " + e.getLocalizedMessage());
-				}
+				buds.remove(l.substring(0, 16)).disconnect();
 			Buddy b;
 			
 			if(!l.substring(0, 16).equals(Config.us)){
@@ -94,11 +85,7 @@ public class BuddyList {
 				
 			}
 			if (black.containsKey(l.substring(0, 16)))
-				try {
-					black.remove(l.substring(0, 16)).disconnect();
-				} catch (IOException e) {
-					System.err.println("Error disconnecting buddy: " + e.getLocalizedMessage());
-				}
+				black.remove(l.substring(0, 16)).disconnect();
 			if (buds.get(l.substring(0, 16)).getAddress().equals(l.substring(0, 16)))
 			{
 			BuddyList.black.put(l.substring(0, 16), buds.get(l.substring(0, 16)));
@@ -118,11 +105,7 @@ public class BuddyList {
 					
 				}
 				if (holy.containsKey(l.substring(0, 16)))
-					try {
-						holy.remove(l.substring(0, 16)).disconnect();
-					} catch (IOException e) {
-						System.err.println("Error disconnecting buddy: " + e.getLocalizedMessage());
-					}
+					holy.remove(l.substring(0, 16)).disconnect();
 				if (buds.get(l.substring(0, 16)).getAddress().equals(l.substring(0, 16)))
 				{
 				BuddyList.holy.put(l.substring(0, 16), buds.get(l.substring(0, 16)));

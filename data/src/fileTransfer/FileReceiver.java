@@ -169,12 +169,7 @@ Logger.log(Logger.WARNING, this.getClass(), "Wait for press Start.");
 				this.wrongBlockNumberCount = 1;
 			}
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			try {
-				buddy.disconnect();
-			} catch (IOException e) {
-				// ignored
-			}
+			buddy.disconnect();
 		}
 	}
 
@@ -199,16 +194,7 @@ Logger.log(Logger.WARNING, this.getClass(), "Wait for press Start.");
 	}
 
 	public void sendStopMessage() {
-		try {
-			this.buddy.sendRaw("file_stop_sending " + this.id);
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			try {
-				buddy.disconnect();
-			} catch (IOException e) {
-				// ignored
-			}
-		}
+		this.buddy.sendRaw("file_stop_sending " + this.id);
 	}
 
 
@@ -336,22 +322,12 @@ if (!createfile)
 	}
 	System.out.println("(2) FileReceiver: created file: " + this.fileNameTmp);
 	System.out.println("(2) FileReceiver: init done for file " + fileName);	
-	try {
-		this.buddy.sendRaw("filedata_error " + this.id + " " + 0);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	this.buddy.sendRaw("filedata_error " + this.id + " " + 0);
 	createfile = true;
 }
 else
 {
-	try {
-		this.buddy.sendRaw("filedata_error " + this.id + " " + this.nextStart);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	this.buddy.sendRaw("filedata_error " + this.id + " " + this.nextStart);
 }
 	
 	

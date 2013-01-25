@@ -1,9 +1,12 @@
 package util;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import core.Buddy;
 import core.Config;
+import core.Logger;
 import core.TCPort;
 import gui.GuiChatWindow;
 
@@ -18,6 +21,23 @@ public class ChatWindow {
 		if(add_delay)
 		{delay = "[Delayed] ";}
 		
+		
+		if(send!=""){	
+			
+		send = send.trim().replaceAll("\n", "\\\\n").replaceAll("\r", "");
+	
+
+		if (!add_delay){
+		if(!w.b.sendMessage(send)){
+		delay = "[Delayed] "; // Because it is disconnect now
+		write_delay(w.b,send);
+		}}
+		else 
+		{
+	    write_delay(w.b,send);
+		}}
+		
+
 		// Not in use but useful
 		if(type==0)
 		{
@@ -72,34 +92,27 @@ public class ChatWindow {
 		}
 		
 		w.get_textPane1().setCaretPosition(w.get_textPane1().getDocument().getLength());
-		
+		w.get_textPane1().requestFocusInWindow();
 		if(new_textarea!=null){
 		w.get_textArea4().setText(new_textarea);
 		}
 		w.get_textArea4().requestFocusInWindow();
-		
-		if(send!=""){	
-			
-		send = send.trim().replaceAll("\n", "\\\\n").replaceAll("\r", "");
-	
-		try {
-		if (!add_delay)
-		{
-		w.b.sendMessage(send);
-        }
-		else {
-			FileOutputStream fos = new FileOutputStream(Config.MESSAGE_DIR + w.b.getAddress() + ".txt", true);
-			fos.write(("[Delayed] "+send + "\n").getBytes());
-			fos.close();
-		}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}}
-		
-		
-		
+		 
 	}
+		
 	
+	public static void write_delay(Buddy b, String send)
+	{
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(Config.MESSAGE_DIR + b.getAddress() + ".txt", true);
+		    fos.write(("[Delayed] "+send + "\n").getBytes());
+		    fos.close();
+		} catch (FileNotFoundException e) {
+			Logger.log(Logger.SEVERE, "ChatWindow", "Something went wrong bye write the Delay file.");
+		} catch (IOException e) {
+			Logger.log(Logger.SEVERE, "ChatWindow", "Something went wrong bye write the Delay file.");
+		}
+	}
 
 }
