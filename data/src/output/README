@@ -1,0 +1,3 @@
+Please use this folder as output folder for the compile classes because
+it should automatically detected from the program and
+then it can use the data folder.
