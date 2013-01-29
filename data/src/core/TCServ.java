@@ -89,21 +89,17 @@ public class TCServ {
 									try {
 										s.close();
 									} catch (IOException e1) {
-										e1.printStackTrace();
 									}
 								} catch (Exception e) {
-									e.printStackTrace();
 									try {
 										s.close();
 									} catch (IOException e1) {
-										e1.printStackTrace();
 									}
 								}
 							}
 						}, null, null);
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
 		}, "Starting local server on " + Config.LOCAL_PORT + ".", "Server thread");
@@ -127,7 +123,7 @@ public class TCServ {
 			} else
 				Logger.log(Logger.SEVERE, "TCServ", "ss == null!!");
 		} catch (IOException e) {
-			e.printStackTrace();
+
 		}
 	}
 

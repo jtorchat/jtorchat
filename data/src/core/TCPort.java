@@ -106,11 +106,11 @@ public class TCPort {
 
 								}}
 						} catch (Exception e) {
-							e.printStackTrace();
+				
 						}
 						s.close();
 					} catch (Exception e) {
-						e.printStackTrace();
+				
 					}
 				}
 
@@ -196,7 +196,7 @@ public class TCPort {
 							Thread.sleep(5000);
 							// System.out.println("Status Ping");
 						} catch (Exception e) {
-							e.printStackTrace();
+					
 						}
 					}
 				}
@@ -242,7 +242,7 @@ public class TCPort {
 				f.setAccessible(true);
 				((JFrame) f.get(i)).dispose();
 			} catch (Exception ee) {
-				ee.printStackTrace(); // should be ignored
+
 			}
 		}
 		System.err.println("*** Error during startup, Halted! ***");

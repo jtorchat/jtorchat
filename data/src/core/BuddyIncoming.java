@@ -24,7 +24,6 @@ public class BuddyIncoming {
 		else if (save.equals("message")) {in_message(in,b);} 
 		else if (save.equals("disconnect")) {in_disconnect(in,b);} 
 		else if (save.equals("not_implemented")) {in_not_implemented(in,b);} 
-		else if (save.equals("profile_avatar")) {in_profile_avatar(in,b);}
 		else if (save.equals("filedata_ok")) {FileTransfer.in_filedata_ok(b,in);}
 		else if (save.equals("filedata_error")) {FileTransfer.in_filedata_error(b,in);}
 		else if (save.equals("file_stop_sending")) {FileTransfer.in_file_stop_sending(b,in);}
@@ -85,10 +84,6 @@ public class BuddyIncoming {
 	private static void in_not_implemented(String in, Buddy b)
 	{
 		Logger.log(Logger.NOTICE, b, "Recieved " + in.trim() + " from " + b.address);
-	}
-	private static void in_profile_avatar(String in, Buddy b)
-	{
-		Logger.log(Logger.NOTICE, b, "Sorry, we have no avatar support. Coming soon.");
 	}
 	private static void in_disconnect(String in, Buddy b)
 	{
