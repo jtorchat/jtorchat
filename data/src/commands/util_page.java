@@ -33,10 +33,7 @@ public class util_page {
     }}
 	
 
-	} catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}  
+	} catch (FileNotFoundException e) {}  
 	return msg;
 	}
 
