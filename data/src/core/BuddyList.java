@@ -174,25 +174,23 @@ public class BuddyList {
 						if (!buds.containsKey(l.substring(0, 16))) {
 							
 						if(!l.substring(0, 16).equals(Config.us)){
-							if (l.length() > 16) {
-								Buddy b = new Buddy(l.substring(0, 16),
-										l.substring(17),true); // .connect();
-								b.reconnectAt = System.currentTimeMillis()
-										+ 15000 + r.nextInt(30000);
-							} else {
-								new Buddy(l.substring(0, 16), null,true).reconnectAt = System
-										.currentTimeMillis()
-										+ 15000
-										+ r.nextInt(30000); // .connect();
-							}}
+						
+							    // Incoming buddy names are from them and not your private name
+								Buddy b = new Buddy(l.substring(0, 16),null,true);
+								b.reconnectAt = System.currentTimeMillis() + 15000 + r.nextInt(30000);
+								if (l.length() > 16) {b.profile_name=l.substring(17);}
+								
+							}
+							
+						
+						}
 							
 							
 						}
 					}
+				if(l.startsWith("<CLOSE_STREAM>")){break;}    
 				}
-	            
-			if(l.startsWith("<CLOSE_STREAM>")){break;}    
-		    }   
+   
 	}
 
 }
