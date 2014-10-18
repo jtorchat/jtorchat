@@ -252,6 +252,13 @@ public class Gui {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				/**
+				 * We try to disconnect all our contacts
+				 * before exiting, this kills all process
+				 */
+				
+				BuddyList.disconnect_all(); //disconnect from all buddies to stop processes
+				TorLoader.cleanUp(); //clean up tor process
 				System.exit(0);
 			}
 		});
